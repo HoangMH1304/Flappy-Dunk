@@ -42,5 +42,4 @@ public class SfxUiToggle : MonoBehaviour
         if(viberateState == 1) viberate.sprite = viberateOn;
         else viberate.sprite = viberateOff;
     }
-
 }
