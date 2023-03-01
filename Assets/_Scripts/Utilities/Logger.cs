@@ -1,31 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class Logger
 {
-    public static void Log(string log)
+    static bool canLog = true;
+    public static void Log(object message, UnityEngine.Object context)
     {
-        if(BitPlayManager.Instance.showTestLog)
+        if (canLog)
         {
-            Debug.Log(log);
+            Debug.Log(message, context);
+        }
+    }
+    public static void Log(object message)
+    {
+        if (canLog)
+        {
+            Debug.Log(message);
         }
     }
 
-    public static void LogWarning(string log)
+    public static void LogError(object message)
     {
-        if(BitPlayManager.Instance.showTestLog)
+        if (canLog)
         {
-            Debug.LogWarning(log);
+            Debug.Log(message);
         }
     }
 
-    public static void LogError(string log)
+    public static void LogError(object message, UnityEngine.Object context)
     {
-        if(BitPlayManager.Instance.showTestLog)
+        if (canLog)
         {
-            Debug.LogError(log);
+            Debug.Log(message, context);
+        }
+    }
+
+
+    public static void LogWarning(object message, UnityEngine.Object context)
+    {
+        if (canLog)
+        {
+            Debug.Log(message, context);
+        }
+    }
+
+    public static void LogWarning(object message)
+    {
+        if (canLog)
+        {
+            Debug.Log(message);
         }
     }
 }

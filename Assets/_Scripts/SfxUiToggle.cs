@@ -7,17 +7,17 @@ public class SfxUiToggle : MonoBehaviour
 {
     [SerializeField] private Sprite soundOn;
     [SerializeField] private Sprite soundOff;
-    [SerializeField] private Sprite viberateOn;
-    [SerializeField] private Sprite viberateOff;
+    [SerializeField] private Sprite vibrateOn;
+    [SerializeField] private Sprite vibrateOff;
     [SerializeField] private Image sound;
-    [SerializeField] private Image viberate;
+    [SerializeField] private Image vibrate;
     private int soundState;
-    private int viberateState;
+    private int vibrateState;
 
     private void Start() 
     {
         soundState = PlayerPrefs.GetInt("Sound");
-        viberateState = PlayerPrefs.GetInt("Viberate");
+        vibrateState = PlayerPrefs.GetInt("Vibrate");
         ChangeIcon();
     }
     public void SwitchSoundState()
@@ -29,9 +29,9 @@ public class SfxUiToggle : MonoBehaviour
 
     public void SwitchViberateState()
     {
-        viberateState = 1 - viberateState;
-        PlayerPrefs.SetInt("Viberate", viberateState);
-        if(viberateState == 1) Handheld.Vibrate();
+        vibrateState = 1 - vibrateState;
+        PlayerPrefs.SetInt("Vibrate", vibrateState);
+        if(vibrateState == 1) Handheld.Vibrate();
         ChangeIcon();
     }
 
@@ -39,7 +39,7 @@ public class SfxUiToggle : MonoBehaviour
     {
         if(soundState == 1) sound.sprite = soundOn;
         else sound.sprite = soundOff;
-        if(viberateState == 1) viberate.sprite = viberateOn;
-        else viberate.sprite = viberateOff;
+        if(vibrateState == 1) vibrate.sprite = vibrateOn;
+        else vibrate.sprite = vibrateOff;
     }
 }
