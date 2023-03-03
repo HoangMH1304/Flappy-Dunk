@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -19,19 +20,12 @@ public class Player : MonoBehaviour
 
     private void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !IsMouseOverUI())
         {
-            rb.velocity = new Vector2(0, 0);
-            Jump();
+            // rb.velocity = new Vector2(0, 0);
+                Jump();
             // rb.angularVelocity *= 0.7f;
         }
-        // if(rb.velocity.y < 0)
-        // {
-        //     Debug.LogError("Stop");
-        //     Debug.Break();
-        // }
-        Logger.Log($"Velocity: {rb.velocity}");
-        // else rb.velocity *= 0.95f;
     }
 
     private void Jump()
@@ -40,14 +34,26 @@ public class Player : MonoBehaviour
         rb.gravityScale = _gravityScale;
         animator.Play("Flap", 0, 0);
         SoundManager.Instance.PlaySound(SoundManager.Sound.flap);
-        // Debug.Log($"Angle of z: {transform.localRotation.eulerAngles.z}");
-        // int angle = (int)transform.localRotation.eulerAngles.z;
-        // // if(!GameManager.Instance.GameStart) GameManager.Instance.GameStart = true;
-        // if(angle >= 0 && angle % 360 >= 45) return;
-        // if(angle < 0 && angle % 360 >= -315) return;
-        // angle += 5;
-        // transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    
+    public bool IsMouseOverUI()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("TOUCH: UI (1)");
+            return true;
+        }
+
+        //check touch
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+            {
+                Debug.Log("TOUCH: UI (2)");
+                return true;
+            }
+        }
+        Debug.Log("TOUCH OBJ");
+        return false;
+    }
 }
