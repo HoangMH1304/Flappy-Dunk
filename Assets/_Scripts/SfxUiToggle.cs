@@ -27,7 +27,7 @@ public class SfxUiToggle : MonoBehaviour
         ChangeIcon();
     }
 
-    public void SwitchViberateState()
+    public void SwitchVibrationState()
     {
         vibrateState = 1 - vibrateState;
         PlayerPrefs.SetInt("Vibrate", vibrateState);

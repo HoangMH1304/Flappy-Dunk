@@ -7,6 +7,9 @@ public class UILobbyHanlder : MonoBehaviour
     [SerializeField] private GameObject lobbyCanvas;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hoopContainer;
+    [SerializeField] private GameObject gameplayCanvas;
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject pauseBtn;
     
     public void PlayTapSound()
     {
@@ -18,5 +21,20 @@ public class UILobbyHanlder : MonoBehaviour
         player.SetActive(true);
         lobbyCanvas.SetActive(false);
         hoopContainer.SetActive(true);
+        gameplayCanvas.SetActive(true);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+        pauseBtn.SetActive(false);
+    }
+
+    public void Esc()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+        pauseBtn.SetActive(true);
     }
 }
