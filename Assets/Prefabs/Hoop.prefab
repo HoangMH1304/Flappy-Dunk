@@ -44,8 +44,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021024805, y: 0.00044295468}
-  m_Size: {x: 0.08204791, y: 0.44284013}
+  m_Offset: {x: 0, y: 0.00044295468}
+  m_Size: {x: 0.04, y: 0.7}
   m_Direction: 0
 --- !u!1 &7070380034527627998
 GameObject:
@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 7070380034527627997}
   - component: {fileID: 7070380034527627996}
   - component: {fileID: 7070380034527628003}
+  - component: {fileID: 666522049}
   m_Layer: 0
   m_Name: HoopBack
   m_TagString: Untagged
@@ -74,7 +75,7 @@ Transform:
   m_GameObject: {fileID: 7070380034527627998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 7070380034899721820}
   m_RootOrder: 1
@@ -118,7 +119,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 71cfdb8e26313aa488067c4edcbd10ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -139,13 +140,25 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 7070380034527627998}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: dc93f06126a398f44810160e5043d156, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.8883125, y: -0.56000006}
-  m_Size: {x: 1.1046573, y: 0.8300001}
+  m_Offset: {x: 2.0154505, y: -0.53}
+  m_Size: {x: 1.0412757, y: 0.65}
   m_Direction: 1
+--- !u!114 &666522049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070380034527627998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a57e45dc7e33c4fa1444aeb8a81896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7070380034778666140
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +170,7 @@ GameObject:
   - component: {fileID: 7070380034778666147}
   - component: {fileID: 7070380034778666146}
   - component: {fileID: 7070380034778666145}
+  - component: {fileID: 2043216268}
   m_Layer: 0
   m_Name: HoopFront
   m_TagString: Untagged
@@ -173,7 +187,7 @@ Transform:
   m_GameObject: {fileID: 7070380034778666140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.1, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 7070380034899721820}
   m_RootOrder: 0
@@ -217,7 +231,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: afc4b180962c9064f96284624709a669, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -238,13 +252,25 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 7070380034778666140}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: dc93f06126a398f44810160e5043d156, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.9, y: 0.44}
-  m_Size: {x: 1.05, y: 0.83}
+  m_Offset: {x: -2.0293837, y: 0.45}
+  m_Size: {x: 0.9858124, y: 0.65}
   m_Direction: 1
+--- !u!114 &2043216268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070380034778666140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a57e45dc7e33c4fa1444aeb8a81896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7070380034899721821
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +297,7 @@ Transform:
   m_GameObject: {fileID: 7070380034899721821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7070380034778666147}
   - {fileID: 7070380034527627997}
@@ -293,5 +319,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0021677467, y: 4.1346482e-10}
-  m_Size: {x: 1.0021598, y: 0.15725678}
+  m_Size: {x: 0.7, y: 0.15725678}
   m_Direction: 1
