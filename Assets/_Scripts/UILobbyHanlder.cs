@@ -6,6 +6,7 @@ public class UILobbyHanlder : MonoBehaviour
 {
     [SerializeField] private GameObject lobbyCanvas;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject hoopContainer;
     
     public void PlayTapSound()
     {
@@ -16,5 +17,6 @@ public class UILobbyHanlder : MonoBehaviour
     {
         player.SetActive(true);
         lobbyCanvas.SetActive(false);
+        hoopContainer.SetActive(true);
     }
 }

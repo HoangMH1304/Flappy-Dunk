@@ -39,7 +39,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
             return;
         }
     }
- 
+
     protected virtual void OnDestroy()
     {
         if (this == m_Instance)

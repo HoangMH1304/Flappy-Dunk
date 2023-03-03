@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -15,6 +14,10 @@ public class GameManager : MonoSingleton<GameManager>
     private bool gameOver;
     public bool GameStart { get => gameStart; set => gameStart = value; }
     public bool GameOver { get => gameOver; set => gameOver = value; }
+
+    protected override void Awake() {
+        Application.targetFrameRate = 60;
+    }
 
     public void ChangeState(GameState newState)
     {

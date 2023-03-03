@@ -29,7 +29,6 @@ public class HoopSpawner : MonoSingleton<HoopSpawner>
 
     private void InitHoopPoolList()
     {
-        pooledHoops = new List<GameObject>();
 
         for (int i = 0; i < hoopPooling.count; i++)
         {
@@ -50,7 +49,7 @@ public class HoopSpawner : MonoSingleton<HoopSpawner>
         {
             if (!pooledHoops[i].activeSelf)
             {
-                pooledHoops[i].transform.position = mainCamera.transform.position + new Vector3(4, 0, 10);
+                pooledHoops[i].transform.position = mainCamera.transform.position + new Vector3(4f, Random.Range(-1, 1), 10);
                 pooledHoops[i].SetActive(true);
                 return pooledHoops[i];
             }

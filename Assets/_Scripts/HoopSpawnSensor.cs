@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class HoopSpawnSensor : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.tag.Equals("Hoop"))
-        {
-            HoopSpawner.Instance.Spawn();
-        }   
-    }
-
     private void OnTriggerExit2D(Collider2D other) 
     {
-         if(other.tag.Equals("Hoop"))
+         if(other.tag.Equals("Hoop") && other.transform.position.x < this.transform.position.x)
         {
             Debug.Log("active false");
-            other.gameObject.SetActive(false);
+            HoopSpawner.Instance.Spawn();
+            StartCoroutine(TurnOffState(other));
         }  
+    }
+
+    IEnumerator TurnOffState(Collider2D other)
+    {
+        yield return new WaitForSeconds(4f);
+        other.gameObject.SetActive(false);
     }
 }
