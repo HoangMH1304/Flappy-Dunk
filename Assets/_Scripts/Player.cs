@@ -9,7 +9,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float _gravityScale;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject lobby;
+    [SerializeField] private GameObject gameplay;
+    [SerializeField] private GameObject hoopContainer;
     private Rigidbody2D rb;
+    private Vector3 initialPosition = new Vector3(-1.5f, 0, 0);
+    private bool gameOver = false;
 
     private void Start() 
     {
@@ -18,9 +23,14 @@ public class Player : MonoBehaviour
         rb.gravityScale = 0;
     }
 
+    private void OnEnable() 
+    {
+        transform.position = initialPosition;  
+    }
+
     private void Update() 
     {
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !IsMouseOverUI())
+        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !IsMouseOverUI() && !gameOver)
         {
             // rb.velocity = new Vector2(0, 0);
                 Jump();
@@ -28,7 +38,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Jump()
+    public void Jump()
     {
         rb.velocity = direction * speed;
         rb.gravityScale = _gravityScale;
@@ -40,7 +50,7 @@ public class Player : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("TOUCH: UI (1)");
+            // Debug.Log("TOUCH: UI (1)");
             return true;
         }
 
@@ -49,11 +59,30 @@ public class Player : MonoBehaviour
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
             {
-                Debug.Log("TOUCH: UI (2)");
+                // Debug.Log("TOUCH: UI (2)");
                 return true;
             }
         }
-        Debug.Log("TOUCH OBJ");
+        // Debug.Log("TOUCH OBJ");
         return false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.gameObject.CompareTag("Ceil") || other.gameObject.CompareTag("Floor"))
+        {
+            Logger.Log("Game over");
+            gameOver = true;
+            // StartCoroutine(ReturnLobby());
+        }   
+    }
+
+    IEnumerator ReturnLobby()
+    {
+        yield return new WaitForSeconds(1f);
+        gameplay.SetActive(false);
+        lobby.SetActive(true);
+        gameObject.SetActive(false);
+        hoopContainer.SetActive(false);
     }
 }

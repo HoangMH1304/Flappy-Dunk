@@ -14,10 +14,12 @@ public class SfxUiToggle : MonoBehaviour
     private int soundState;
     private int vibrateState;
 
-    private void Start() 
+    private void OnEnable() 
     {
         soundState = PlayerPrefs.GetInt("Sound");
         vibrateState = PlayerPrefs.GetInt("Vibrate");
+        Debug.Log($"soundState: {soundState}");
+        Debug.Log($"vibrateState: {vibrateState}");
         ChangeIcon();
     }
     public void SwitchSoundState()

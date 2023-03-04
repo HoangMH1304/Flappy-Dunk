@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UILobbyHanlder : MonoBehaviour
 {
@@ -36,5 +37,6 @@ public class UILobbyHanlder : MonoBehaviour
         Time.timeScale = 1;
         pausePanel.SetActive(false);
         pauseBtn.SetActive(true);
+        player.GetComponent<Player>().Jump();
     }
 }

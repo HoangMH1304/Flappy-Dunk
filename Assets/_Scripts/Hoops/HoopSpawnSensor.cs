@@ -17,6 +17,6 @@ public class HoopSpawnSensor : MonoBehaviour
     IEnumerator TurnOffState(Collider2D other)
     {
         yield return new WaitForSeconds(4f);
-        other.gameObject.SetActive(false);
+        other?.gameObject?.SetActive(false);
     }
 }

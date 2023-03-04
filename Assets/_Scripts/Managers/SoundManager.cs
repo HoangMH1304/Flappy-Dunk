@@ -38,7 +38,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         SoundAudioClip soundAudioClip = GetAudioClip(sound);
         if(soundAudioClip == null) return;
-        soundAudioClip.source.Play();
+        if(PlayerPrefs.GetInt("Sound") == 1) soundAudioClip.source.Play();
         // audioSource.PlayOneShot(GetAudioClip(sound));
 
     }

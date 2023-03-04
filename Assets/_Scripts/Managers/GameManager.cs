@@ -16,6 +16,7 @@ public class GameManager : MonoSingleton<GameManager>
     public bool GameOver { get => gameOver; set => gameOver = value; }
 
     protected override void Awake() {
+        base.Awake();
         Application.targetFrameRate = 60;
     }
 

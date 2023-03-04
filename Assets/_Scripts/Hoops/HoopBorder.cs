@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class HoopBorder : MonoBehaviour
 {
+    [SerializeField] private HoopChecker hoopChecker;
+
     private void OnCollisionEnter2D(Collision2D other) {
+        hoopChecker.BorderInteract = true;
         if (other.relativeVelocity.magnitude > 2f)
         {
             Vector2 dir = new Vector2(0.3f * other.gameObject.GetComponent<Rigidbody2D>().velocity.x, other.gameObject.GetComponent<Rigidbody2D>().velocity.y);
