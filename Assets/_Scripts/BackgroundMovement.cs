@@ -13,7 +13,7 @@ public class BackgroundMovement : MonoBehaviour
         if(Instance == null)
             Instance = this;
         else
-            Destroy(this.gameObject);
+            Destroy(gameObject);
 
         distance = bg2.position.x - bg1.position.x;
     }
@@ -25,19 +25,19 @@ public class BackgroundMovement : MonoBehaviour
 
     private void Update() 
     {
-        if(bg1.position.x < Camera.main.transform.position.x - 18f)
+        if(bg1.position.x < Camera.main.transform.position.x - 30f)
         {
             bg1.Translate(bg2.position.x + distance - bg1.position.x, 0, 0);
         }
-        if(bg2.position.x < Camera.main.transform.position.x - 18f)
+        if(bg2.position.x < Camera.main.transform.position.x - 30f)
         {
             bg2.Translate(bg1.position.x + distance - bg2.position.x, 0, 0);
         }
     }
 
-    private void ResetPosition()
+    public void ResetPosition()
     {
-        bg1.position = Vector3.zero;
-        bg2.position = bg1.position + Vector3.right * distance;
+        bg1.localPosition = Vector3.zero;
+        bg2.localPosition = bg1.localPosition + Vector3.right * distance;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -9,12 +10,12 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float _gravityScale;
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject lobby;
-    [SerializeField] private GameObject gameplay;
-    [SerializeField] private GameObject hoopContainer;
+    [SerializeField] private GameObject frontWing, backWing;
+    // [SerializeField] private GameObject lobby;
+    // [SerializeField] private GameObject gameplay;
+    // [SerializeField] private GameObject hoopContainer;
     private Rigidbody2D rb;
     private Vector3 initialPosition = new Vector3(-1.5f, 0, 0);
-    private bool gameOver = false;
 
     private void Start() 
     {
@@ -30,10 +31,11 @@ public class Player : MonoBehaviour
 
     private void Update() 
     {
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !IsMouseOverUI() && !gameOver)
+        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) 
+        && !IsMouseOverUI() && GameManager.Instance.Playable)
         {
             // rb.velocity = new Vector2(0, 0);
-                Jump();
+            Jump();
             // rb.angularVelocity *= 0.7f;
         }
     }
@@ -53,7 +55,6 @@ public class Player : MonoBehaviour
             // Debug.Log("TOUCH: UI (1)");
             return true;
         }
-
         //check touch
         if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
@@ -72,17 +73,18 @@ public class Player : MonoBehaviour
         if(other.gameObject.CompareTag("Ceil") || other.gameObject.CompareTag("Floor"))
         {
             Logger.Log("Game over");
-            gameOver = true;
+            GameManager.Instance.ChangeState(GameState.SecondChance);
             // StartCoroutine(ReturnLobby());
         }   
     }
 
-    IEnumerator ReturnLobby()
+    public void Fade(float endValue, float time)
     {
-        yield return new WaitForSeconds(1f);
-        gameplay.SetActive(false);
-        lobby.SetActive(true);
-        gameObject.SetActive(false);
-        hoopContainer.SetActive(false);
+        frontWing.GetComponent<SpriteRenderer>().DOKill();
+        backWing.GetComponent<SpriteRenderer>().DOKill();
+        gameObject.GetComponent<SpriteRenderer>().DOKill();
+        frontWing.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
+        backWing.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
+        gameObject.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
     }
 }

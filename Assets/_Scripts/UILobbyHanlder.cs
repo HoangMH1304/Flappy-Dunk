@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class UILobbyHanlder : MonoBehaviour
 {
-    [SerializeField] private GameObject lobbyCanvas;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hoopContainer;
     [SerializeField] private GameObject gameplayCanvas;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseBtn;
+    [SerializeField] private GameObject lobbyPanel;
     
     public void PlayTapSound()
     {
@@ -19,8 +19,8 @@ public class UILobbyHanlder : MonoBehaviour
 
     public void Play()
     {
+        lobbyPanel.GetComponent<RectTransform>().Translate(new Vector3(-8, 0, 0));
         player.SetActive(true);
-        lobbyCanvas.SetActive(false);
         hoopContainer.SetActive(true);
         gameplayCanvas.SetActive(true);
     }

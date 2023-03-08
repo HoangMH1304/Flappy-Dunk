@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Update() 
     {
+        if(GameManager.Instance.GameOver) return;
         transform.position = new Vector3(target.position.x + distance, transform.position.y, transform.position.z);
     }
 }
