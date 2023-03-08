@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class HoopChecker : MonoBehaviour
 {
-    [SerializeField] private GameObject ring, axis;
+    [SerializeField] private GameObject ring, axis, entireHoop;
     [SerializeField] private Collider2D frontHoopCollider, backHoopCollider, holeCollider;
+    [SerializeField] private SpriteRenderer frontHoopSR, backHoopSR, axisSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
 
@@ -21,6 +22,7 @@ public class HoopChecker : MonoBehaviour
         borderInteract = false;
         passOver = false;
         this.transform.position = new Vector3(HoopManager.Instance.GetHorizontalPosition(), HoopManager.Instance.GetVerticalPosition(), 0);
+        DeactiveColor();
         GetTypeOfHoop();
         // auto arrange position when spawn
     }
@@ -32,48 +34,76 @@ public class HoopChecker : MonoBehaviour
         ring.transform.localPosition += Vector3.up * moveSpeed * Time.deltaTime;
     }
 
-    public void SwitchColliderState(bool state)
-    {
-        frontHoopCollider.enabled = state;
-        backHoopCollider.enabled = state;
-        holeCollider.enabled = state;
-    }
-
     public void PassPoint()
     {
         isMovable = false;
-        gameObject.SetActive(false);
-        SwitchColliderState(false);
+        // gameObject.SetActive(false);
+        ring.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 1f).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+        }
+        );
+        Fade(0, 1);
+        frontHoopCollider.enabled = false;
+        backHoopCollider.enabled = false;
+        holeCollider.enabled = false;
         HoopManager.Instance.GetReadyHoop().SetActive(true);
+    }
+
+    public void Fade(float endValue, float time)
+    {
+        axisSR.DOKill();
+        frontHoopSR.DOKill();
+        backHoopSR.DOKill();
+        frontHoopSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
+        backHoopSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
+        axisSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true); ;
+    }
+
+    public void ActiveColor() //
+    {
+        Fade(1, 0.001f);
+
+        frontHoopCollider.enabled = true;
+        backHoopCollider.enabled = true;
+        holeCollider.enabled = true;
+    }
+    public void DeactiveColor() //
+    {
+        Fade(0.5f, 0.001f);
+
+        frontHoopCollider.enabled = false;
+        backHoopCollider.enabled = false;
+        holeCollider.enabled = false;
     }
 
     private void GetTypeOfHoop()
     {
-        int score = ScoreManager.Instance.Score;
+        int score = GameController.Instance.Score;
         if(score < 20)
         {
             isMovable = false;
             ring.transform.localScale = scales[1];
-            transform.localRotation = rotations[0];
+            entireHoop.transform.localRotation = rotations[0];
         }
         else if(score <= 60)
         {
-            isMovable = (Random.Range(1, 100) <= 100) ? true : false;  //30%
+            isMovable = (Random.Range(1, 100) <= 30) ? true : false;  //30%
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 70) ? 1 : 0];
             if(isMovable)
             {
-                transform.localRotation = rotations[(Random.Range(1, 100) <= 70) ? 1 : 0];
+                entireHoop.transform.localRotation = rotations[(Random.Range(1, 100) <= 70) ? 1 : 0];
             }
             else
             {
-                transform.localRotation = rotations[Random.Range(0, 3)];
+                entireHoop.transform.localRotation = rotations[Random.Range(0, 3)];
             }
         }
         else
         {
             isMovable = (Random.Range(1, 100) <= 70) ? true : false;
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 60) ? 0 : 1];
-            transform.localRotation = rotations[Random.Range(0, 5)];
+            entireHoop.transform.localRotation = rotations[Random.Range(0, 5)];
         }
         if(isMovable) axis.SetActive(true);
         else axis.SetActive(false);

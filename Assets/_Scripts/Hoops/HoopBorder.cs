@@ -7,6 +7,7 @@ public class HoopBorder : MonoBehaviour
     [SerializeField] private HoopChecker hoopChecker;
 
     private void OnCollisionEnter2D(Collision2D other) {
+        GameController.Instance.Swish = 0;
         hoopChecker.BorderInteract = true;
         if (other.relativeVelocity.magnitude > 2f)
         {

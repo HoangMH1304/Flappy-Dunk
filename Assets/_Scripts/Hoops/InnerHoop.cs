@@ -9,20 +9,19 @@ public class InnerHoop : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
+            if (other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
             {
                 Debug.Log("Total");
-                ScoreManager.Instance.IncreseScore();
-                if(!hoopChecker.BorderInteract)
+                // ScoreManager.Instance.IncreseScore();
+                if (!hoopChecker.BorderInteract)
                 {
+                    GameController.Instance.IncreaseSwitch();
                     Logger.Log("Swish");
-                    SoundManager.Instance.PlaySound(SoundManager.Sound.x4);
+                    // SoundManager.Instance.PlaySound(SoundManager.Sound.x4);
                 }
-                else
-                {
-                    Logger.Log("NonSwish");
-                    SoundManager.Instance.PlaySound(SoundManager.Sound.pass);
-                }
+                
+                GameController.Instance.IncreseScore();
+                // Logger.Log("NonSwish");
 
                 // deactive old hoop and active new hoop
                 // StartCoroutine(DisableHoop());
@@ -35,7 +34,7 @@ public class InnerHoop : MonoBehaviour
             else
             {
                 Debug.LogError("Lose");
-                SoundManager.Instance.PlaySound(SoundManager.Sound.wrong);
+                GameManager.Instance.ChangeState(GameState.SecondChance);
             }
         }
     }

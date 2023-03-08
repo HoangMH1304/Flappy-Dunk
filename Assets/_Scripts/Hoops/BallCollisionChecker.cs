@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallCollisionChecker : MonoBehaviour
 {
     [SerializeField] private HoopChecker hoopChecker;
+
     private void OnTriggerExit2D(Collider2D other) 
     {
         if(other.CompareTag("Player"))
@@ -12,7 +13,8 @@ public class BallCollisionChecker : MonoBehaviour
             if(!hoopChecker.PassOver)
             {
                 Debug.Log("Game over by extra collider");
-                Debug.Break();
+                // Debug.Break();
+                GameManager.Instance.ChangeState(GameState.SecondChance);
             }
         }    
     }
