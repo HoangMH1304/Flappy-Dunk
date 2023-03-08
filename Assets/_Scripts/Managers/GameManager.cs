@@ -57,6 +57,7 @@ public class GameManager : MonoSingleton<GameManager>
         gameStart = false;
         secondChance = false;
         gameOver = false;
+        playable = true;
     }
 
     private void HandleStartGameState()
@@ -65,9 +66,12 @@ public class GameManager : MonoSingleton<GameManager>
     }
     private void HandleSecondChanceState()
     {
-        secondChance = true;
+        if(!secondChance)
+        {
+            UIController.Instance.DisplayGameOverUI();
+            secondChance = true;
+        }
         playable = false;
-        UIController.Instance.DisplayGameOverUI();
     }
 
     private void HandleEndGameState()

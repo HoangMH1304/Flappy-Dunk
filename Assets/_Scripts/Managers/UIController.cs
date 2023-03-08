@@ -16,6 +16,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private GameObject secondChancePanel;
     [SerializeField] private GameObject lobbyUI;
+    [SerializeField] private GameObject player;
 
     private void Awake() 
     {
@@ -85,7 +86,10 @@ public class UIController : MonoBehaviour
     {
         gameoverUI.SetActive(false);
         secondChancePanel.transform.DOMoveX(-5, 0.01f);
+        secondChancePanel.SetActive(false);
         lobbyUI.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InOutCubic).SetUpdate(true);
+        player.SetActive(false);
+        GameManager.Instance.ChangeState(GameState.Standby);
 
         // menuPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true).OnComplete(() =>
         // {

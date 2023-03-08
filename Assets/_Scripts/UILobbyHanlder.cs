@@ -2,27 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UILobbyHanlder : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hoopContainer;
-    [SerializeField] private GameObject gameplayCanvas;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseBtn;
     [SerializeField] private GameObject lobbyPanel;
+    [SerializeField] private GameObject secondChancePanel;
+    // [SerializeField] private GameObject menuPanel;
+    [SerializeField] private GameObject gamePlayPanel;
+    [SerializeField] private CanvasGroup HUD;
+    [SerializeField] private GameObject gameOverPanel;
     
     public void PlayTapSound()
     {
-        if(PlayerPrefs.GetInt("Sound") == 1)  SoundManager.Instance.PlaySound(SoundManager.Sound.click);
+        SoundManager.Instance.PlaySound(SoundManager.Sound.click);
     }
 
     public void Play()
     {
-        lobbyPanel.GetComponent<RectTransform>().Translate(new Vector3(-8, 0, 0));
+        // lobbyPanel.GetComponent<RectTransform>().Translate(new Vector3(-8, 0, 0));
         player.SetActive(true);
         hoopContainer.SetActive(true);
-        gameplayCanvas.SetActive(true);
+
+        Debug.Log("Start game");
+        secondChancePanel.SetActive(false);
+        secondChancePanel.transform.DOKill();
+        secondChancePanel.transform.DOMoveX(-7, 0f);
+        lobbyPanel.transform.DOKill();
+        lobbyPanel.transform.DOMoveX(-7, 0f).SetUpdate(true);
+        gamePlayPanel.SetActive(true);
+
+        // HUD.DOFade(0, 0).SetUpdate(true);
+        // HUD.DOFade(1, 1).SetUpdate(true);
+
+        gameOverPanel.SetActive(false);
+
+        GameController.Instance.Init();
+
+        SoundManager.Instance.PlaySound(SoundManager.Sound.whistle);
     }
 
     public void Pause()

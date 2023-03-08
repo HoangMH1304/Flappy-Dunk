@@ -17,24 +17,26 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 initialPosition = new Vector3(-1.5f, 0, 0);
 
-    private void Start() 
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         _gravityScale = rb.gravityScale;
         rb.gravityScale = 0;
     }
 
-    private void OnEnable() 
+    private void OnEnable()
     {
-        transform.position = initialPosition;  
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        transform.position = initialPosition;
     }
 
-    private void Update() 
+    private void Update()
     {
-        if((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) 
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
         && !IsMouseOverUI() && GameManager.Instance.Playable)
         {
             // rb.velocity = new Vector2(0, 0);
+            Time.timeScale = 1;
             Jump();
             // rb.angularVelocity *= 0.7f;
         }
@@ -42,7 +44,9 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        Debug.Log("Jump");
         rb.velocity = direction * speed;
+        Logger.Log($"Velocity: {rb.velocity}");
         rb.gravityScale = _gravityScale;
         animator.Play("Flap", 0, 0);
         SoundManager.Instance.PlaySound(SoundManager.Sound.flap);
@@ -68,14 +72,14 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Ceil") || other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("Floor") || other.gameObject.CompareTag("Ceil"))
         {
+            //play sound just 1
             Logger.Log("Game over");
             GameManager.Instance.ChangeState(GameState.SecondChance);
-            // StartCoroutine(ReturnLobby());
-        }   
+        }
     }
 
     public void Fade(float endValue, float time)
@@ -86,5 +90,15 @@ public class Player : MonoBehaviour
         frontWing.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
         backWing.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
         gameObject.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
+    }
+
+    public void Reset()
+    {
+        Time.timeScale = 0;
+        transform.position = new Vector3(-1.5f, 0.315f, 0);
+        transform.rotation = new Quaternion(0, 0, 0, 0);
+        rb.velocity = new Vector2(0, 0);
+        rb.angularDrag = 1;
+        rb.angularVelocity = 0;
     }
 }

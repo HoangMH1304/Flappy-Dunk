@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class GameController : MonoBehaviour
 {
@@ -71,5 +72,31 @@ public class GameController : MonoBehaviour
         else if(swish == 2) SoundManager.Instance.PlaySound(SoundManager.Sound.x3);
         else if(swish >= 3) SoundManager.Instance.PlaySound(SoundManager.Sound.x4);
         UIController.Instance.UpdateSwish(swish);
+    }
+
+    private void ResetScore()
+    {
+        score = 0;
+        UIController.Instance.UpdateScoreInGame(score);
+    }
+
+    public void Init()
+    {
+        ResetScore();
+        player.Reset();
+        // IsGameOver = false;
+        GameManager.Instance.ChangeState(GameState.Standby);
+        swish = 0;
+        HoopManager.Instance.Init();
+        BackgroundMovement.Instance.ResetPosition();
+
+
+
+        CameraScript.Instance.Reset();
+        // //
+        // //
+
+
+        // UIController.Instance.ResetSecondChance();
     }
 }
