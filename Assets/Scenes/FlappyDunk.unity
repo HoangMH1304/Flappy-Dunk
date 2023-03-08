@@ -1183,7 +1183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &178625760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4328,7 +4328,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac44410308a50c642aedc42687aa1a63, type: 3}
   m_Name: 
@@ -4401,13 +4401,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8895df53a3236934f8b52fd1264d6472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   followObject: {fileID: 448467942}
-  check: 1
   isMovingToBall: 0
 --- !u!1 &521501948
 GameObject:
@@ -7387,10 +7386,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 448467942}
   hoopContainer: {fileID: 2143397140}
-  gameplayCanvas: {fileID: 1242598104}
   pausePanel: {fileID: 558006417}
   pauseBtn: {fileID: 1678864755}
   lobbyPanel: {fileID: 871742122}
+  secondChancePanel: {fileID: 521501948}
+  gamePlayPanel: {fileID: 178625759}
+  HUD: {fileID: 178625763}
+  gameOverPanel: {fileID: 1566441494}
 --- !u!4 &947730233
 Transform:
   m_ObjectHideFlags: 0
@@ -7425,6 +7427,7 @@ MonoBehaviour:
   gameplayUI: {fileID: 178625759}
   secondChancePanel: {fileID: 521501948}
   lobbyUI: {fileID: 871742122}
+  player: {fileID: 448467942}
 --- !u!1 &965060210
 GameObject:
   m_ObjectHideFlags: 0
@@ -8794,7 +8797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1242598105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16247,7 +16250,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 947730232}
         m_TargetAssemblyTypeName: UILobbyHanlder, Assembly-CSharp
-        m_MethodName: PlayTapSound
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16259,7 +16262,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 947730232}
         m_TargetAssemblyTypeName: UILobbyHanlder, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: PlayTapSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
