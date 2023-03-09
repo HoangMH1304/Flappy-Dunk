@@ -14,9 +14,9 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI swishText;
     [SerializeField] private GameObject gameoverUI; 
     [SerializeField] private GameObject gameplayUI;
-    [SerializeField] private GameObject secondChancePanel;
     [SerializeField] private GameObject lobbyUI;
     [SerializeField] private GameObject player;
+    [SerializeField] private SecondChance secondChancePanel;
 
     private void Awake() 
     {
@@ -66,19 +66,25 @@ public class UIController : MonoBehaviour
         );
     }
 
-    public void DisplayGameOverUI()
+    public void DisplayOnDeathUI()
     {
         gameoverUI.SetActive(true);
         gameplayUI.SetActive(false);
         SoundManager.Instance.PlaySound(SoundManager.Sound.wrong);
-        StartCoroutine(WaitForSecondChancePanel());
-        //pop up second chance 
+        //pop up second chance or return lobby
+        StartCoroutine(WaitForResultUI());
     }
 
-    IEnumerator WaitForSecondChancePanel()
+    IEnumerator WaitForResultUI()
     {
-        yield return new WaitForSeconds(3f);
-        secondChancePanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        if(!GameManager.Instance.SecondChance) SecondChanceUIPopup();
+        else SwitchToLobbyUI();
+    }
+
+    private void SecondChanceUIPopup()
+    {
+        secondChancePanel.gameObject.SetActive(true);
         secondChancePanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InOutCubic).SetUpdate(true);
     }
 
@@ -86,10 +92,10 @@ public class UIController : MonoBehaviour
     {
         gameoverUI.SetActive(false);
         secondChancePanel.transform.DOMoveX(-5, 0.01f);
-        secondChancePanel.SetActive(false);
+        secondChancePanel.gameObject.SetActive(false);
         lobbyUI.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InOutCubic).SetUpdate(true);
         player.SetActive(false);
-        GameManager.Instance.ChangeState(GameState.Standby);
+        GameManager.Instance.ChangeState(GameState.OnBegin);
 
         // menuPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true).OnComplete(() =>
         // {
@@ -99,5 +105,13 @@ public class UIController : MonoBehaviour
         // UI_Menu.Instance.UpdateScore(GameController.instance.Score);
         HoopManager.Instance.FadeAllHoops(0, 0.8f);
         // GameController.Instance.FadeGameObject(0, 0.8f);
+    }
+
+    public void ActiveReviveState()
+    {
+        GameController.Instance.ActiveReviveState();
+        HoopManager.Instance.TurnOnCollider();
+        secondChancePanel.IsActive = true;
+        secondChancePanel.gameObject.SetActive(false);
     }
 }

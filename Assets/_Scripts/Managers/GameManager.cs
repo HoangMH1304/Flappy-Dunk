@@ -3,21 +3,16 @@ using UnityEngine;
 using UnityEngine.Events;
 public enum GameState
 {
-    Standby,
-    StartGame,
-    SecondChance,
-    EndGame
+    OnBegin,
+    OnRevive,
+    OnDeath
 }
 public class GameManager : MonoSingleton<GameManager>
 {
     public GameState State {get; private set;}
-    private bool gameStart;
     private bool secondChance;
-    private bool gameOver;
     private bool playable = true;
-    public bool GameStart { get => gameStart; set => gameStart = value; }
     public bool SecondChance { get => secondChance; set => secondChance = value; }
-    public bool GameOver { get => gameOver; set => gameOver = value; }
     public bool Playable { get => playable; set => playable = value; }
 
     protected override void Awake() {
@@ -30,20 +25,16 @@ public class GameManager : MonoSingleton<GameManager>
         State = newState;
         switch (newState)
         {
-            case GameState.Standby:
-                HandleStandbyState();
+            case GameState.OnBegin:
+                HandleOnBeginState();
                 Logger.Log(newState.ToString());
                 return;
-            case GameState.StartGame:
-                HandleStartGameState();
+            case GameState.OnRevive:
+                HandleReviveState();
                 Logger.Log(newState.ToString());
                 return;
-            case GameState.SecondChance:
-                HandleSecondChanceState();
-                Logger.Log(newState.ToString());
-                return;
-            case GameState.EndGame:
-                HandleEndGameState();
+            case GameState.OnDeath:
+                HandleOnDeathState();
                 Logger.Log(newState.ToString());
                 return;
             default:
@@ -51,31 +42,26 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-
-    private void HandleStandbyState()
+    private void HandleOnBeginState()
     {
-        gameStart = false;
         secondChance = false;
-        gameOver = false;
         playable = true;
     }
 
-    private void HandleStartGameState()
+    private void HandleOnDeathState()
     {
-        gameStart = true;
-    }
-    private void HandleSecondChanceState()
-    {
-        if(!secondChance)
+        if(playable)
         {
-            UIController.Instance.DisplayGameOverUI();
-            secondChance = true;
+            playable = false;
+            HoopManager.Instance.TurnOffCollider();
+            UIController.Instance.DisplayOnDeathUI();
         }
-        playable = false;
     }
 
-    private void HandleEndGameState()
+    //when click revive button
+    private void HandleReviveState()
     {
-        gameOver = true;
+        playable = true;
+        secondChance = true;
     }
 }

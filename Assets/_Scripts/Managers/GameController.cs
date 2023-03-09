@@ -85,18 +85,23 @@ public class GameController : MonoBehaviour
         ResetScore();
         player.Reset();
         // IsGameOver = false;
-        GameManager.Instance.ChangeState(GameState.Standby);
+        GameManager.Instance.ChangeState(GameState.OnBegin);
         swish = 0;
         HoopManager.Instance.Init();
         BackgroundMovement.Instance.ResetPosition();
-
-
-
         CameraScript.Instance.Reset();
-        // //
-        // //
-
-
         // UIController.Instance.ResetSecondChance();
+    }
+
+    public void ActiveReviveState()
+    {
+        // IsGameOver = false;
+        // GameManager.Instance.SecondChance = false;
+        GameManager.Instance.ChangeState(GameState.OnRevive);
+        swish = 0;
+        player.Reset();
+        player.transform.position = new Vector3(HoopManager.Instance.GetRevivePosition(), 0.315f, 0);
+        // ball.GetComponent<Rigidbody2D>().drag = 0;
+        CameraScript.Instance.MoveToBall();
     }
 }

@@ -5,7 +5,7 @@ using DG.Tweening;
 public class HoopChecker : MonoBehaviour
 {
     [SerializeField] private GameObject ring, axis, entireHoop;
-    [SerializeField] private Collider2D frontHoopCollider, backHoopCollider, holeCollider;
+    [SerializeField] private Collider2D frontHoopCollider, backHoopCollider, holeCollider, barrierCollider;
     [SerializeField] private SpriteRenderer frontHoopSR, backHoopSR, axisSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
@@ -60,21 +60,23 @@ public class HoopChecker : MonoBehaviour
         axisSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true); ;
     }
 
-    public void ActiveColor() //
+    public void ActiveColor(bool fade = true) //
     {
-        Fade(1, 0.001f);
+        if(fade) Fade(1, 0.001f);
 
         frontHoopCollider.enabled = true;
         backHoopCollider.enabled = true;
         holeCollider.enabled = true;
+        barrierCollider.enabled = true;
     }
-    public void DeactiveColor() //
+    public void DeactiveColor(bool fade = true) //
     {
-        Fade(0.5f, 0.001f);
+        if(fade) Fade(0.5f, 0.001f);
 
         frontHoopCollider.enabled = false;
         backHoopCollider.enabled = false;
         holeCollider.enabled = false;
+        barrierCollider.enabled = false;
     }
 
     private void GetTypeOfHoop()

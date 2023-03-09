@@ -14,7 +14,7 @@ public class BallCollisionChecker : MonoBehaviour
             {
                 Debug.Log("Game over by extra collider");
                 // Debug.Break();
-                GameManager.Instance.ChangeState(GameState.SecondChance);
+                GameManager.Instance.ChangeState(GameState.OnDeath);
             }
         }    
     }

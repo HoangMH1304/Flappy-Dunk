@@ -26,6 +26,7 @@ public class HoopManager : MonoBehaviour
         for(int i = 0; i < hoops.Count; i++)
         {
             hoops[i].SetActive(false);
+            hoops[i].GetComponent<HoopChecker>().ActiveColor(false);
         }
         hoops[0].SetActive(true);
         hoops[0].GetComponent<HoopChecker>().ActiveColor();
@@ -76,9 +77,38 @@ public class HoopManager : MonoBehaviour
 
     public void FadeAllHoops(float endValue, float time)
     {
-        foreach (GameObject obj in hoops)
+        foreach(GameObject obj in hoops)
         {
             obj.GetComponent<HoopChecker>().Fade(endValue, time);
         }
     }
+
+    public float GetRevivePosition()
+    {
+        for(int i = 0; i < hoops.Count; i++)
+        {
+            if(hoops[i].activeInHierarchy)
+            {
+                return hoops[i].transform.position.x - distance;
+            }
+        }
+        return 0;
+    }
+
+    public void TurnOffCollider()
+    {
+        foreach(var hoop in hoops)
+        {
+            hoop.GetComponent<HoopChecker>().DeactiveColor(false);
+        }
+    }
+
+    public void TurnOnCollider()
+    {
+        foreach(var hoop in hoops)
+        {
+            hoop.GetComponent<HoopChecker>().ActiveColor(false);
+        }
+    }
+
 }

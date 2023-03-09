@@ -12,20 +12,15 @@ public class InnerHoop : MonoBehaviour
             if (other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
             {
                 Debug.Log("Total");
-                // ScoreManager.Instance.IncreseScore();
                 if (!hoopChecker.BorderInteract)
                 {
                     GameController.Instance.IncreaseSwitch();
                     Logger.Log("Swish");
-                    // SoundManager.Instance.PlaySound(SoundManager.Sound.x4);
                 }
                 
                 GameController.Instance.IncreseScore();
                 // Logger.Log("NonSwish");
-
                 // deactive old hoop and active new hoop
-                // StartCoroutine(DisableHoop());
-                // HoopManager.Instance.GetReadyHoop().SetActive(true);
                 hoopChecker.PassPoint();
                 hoopChecker.PassOver = true;
                 // mark that ball pass the hoop
@@ -34,7 +29,7 @@ public class InnerHoop : MonoBehaviour
             else
             {
                 Debug.LogError("Lose");
-                GameManager.Instance.ChangeState(GameState.SecondChance);
+                GameManager.Instance.ChangeState(GameState.OnDeath);
             }
         }
     }

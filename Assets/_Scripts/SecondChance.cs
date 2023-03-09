@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class SecondChance : MonoBehaviour
 {
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
+    private bool isActive;
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    public bool IsActive { get => isActive; set => isActive = value; }
+
+    private void OnEnable() 
+    {
+        isActive = false;    
+    }
 }

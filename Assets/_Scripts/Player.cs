@@ -8,20 +8,15 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Vector2 direction;
     [SerializeField] private float speed;
-    [SerializeField] private float _gravityScale;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject frontWing, backWing;
-    // [SerializeField] private GameObject lobby;
-    // [SerializeField] private GameObject gameplay;
-    // [SerializeField] private GameObject hoopContainer;
     private Rigidbody2D rb;
     private Vector3 initialPosition = new Vector3(-1.5f, 0, 0);
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        _gravityScale = rb.gravityScale;
-        rb.gravityScale = 0;
+        Time.timeScale = 0;
     }
 
     private void OnEnable()
@@ -32,7 +27,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetMouseButtonDown(0))
         && !IsMouseOverUI() && GameManager.Instance.Playable)
         {
             // rb.velocity = new Vector2(0, 0);
@@ -47,7 +42,6 @@ public class Player : MonoBehaviour
         Debug.Log("Jump");
         rb.velocity = direction * speed;
         Logger.Log($"Velocity: {rb.velocity}");
-        rb.gravityScale = _gravityScale;
         animator.Play("Flap", 0, 0);
         SoundManager.Instance.PlaySound(SoundManager.Sound.flap);
     }
@@ -78,7 +72,7 @@ public class Player : MonoBehaviour
         {
             //play sound just 1
             Logger.Log("Game over");
-            GameManager.Instance.ChangeState(GameState.SecondChance);
+            GameManager.Instance.ChangeState(GameState.OnDeath);
         }
     }
 
