@@ -244,8 +244,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070380034033197106}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5797184773658684211}
   m_RootOrder: 2
@@ -556,6 +556,7 @@ MonoBehaviour:
   frontHoopCollider: {fileID: 7070380034778666145}
   backHoopCollider: {fileID: 7070380034527628003}
   holeCollider: {fileID: 7070380034033197104}
+  barrierCollider: {fileID: 1610647448374608005}
   frontHoopSR: {fileID: 7070380034778666146}
   backHoopSR: {fileID: 7070380034527627996}
   axisSR: {fileID: 6638457944054707237}
