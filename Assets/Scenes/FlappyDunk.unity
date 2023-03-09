@@ -4420,6 +4420,7 @@ GameObject:
   - component: {fileID: 521501952}
   - component: {fileID: 521501951}
   - component: {fileID: 521501950}
+  - component: {fileID: 521501953}
   m_Layer: 5
   m_Name: SecondChancePanel
   m_TagString: Untagged
@@ -4504,6 +4505,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1260285459}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &521501951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4542,6 +4555,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521501948}
   m_CullTransparentMesh: 1
+--- !u!114 &521501953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521501948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e0c7e753c593945b3a9795e8e64c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &531238769
 GameObject:
   m_ObjectHideFlags: 0
@@ -4624,7 +4649,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 531238772}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1566441494}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 178625759}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 947730234}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: ActiveReviveState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &531238772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4897,7 +4958,7 @@ RectTransform:
   - {fileID: 1294982471}
   - {fileID: 737882019}
   m_Father: {fileID: 1242598108}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7425,9 +7486,9 @@ MonoBehaviour:
   swishText: {fileID: 1317046110}
   gameoverUI: {fileID: 1566441494}
   gameplayUI: {fileID: 178625759}
-  secondChancePanel: {fileID: 521501948}
   lobbyUI: {fileID: 871742122}
   player: {fileID: 448467942}
+  secondChancePanel: {fileID: 521501953}
 --- !u!1 &965060210
 GameObject:
   m_ObjectHideFlags: 0
@@ -8871,8 +8932,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 178625760}
-  - {fileID: 558006418}
   - {fileID: 1317046109}
+  - {fileID: 558006418}
   - {fileID: 1566441495}
   - {fileID: 521501949}
   m_Father: {fileID: 0}
@@ -9486,7 +9547,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1242598108}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
