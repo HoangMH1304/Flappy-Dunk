@@ -5,7 +5,8 @@ using DG.Tweening;
 public class HoopChecker : MonoBehaviour
 {
     [SerializeField] private GameObject ring, axis, entireHoop;
-    [SerializeField] private Collider2D frontHoopCollider, backHoopCollider, holeCollider, barrierCollider;
+    // [SerializeField] private Collider2D frontHoopCollider, backHoopCollider, holeCollider, barrierCollider;
+    [SerializeField] private List<Collider2D> listCollider;
     [SerializeField] private SpriteRenderer frontHoopSR, backHoopSR, axisSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
@@ -44,9 +45,10 @@ public class HoopChecker : MonoBehaviour
         }
         );
         Fade(0, 1);
-        frontHoopCollider.enabled = false;
-        backHoopCollider.enabled = false;
-        holeCollider.enabled = false;
+        foreach(var collider in listCollider)
+        {
+            collider.enabled = false;
+        }
         HoopManager.Instance.GetReadyHoop().SetActive(true);
     }
 
@@ -64,19 +66,19 @@ public class HoopChecker : MonoBehaviour
     {
         if(fade) Fade(1, 0.001f);
 
-        frontHoopCollider.enabled = true;
-        backHoopCollider.enabled = true;
-        holeCollider.enabled = true;
-        barrierCollider.enabled = true;
+        foreach(var collider in listCollider)
+        {
+            collider.enabled = true;
+        }
     }
     public void DeactiveColor(bool fade = true) //
     {
         if(fade) Fade(0.5f, 0.001f);
 
-        frontHoopCollider.enabled = false;
-        backHoopCollider.enabled = false;
-        holeCollider.enabled = false;
-        barrierCollider.enabled = false;
+        foreach(var collider in listCollider)
+        {
+            collider.enabled = false;
+        }
     }
 
     private void GetTypeOfHoop()
