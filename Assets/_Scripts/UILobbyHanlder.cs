@@ -19,7 +19,7 @@ public class UILobbyHanlder : MonoBehaviour
     
     public void PlayTapSound()
     {
-        SoundManager.Instance.PlaySound(SoundManager.Sound.click);
+        SoundManager.Instance.PlaySound(Sound.click);
     }
 
     public void Play()
@@ -33,17 +33,17 @@ public class UILobbyHanlder : MonoBehaviour
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
         lobbyPanel.transform.DOKill();
-        lobbyPanel.transform.DOMoveX(-7, 0f).SetUpdate(true);
+        lobbyPanel.transform.DOMoveX(-7, 1f).SetUpdate(true);
         gamePlayPanel.SetActive(true);
 
-        // HUD.DOFade(0, 0).SetUpdate(true);
-        // HUD.DOFade(1, 1).SetUpdate(true);
+        HUD.DOFade(0, 0).SetUpdate(true);
+        HUD.DOFade(1, 2).SetUpdate(true);
 
         gameOverPanel.SetActive(false);
 
         GameController.Instance.Init();
 
-        SoundManager.Instance.PlaySound(SoundManager.Sound.whistle);
+        SoundManager.Instance.PlaySound(Sound.whistle);
     }
 
     public void Pause()

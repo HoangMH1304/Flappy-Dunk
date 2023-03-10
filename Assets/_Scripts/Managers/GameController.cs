@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using MoreMountains.NiceVibrations;
 
 public class GameController : MonoBehaviour
 {
@@ -30,20 +31,20 @@ public class GameController : MonoBehaviour
         } 
         highScore = PlayerPrefs.GetInt("HighScore");
         lastScore = PlayerPrefs.GetInt("LastScore");
-        // FadeGameObject(0, 0.01f);
     }
 
-    // public void FadeGameObject(float endValue, float time)
-    // {
-    //     player.Fade(endValue, time);
-    //     foreach (SpriteRenderer obj in fadeList)
-    //     {
-    //         obj.DOFade(endValue, time).SetEase(Ease.InCubic).SetUpdate(true).OnComplete(() =>
-    //         {
-    //             Time.timeScale = 0;
-    //         });
-    //     }
-    // }
+    public void FadeGameObject(float endValue, float time)
+    {
+        player.Fade(endValue, time);
+        foreach (SpriteRenderer obj in fadeList)
+        {
+            // obj.DOFade(endValue, time).SetEase(Ease.InCubic).SetUpdate(true).OnComplete(() =>
+            // {
+            //     Time.timeScale = 0;
+            // });
+            obj.DOFade(endValue, time).SetUpdate(true);
+        }
+    }
 
     private void Start() {
         UIController.Instance.UpdateScoreUI();
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour
 
     public void IncreseScore()
     {
+        // CameraScript.Instance.Shake();
         if(swish == 0) score++;
         else
         {
@@ -62,16 +64,18 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("HighScore", highScore);
         PlayerPrefs.SetInt("LastScore", lastScore);
         UIController.Instance.UpdateScoreInGame(score);
-        SoundManager.Instance.PlaySound(SoundManager.Sound.pass);
+        SoundManager.Instance.PlaySound(Sound.pass);
     }
 
     public void IncreaseSwitch()
     {
         swish++;
-        if(swish == 1) SoundManager.Instance.PlaySound(SoundManager.Sound.x2);
-        else if(swish == 2) SoundManager.Instance.PlaySound(SoundManager.Sound.x3);
-        else if(swish >= 3) SoundManager.Instance.PlaySound(SoundManager.Sound.x4);
+        if(swish == 1) SoundManager.Instance.PlaySound(Sound.x2);
+        else if(swish == 2) SoundManager.Instance.PlaySound(Sound.x3);
+        else if(swish >= 3) SoundManager.Instance.PlaySound(Sound.x4);
         UIController.Instance.UpdateSwish(swish);
+        if(swish >= 2) CameraScript.Instance.Shake();
+        Vibrate();
     }
 
     private void ResetScore()
@@ -84,24 +88,27 @@ public class GameController : MonoBehaviour
     {
         ResetScore();
         player.Reset();
-        // IsGameOver = false;
         GameManager.Instance.ChangeState(GameState.OnBegin);
         swish = 0;
         HoopManager.Instance.Init();
         BackgroundMovement.Instance.ResetPosition();
         CameraScript.Instance.Reset();
-        // UIController.Instance.ResetSecondChance();
+        FadeGameObject(1, 1f);    
+
     }
 
     public void ActiveReviveState()
     {
-        // IsGameOver = false;
-        // GameManager.Instance.SecondChance = false;
         GameManager.Instance.ChangeState(GameState.OnRevive);
         swish = 0;
         player.Reset();
         player.transform.position = new Vector3(HoopManager.Instance.GetRevivePosition(), 0.315f, 0);
         // ball.GetComponent<Rigidbody2D>().drag = 0;
         CameraScript.Instance.MoveToBall();
+    }
+
+    public void Vibrate()
+    {
+        if(PlayerPrefs.GetInt("Vibrate") == 1) MMVibrationManager.Haptic(HapticTypes.LightImpact,true);
     }
 }

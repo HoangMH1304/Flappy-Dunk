@@ -70,14 +70,14 @@ public class UIController : MonoBehaviour
     {
         gameoverUI.SetActive(true);
         gameplayUI.SetActive(false);
-        SoundManager.Instance.PlaySound(SoundManager.Sound.wrong);
+        SoundManager.Instance.PlaySound(Sound.wrong);
         //pop up second chance or return lobby
         StartCoroutine(WaitForResultUI());
     }
 
     IEnumerator WaitForResultUI()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         if(!GameManager.Instance.SecondChance) SecondChanceUIPopup();
         else SwitchToLobbyUI();
     }
@@ -90,9 +90,10 @@ public class UIController : MonoBehaviour
 
     public void SwitchToLobbyUI()
     {
+        HoopManager.Instance.FadeAllHoops(0, 0.5f);
         gameoverUI.SetActive(false);
-        secondChancePanel.transform.DOMoveX(-5, 0.01f);
-        secondChancePanel.gameObject.SetActive(false);
+        secondChancePanel?.transform.DOMoveX(-5, 0.01f);  //0.01
+        secondChancePanel?.gameObject.SetActive(false);
         lobbyUI.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InOutCubic).SetUpdate(true);
         player.SetActive(false);
         GameManager.Instance.ChangeState(GameState.OnBegin);
@@ -103,7 +104,6 @@ public class UIController : MonoBehaviour
         // });
         UpdateScoreUI();
         // UI_Menu.Instance.UpdateScore(GameController.instance.Score);
-        HoopManager.Instance.FadeAllHoops(0, 0.8f);
         // GameController.Instance.FadeGameObject(0, 0.8f);
     }
 
@@ -111,7 +111,6 @@ public class UIController : MonoBehaviour
     {
         GameController.Instance.ActiveReviveState();
         HoopManager.Instance.TurnOnCollider();
-        secondChancePanel.IsActive = true;
         secondChancePanel.gameObject.SetActive(false);
     }
 }
