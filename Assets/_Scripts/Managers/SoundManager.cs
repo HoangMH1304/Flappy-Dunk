@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoSingleton<SoundManager>
-{
-    public enum Sound{
+public enum Sound{
         bounce,
         explosion,
         crash,
@@ -17,8 +15,10 @@ public class SoundManager : MonoSingleton<SoundManager>
         x3,
         x4,
         click
-    }
-
+}
+public class SoundManager : MonoSingleton<SoundManager>
+{
+    [SerializeField] private SoundAudioClip[] soundAudioClips;
     protected override void Awake() {
         base.Awake();
         foreach (SoundAudioClip s in soundAudioClips)
@@ -31,16 +31,11 @@ public class SoundManager : MonoSingleton<SoundManager>
         }
     }
 
-    [SerializeField] private SoundAudioClip[] soundAudioClips;
-    // [SerializeField] private AudioSource audioSource;
-
     public void PlaySound(Sound sound)
     {
         SoundAudioClip soundAudioClip = GetAudioClip(sound);
         if(soundAudioClip == null) return;
         if(PlayerPrefs.GetInt("Sound") == 1) soundAudioClip.source.Play();
-        // audioSource.PlayOneShot(GetAudioClip(sound));
-
     }
 
     public SoundAudioClip GetAudioClip(Sound sound)

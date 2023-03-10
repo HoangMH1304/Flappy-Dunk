@@ -33,7 +33,7 @@ public class SfxUiToggle : MonoBehaviour
     {
         vibrateState = 1 - vibrateState;
         PlayerPrefs.SetInt("Vibrate", vibrateState);
-        if(vibrateState == 1) Handheld.Vibrate();
+        if(vibrateState == 1) GameController.Instance.Vibrate();
         ChangeIcon();
     }
 
