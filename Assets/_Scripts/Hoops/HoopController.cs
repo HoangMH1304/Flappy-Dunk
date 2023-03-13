@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-public class HoopChecker : MonoBehaviour
+public class HoopController : MonoBehaviour
 {
     [SerializeField] private GameObject ring, axis, entireHoop;
-    // [SerializeField] private Collider2D frontHoopCollider, backHoopCollider, holeCollider, barrierCollider;
     [SerializeField] private List<Collider2D> listCollider;
-    [SerializeField] private SpriteRenderer frontHoopSR, backHoopSR, axisSR;
+    [SerializeField] private List<SpriteRenderer> listEffectSR;
+    // [SerializeField] private SpriteRenderer frontHoopSR, backHoopSR, axisSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
-
-    // private Vector3 moveSpeed, initScale;
     private bool borderInteract, passOver, isMovable;
+
     [SerializeField] private float moveSpeed;
 
     public bool BorderInteract { get => borderInteract; set => borderInteract = value; }
@@ -38,7 +37,6 @@ public class HoopChecker : MonoBehaviour
     public void PassPoint()
     {
         isMovable = false;
-        // gameObject.SetActive(false);
         ring.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 1f).OnComplete(() =>
         {
             gameObject.SetActive(false);
@@ -54,12 +52,17 @@ public class HoopChecker : MonoBehaviour
 
     public void Fade(float endValue, float time)
     {
-        axisSR.DOKill();
-        frontHoopSR.DOKill();
-        backHoopSR.DOKill();
-        frontHoopSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
-        backHoopSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
-        axisSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true); ;
+        foreach(var spriteRenderer in listEffectSR)
+        {
+            spriteRenderer.DOKill();
+            spriteRenderer.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
+        }
+        // axisSR.DOKill();
+        // frontHoopSR.DOKill();
+        // backHoopSR.DOKill();
+        // frontHoopSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
+        // backHoopSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
+        // axisSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true); ;
     }
 
     public void ActiveColor(bool fade = true) //

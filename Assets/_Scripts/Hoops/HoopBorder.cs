@@ -4,23 +4,16 @@ using UnityEngine;
 
 public class HoopBorder : MonoBehaviour
 {
-    [SerializeField] private HoopChecker hoopChecker;
+    [SerializeField] private HoopController hoopController;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
+        if (!hoopController.PassOver)
         {
-            hoopChecker.BorderInteract = true;
+            hoopController.BorderInteract = true;
             GameController.Instance.Swish = 0;
+            GameController.Instance.DeactivePerfectForm();
         }
-        // else if(this.name.Equals("HoopBack"))
-        // {
-        //     hoopChecker.BorderInteract = true;
-        //     GameController.Instance.Swish = 0;
-        // }
-        // if (other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
-        // {
-        // }
         if (other.relativeVelocity.magnitude > 2f)
         {
             Vector2 dir = new Vector2(0.5f, other.gameObject.GetComponent<Rigidbody2D>().velocity.y);

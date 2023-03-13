@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class InnerHoop : MonoBehaviour
 {
-    [SerializeField] private HoopChecker hoopChecker;
+    private const string PLAYER = "Player";
+    [SerializeField] private HoopController hoopController;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(PLAYER))
         {
             if (other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
             {
                 Debug.Log("Total");
-                if (!hoopChecker.BorderInteract)
+                if (!hoopController.BorderInteract)
                 {
                     GameController.Instance.IncreaseSwitch();
                     Logger.Log("Swish");
@@ -21,14 +22,15 @@ public class InnerHoop : MonoBehaviour
                 GameController.Instance.IncreseScore();
                 // Logger.Log("NonSwish");
                 // deactive old hoop and active new hoop
-                hoopChecker.PassPoint();
-                hoopChecker.PassOver = true;
+                hoopController.PassPoint();
+                hoopController.PassOver = true;
                 // mark that ball pass the hoop
                 //spawn new hoop _ hoopChecker.Spawn()    
             }
             else
             {
                 Debug.LogError("Lose");
+                GameController.Instance.DeactivePerfectForm();
                 GameManager.Instance.ChangeState(GameState.OnDeath);
             }
         }
@@ -37,7 +39,7 @@ public class InnerHoop : MonoBehaviour
     IEnumerator DisableHoop()
     {
         yield return new WaitForSeconds(0.3f);
-        hoopChecker.gameObject.SetActive(false);
+        hoopController.gameObject.SetActive(false);
     }
 }
 

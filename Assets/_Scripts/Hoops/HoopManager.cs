@@ -18,18 +18,18 @@ public class HoopManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Init();
+        InitialState();
     }
 
-    public void Init()
+    public void InitialState()
     {
         for(int i = 0; i < hoops.Count; i++)
         {
             hoops[i].SetActive(false);
-            hoops[i].GetComponent<HoopChecker>().ActiveColor(false);
+            hoops[i].GetComponent<HoopController>().ActiveColor(false);
         }
         hoops[0].SetActive(true);
-        hoops[0].GetComponent<HoopChecker>().ActiveColor();
+        hoops[0].GetComponent<HoopController>().ActiveColor();
         hoops[0].transform.position = new Vector3(1.5f, 0, 0);
 
 
@@ -37,7 +37,7 @@ public class HoopManager : MonoBehaviour
         hoops.RemoveAt(0);
 
         hoops[0].SetActive(true);
-        hoops[0].GetComponent<HoopChecker>().DeactiveColor();
+        hoops[0].GetComponent<HoopController>().DeactiveColor();
         hoops[0].transform.position = new Vector3(1.5f + distance, GetVerticalPosition(), 0);
 
         hoops.Add(hoops[0]);
@@ -71,7 +71,7 @@ public class HoopManager : MonoBehaviour
 
         hoops.Add(hoops[0]);
         hoops.RemoveAt(0);
-        hoops[hoops.Count - 2].GetComponent<HoopChecker>().ActiveColor();
+        hoops[hoops.Count - 2].GetComponent<HoopController>().ActiveColor();
         return hoops[hoops.Count - 1];
     }
 
@@ -79,7 +79,7 @@ public class HoopManager : MonoBehaviour
     {
         foreach(GameObject obj in hoops)
         {
-            obj.GetComponent<HoopChecker>().Fade(endValue, time);
+            obj.GetComponent<HoopController>().Fade(endValue, time);
         }
     }
 
@@ -99,7 +99,7 @@ public class HoopManager : MonoBehaviour
     {
         foreach(var hoop in hoops)
         {
-            hoop.GetComponent<HoopChecker>().DeactiveColor(false);
+            hoop.GetComponent<HoopController>().DeactiveColor(false);
         }
     }
 
@@ -107,8 +107,7 @@ public class HoopManager : MonoBehaviour
     {
         foreach(var hoop in hoops)
         {
-            hoop.GetComponent<HoopChecker>().ActiveColor(false);
+            hoop.GetComponent<HoopController>().ActiveColor(false);
         }
     }
-
 }
