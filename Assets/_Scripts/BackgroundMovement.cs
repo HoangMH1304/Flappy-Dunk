@@ -14,13 +14,12 @@ public class BackgroundMovement : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-
         distance = bg2.position.x - bg1.position.x;
     }
 
     private void Start()
     {
-        ResetPosition();
+        InitialPosition();
     }
 
     private void Update() 
@@ -35,7 +34,7 @@ public class BackgroundMovement : MonoBehaviour
         }
     }
 
-    public void ResetPosition()
+    public void InitialPosition()
     {
         bg1.localPosition = Vector3.zero;
         bg2.localPosition = bg1.localPosition + Vector3.right * distance;

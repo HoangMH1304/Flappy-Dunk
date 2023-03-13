@@ -13,7 +13,7 @@ public class SecondChance : MonoBehaviour
 
     private void OnEnable()
     {
-        InitState();
+        InitialState();
         secondChanceBtn.transform.DOScale(new Vector3(1.1f, 1.1f, 1), 0.5f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             secondChanceBtn.transform.DOScale(new Vector3(1f, 1f, 1), 0.5f).SetEase(Ease.InOutSine);
@@ -31,7 +31,7 @@ public class SecondChance : MonoBehaviour
         );
     }
 
-    private void InitState()
+    private void InitialState()
     {
         _time = time;
         fill.DOKill();

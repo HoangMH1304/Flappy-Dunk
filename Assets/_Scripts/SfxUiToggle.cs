@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SfxUiToggle : MonoBehaviour
 {
+    private const string SOUND = "Sound";
+    private const string VIBRATE = "Vibrate";
     [SerializeField] private Sprite soundOn;
     [SerializeField] private Sprite soundOff;
     [SerializeField] private Sprite vibrateOn;
@@ -16,8 +18,8 @@ public class SfxUiToggle : MonoBehaviour
 
     private void OnEnable() 
     {
-        soundState = PlayerPrefs.GetInt("Sound");
-        vibrateState = PlayerPrefs.GetInt("Vibrate");
+        soundState = PlayerPrefs.GetInt(SOUND);
+        vibrateState = PlayerPrefs.GetInt(VIBRATE);
         Debug.Log($"soundState: {soundState}");
         Debug.Log($"vibrateState: {vibrateState}");
         ChangeIcon();
@@ -25,14 +27,14 @@ public class SfxUiToggle : MonoBehaviour
     public void SwitchSoundState()
     {
         soundState = 1 - soundState;
-        PlayerPrefs.SetInt("Sound", soundState);
+        PlayerPrefs.SetInt(SOUND, soundState);
         ChangeIcon();
     }
 
     public void SwitchVibrationState()
     {
         vibrateState = 1 - vibrateState;
-        PlayerPrefs.SetInt("Vibrate", vibrateState);
+        PlayerPrefs.SetInt(VIBRATE, vibrateState);
         if(vibrateState == 1) GameController.Instance.Vibrate();
         ChangeIcon();
     }
