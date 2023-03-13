@@ -6,21 +6,19 @@ using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
+    private const string CEIL = "Ceil";
+    private const string FLOOR = "Floor";
+    private const string FLAP = "Flap";
     [SerializeField] private Vector2 direction;
     [SerializeField] private float speed;
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject frontWing, backWing;
+    [SerializeField] private GameObject frontWing, backWing, perfectForm;
+    [SerializeField] private SpriteRenderer blackBall, blackFrontWing, blackBackWing;
     private Rigidbody2D rb;
     private bool onGround;
     private Vector3 initialPosition = new Vector3(-1.5f, 0, 0);
-    private Vector3 initBackWingTransform = new Vector3(0.65f, 0.6f, 0);
-    private Vector3 initFrontWingTransform = new Vector3(-0.95f, 0.6f, 0);
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        Time.timeScale = 0;
-    }
+    private Vector3 initialFrontWingTransform = new Vector3(-0.875f, 0.8f, 0);
+    private Vector3 initialBackWingTransform = new Vector3(0.6f, 0.9f, 0);
 
     private void OnEnable()
     {
@@ -43,21 +41,21 @@ public class Player : MonoBehaviour
     public void Jump()
     {
         rb.velocity = direction * speed;
-        animator.Play("Flap", 0, 0);
+        animator.Play(FLAP, 0, 0);
         SoundManager.Instance.PlaySound(Sound.flap);
     }
 
-    private void wingFall(string tag)
+    private void FallenWing(string tag)
     {
         frontWing.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         backWing.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         SoundManager.Instance.PlaySound(Sound.crash);
-        if (tag == "Ceil")
+        if (tag == CEIL)
         {
             frontWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-80, -10), 0), ForceMode2D.Force);
             backWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(10, 80), 0), ForceMode2D.Force);
         }
-        if (tag == "Floor")
+        if (tag == FLOOR)
         {
             frontWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-80, -50), Random.Range(400, 500)), ForceMode2D.Force);
             backWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(50, 80), Random.Range(400, 500)), ForceMode2D.Force);
@@ -86,26 +84,28 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Ceil"))
+        if(other.gameObject.CompareTag(CEIL))
         {
             GameManager.Instance.ChangeState(GameState.OnDeath);
-            wingFall("Ceil");
+            FallenWing(CEIL);
+            DeactivatePerfectForm();
         }
 
-        if (other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag(FLOOR))
         {
             if(!onGround)
             {
                 onGround = true;
                 Logger.Log("Detect ground");
-                wingFall("Floor");
+                FallenWing(FLOOR);
+                DeactivatePerfectForm();
             }
             else SoundManager.Instance.PlaySound(Sound.bounce);
             GameManager.Instance.ChangeState(GameState.OnDeath);
         }
     }
 
-    public void Fade(float endValue, float time)
+    public void FadeCharacter(float endValue, float time)
     {
         frontWing.GetComponent<SpriteRenderer>().DOKill();
         backWing.GetComponent<SpriteRenderer>().DOKill();
@@ -115,10 +115,12 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
     }
 
-    public void Reset()
+    public void RestoreInitialState()
     {
-        //ball
+        onGround = false;
         Time.timeScale = 0;
+        
+        //ball
         transform.position = new Vector3(-1.5f, 0.315f, 0);
         transform.rotation = new Quaternion(0, 0, 0, 0);
         rb.velocity = new Vector2(0, 0);
@@ -131,12 +133,36 @@ public class Player : MonoBehaviour
         frontWing.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         backWing.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        frontWing.transform.localPosition = initFrontWingTransform;
-        backWing.transform.localPosition = initBackWingTransform;
+        frontWing.transform.localPosition = initialFrontWingTransform;
+        backWing.transform.localPosition = initialBackWingTransform;
         frontWing.transform.rotation = Quaternion.identity;
         backWing.transform.rotation = Quaternion.identity;
 
         // Fade(1, 2f);
-        onGround = false;
+    }
+
+    private void ActivePerfectSprite()
+    {
+        perfectForm.SetActive(true);
+        blackBall.DOFade(1, 0.01f);
+        blackFrontWing.DOFade(1, 0.01f);
+        blackBackWing.DOFade(1, 0.01f);
+    }
+
+    private void DeactivePerfectSprite()
+    {
+        blackFrontWing.DOFade(0, 0.5f);
+        blackBackWing.DOFade(0, 0.5f);
+        blackBall.DOFade(0, 0.05f).OnComplete(() => perfectForm.SetActive(false));
+    }
+
+    public void ActivePerfectForm(int swish)
+    {
+        if(swish >= 2) ActivePerfectSprite();
+    }
+
+    public void DeactivatePerfectForm()
+    {
+        DeactivePerfectSprite();
     }
 }
