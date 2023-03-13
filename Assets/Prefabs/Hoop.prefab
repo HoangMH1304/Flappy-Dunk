@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4653873533710021150}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1.15, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7070380034899721820}
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a5dd79459c8ca4d8db73e5cfdf3901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoopChecker: {fileID: 3742275195078461467}
+  hoopController: {fileID: 3742275195078461467}
 --- !u!1 &7070380034527627998
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a57e45dc7e33c4fa1444aeb8a81896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoopChecker: {fileID: 3742275195078461467}
+  hoopController: {fileID: 3742275195078461467}
 --- !u!1 &7070380034778666140
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a57e45dc7e33c4fa1444aeb8a81896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoopChecker: {fileID: 3742275195078461467}
+  hoopController: {fileID: 3742275195078461467}
 --- !u!1 &7070380034899721821
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,9 +631,10 @@ MonoBehaviour:
   - {fileID: 7070380034033197104}
   - {fileID: 2492920795705840718}
   - {fileID: 1610647448374608005}
-  frontHoopSR: {fileID: 7070380034778666146}
-  backHoopSR: {fileID: 7070380034527627996}
-  axisSR: {fileID: 6638457944054707237}
+  listEffectSR:
+  - {fileID: 7070380034778666146}
+  - {fileID: 7070380034527627996}
+  - {fileID: 6638457944054707237}
   rotations:
   - {x: 0, y: 0, z: 0, w: 0.00000021161469}
   - {x: 0, y: 0, z: 0.1305262, w: 0.9914449}
