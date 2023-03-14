@@ -35,8 +35,8 @@ public class UIController : MonoBehaviour
     {
         int highScore = PlayerPrefs.GetInt("HighScore");
         int lastScore = PlayerPrefs.GetInt("LastScore");
-        highScoreText.text = "BEST: " + highScore.ToString();
-        lastScoreText.text = "LAST: " + lastScore.ToString();
+        highScoreText.text = "<color=black>Best: </color>" + highScore.ToString();
+        lastScoreText.text = "Last: " + lastScore.ToString();
     }
 
     public void UpdateScoreInGame(int score)
