@@ -115,7 +115,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -149,7 +149,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -176,14 +176,14 @@ AnimationClip:
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1423091332
+      path: 3003047945
       attribute: 4
       script: {fileID: 0}
       typeID: 4
       customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3291151420
+      path: 2335207539
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -422,7 +422,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -450,7 +450,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -487,7 +487,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -515,7 +515,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -543,7 +543,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -580,7 +580,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -651,7 +651,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -661,7 +661,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -671,7 +671,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: PerfectSkin/Wing/BackWing
+    path: FeverForm/Wing/BackWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -681,7 +681,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -691,7 +691,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -701,7 +701,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: PerfectSkin/Wing/FrontWing
+    path: FeverForm/Wing/FrontWing
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
