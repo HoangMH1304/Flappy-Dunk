@@ -14,17 +14,19 @@ public class Player : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject frontWing, backWing, perfectForm;
     [SerializeField] private SpriteRenderer blackBall, blackFrontWing, blackBackWing;
+    [SerializeField] private ParticleSystem smoke, flame;
     private Rigidbody2D rb;
-    private bool onGround;
-    private Vector3 initialPosition = new Vector3(-1.5f, 0, 0);
+    private bool onGround = false;
     private Vector3 initialFrontWingTransform = new Vector3(-0.875f, 0.8f, 0);
     private Vector3 initialBackWingTransform = new Vector3(0.6f, 0.9f, 0);
 
-    private void OnEnable()
-    {
-        if (rb == null) rb = GetComponent<Rigidbody2D>();
-        transform.position = initialPosition;
-        onGround = false;
+    // private void Awake() {
+    //     rb = GetComponent<Rigidbody2D>();
+    // }
+
+    private void OnEnable() {
+        if(rb == null) rb = GetComponent<Rigidbody2D>();
+        // Time.timeScale = 0;
     }
 
     private void Update()
@@ -153,16 +155,35 @@ public class Player : MonoBehaviour
     {
         blackFrontWing.DOFade(0, 0.5f);
         blackBackWing.DOFade(0, 0.5f);
-        blackBall.DOFade(0, 0.05f).OnComplete(() => perfectForm.SetActive(false));
+        blackBall.DOFade(0, 0.5f).OnComplete(() => perfectForm.SetActive(false));
     }
 
     public void ActivePerfectForm(int swish)
     {
-        if(swish >= 2) ActivePerfectSprite();
+        if(swish >= 2)
+        {
+            ActivePerfectSprite();
+            smoke.Stop();
+            flame.Play();
+        }
+        else if(swish == 1)
+        {
+            DeactivePerfectSprite();
+            smoke.Play();
+            flame.Stop();
+        }
+        else
+        {
+            DeactivePerfectSprite();
+            smoke.Stop();
+            flame.Stop();
+        }
     }
 
     public void DeactivatePerfectForm()
     {
         DeactivePerfectSprite();
+        smoke.Stop();
+        flame.Stop();
     }
 }

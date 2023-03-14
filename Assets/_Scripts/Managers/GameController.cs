@@ -38,11 +38,8 @@ public class GameController : MonoBehaviour
         player.FadeCharacter(endValue, time);
         foreach (SpriteRenderer obj in fadeList)
         {
-            // obj.DOFade(endValue, time).SetEase(Ease.InCubic).SetUpdate(true).OnComplete(() =>
-            // {
-            //     Time.timeScale = 0;
-            // });
-            obj.DOFade(endValue, time).SetUpdate(true);
+            obj.DOFade(endValue, time).SetEase(Ease.InCubic).SetUpdate(true);
+            // obj.DOFade(endValue, time).SetUpdate(true);
         }
     }
 
@@ -94,7 +91,7 @@ public class GameController : MonoBehaviour
         HoopManager.Instance.InitialState();
         BackgroundMovement.Instance.InitialPosition();
         CameraScript.Instance.Reset();
-        FadeGameObject(1, 1f);    
+        FadeGameObject(1, 0.05f);    
 
     }
 

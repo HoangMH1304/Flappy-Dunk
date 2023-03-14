@@ -16,7 +16,8 @@ public class UILobbyHanlder : MonoBehaviour
     [SerializeField] private GameObject gamePlayPanel;
     [SerializeField] private CanvasGroup HUD;
     [SerializeField] private GameObject gameOverPanel;
-    
+    [SerializeField] private GameObject playerbtn;
+    private int animState = 1;
     public void PlayTapSound()
     {
         SoundManager.Instance.PlaySound(Sound.click);
@@ -25,23 +26,25 @@ public class UILobbyHanlder : MonoBehaviour
     public void Play()
     {
         // lobbyPanel.GetComponent<RectTransform>().Translate(new Vector3(-8, 0, 0));
-        player.SetActive(true);
+        HandleAnimState();
         hoopContainer.SetActive(true);
 
         Debug.Log("Start game");
         secondChancePanel.SetActive(false);
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
+
         lobbyPanel.transform.DOKill();
-        lobbyPanel.transform.DOMoveX(-7, 1f).SetUpdate(true);
+        lobbyPanel.transform.DOMoveX(-7, 0.5f).SetUpdate(true);
         gamePlayPanel.SetActive(true);
 
         HUD.DOFade(0, 0).SetUpdate(true);
         HUD.DOFade(1, 2).SetUpdate(true);
 
+        player.SetActive(true);
+        GameController.Instance.Init();
         gameOverPanel.SetActive(false);
 
-        GameController.Instance.Init();
 
         SoundManager.Instance.PlaySound(Sound.whistle);
     }
@@ -59,5 +62,11 @@ public class UILobbyHanlder : MonoBehaviour
         pausePanel.SetActive(false);
         pauseBtn.SetActive(true);
         player.GetComponent<Player>().Jump();
+    }
+
+    public void HandleAnimState()
+    {
+        animState = 1 - animState;
+        playerbtn.GetComponent<Animator>().speed = animState;
     }
 }

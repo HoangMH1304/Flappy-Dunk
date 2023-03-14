@@ -6,6 +6,7 @@ public class InnerHoop : MonoBehaviour
 {
     private const string PLAYER = "Player";
     [SerializeField] private HoopController hoopController;
+    [SerializeField] private ParticleSystem starFX;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(PLAYER))
@@ -16,16 +17,15 @@ public class InnerHoop : MonoBehaviour
                 if (!hoopController.BorderInteract)
                 {
                     GameController.Instance.IncreaseSwitch();
+                    starFX.Play();
                     Logger.Log("Swish");
                 }
                 
                 GameController.Instance.IncreseScore();
-                // Logger.Log("NonSwish");
                 // deactive old hoop and active new hoop
                 hoopController.PassPoint();
                 hoopController.PassOver = true;
                 // mark that ball pass the hoop
-                //spawn new hoop _ hoopChecker.Spawn()    
             }
             else
             {
