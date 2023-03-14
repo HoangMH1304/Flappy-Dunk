@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2958362847263082656}
   m_Layer: 0
-  m_Name: PerfectSkin
+  m_Name: FeverForm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,9 +100,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 520111267
+  m_SortingLayer: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 6b97e85c523e99242abc8f43adf0e90a, type: 3}
   m_Color: {r: 0.23137255, g: 1, b: 0, a: 0}
   m_FlipX: 0
@@ -215,9 +215,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 520111267
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 60de99c40155e0a42ad932e508fb3b15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -326,9 +326,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 520111267
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: cc4c545d1128202479cfe2a5e0900743, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -399,7 +399,7 @@ MonoBehaviour:
   blackFrontWing: {fileID: 3809401777814515456}
   blackBackWing: {fileID: 5475972043541550497}
   smoke: {fileID: 4558165273776338083}
-  flame: {fileID: 0}
+  flame: {fileID: 3269724118245968562}
 --- !u!95 &448467943
 Animator:
   serializedVersion: 3
@@ -488,9 +488,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 520111267
+  m_SortingLayer: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 60de99c40155e0a42ad932e508fb3b15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -623,9 +623,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 520111267
+  m_SortingLayer: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 027be663cb7e3034fbcadc14ff3dce01, type: 3}
   m_Color: {r: 0.23137255, g: 1, b: 0, a: 0}
   m_FlipX: 0
@@ -705,9 +705,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: 520111267
+  m_SortingLayer: 1
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 027be663cb7e3034fbcadc14ff3dce01, type: 3}
   m_Color: {r: 0.23137255, g: 1, b: 0, a: 0}
   m_FlipX: 0
@@ -726,10 +726,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5626444566157196771}
     m_Modifications:
-    - target: {fileID: 1447489370254959714, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
-      propertyPath: useRigidbodyForVelocity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1764545433057483464, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -774,19 +770,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 135
       objectReference: {fileID: 0}
-    - target: {fileID: 4907021223775168262, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
-      propertyPath: useRigidbodyForVelocity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5370239777940276786, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
       propertyPath: m_Name
-      value: Flame
+      value: FlameFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5447221314589468901, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
+      propertyPath: m_Name
+      value: SmokeFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
 --- !u!4 &2380728075396232216 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1764545433057483464, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
+  m_PrefabInstance: {fileID: 4140751078338031312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3269724118245968562 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1447489370254959714, guid: 517e29a760067da4d9989b202c0983b0, type: 3}
   m_PrefabInstance: {fileID: 4140751078338031312}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6928766427635613500
@@ -842,44 +843,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4753082594252252295, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
       propertyPath: m_Name
-      value: Smoke
+      value: SmokeFX
       objectReference: {fileID: 0}
-    - target: {fileID: 6520152438532829327, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: m_SortingLayer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6520152438532829327, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: m_SortingOrder
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6520152438532829327, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874242841848761247, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: useRigidbodyForVelocity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874242841848761247, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: RotationModule.curve.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874242841848761247, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: RotationModule.x.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874242841848761247, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: RotationModule.y.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874242841848761247, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: RotationModule.curve.minMaxState
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6874242841848761247, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
-      propertyPath: UVModule.sprites.Array.data[0].sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 52116c3057d876d478099433e32b53fd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d315f3dd0138534785706c9a00c9630, type: 3}
 --- !u!4 &7955443958596298541 stripped
