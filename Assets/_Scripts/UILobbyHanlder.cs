@@ -6,30 +6,37 @@ using DG.Tweening;
 
 public class UILobbyHanlder : MonoBehaviour
 {
+    public static UILobbyHanlder Instance;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hoopContainer;
-    [SerializeField] private GameObject pausePanel;
-    [SerializeField] private GameObject pauseBtn;
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject secondChancePanel;
-    // [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject gamePlayPanel;
     [SerializeField] private CanvasGroup HUD;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject playerbtn;
+    [SerializeField] private GameObject challengeCanvas;
+    [SerializeField] private GameObject storeCanvas;
+    [SerializeField] private SfxUiToggle sfxUiToggle;
     private int animState = 1;
-    public void PlayTapSound()
+
+    private void Awake() 
     {
-        SoundManager.Instance.PlaySound(Sound.click);
+        if(Instance == null)
+        {
+            Instance = this;
+        }    
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Play()
     {
-        // lobbyPanel.GetComponent<RectTransform>().Translate(new Vector3(-8, 0, 0));
         HandleAnimState();
         hoopContainer.SetActive(true);
 
-        Debug.Log("Start game");
         secondChancePanel.SetActive(false);
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
@@ -49,24 +56,28 @@ public class UILobbyHanlder : MonoBehaviour
         SoundManager.Instance.PlaySound(Sound.whistle);
     }
 
-    public void Pause()
+    public void Challenge()
     {
-        Time.timeScale = 0;
-        pausePanel.SetActive(true);
-        pauseBtn.SetActive(false);
+        lobbyPanel.SetActive(false);
+        challengeCanvas.SetActive(true);
     }
 
-    public void Esc()
+    public void Store()
     {
-        Time.timeScale = 1;
-        pausePanel.SetActive(false);
-        pauseBtn.SetActive(true);
-        player.GetComponent<Player>().Jump();
+        lobbyPanel.SetActive(false);
+        storeCanvas.SetActive(true);
     }
 
     public void HandleAnimState()
     {
         animState = 1 - animState;
         playerbtn.GetComponent<Animator>().speed = animState;
+    }
+
+    public void ReturnToLobby()
+    {
+        storeCanvas.SetActive(false);
+        challengeCanvas.SetActive(false);
+        lobbyPanel.SetActive(true);
     }
 }

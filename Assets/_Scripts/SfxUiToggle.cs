@@ -11,12 +11,18 @@ public class SfxUiToggle : MonoBehaviour
     [SerializeField] private Sprite soundOff;
     [SerializeField] private Sprite vibrateOn;
     [SerializeField] private Sprite vibrateOff;
-    [SerializeField] private Image sound;
-    [SerializeField] private Image vibrate;
+    [SerializeField] private List<Image> sound;
+    [SerializeField] private List<Image> vibrate;
+    private Sprite soundImg, vibrateImg;
     private int soundState;
     private int vibrateState;
-
+    
     private void OnEnable() 
+    {
+        UpdateSFXUI();
+    }
+
+    public void UpdateSFXUI()
     {
         soundState = PlayerPrefs.GetInt(SOUND);
         vibrateState = PlayerPrefs.GetInt(VIBRATE);
@@ -24,6 +30,7 @@ public class SfxUiToggle : MonoBehaviour
         Debug.Log($"vibrateState: {vibrateState}");
         ChangeIcon();
     }
+
     public void SwitchSoundState()
     {
         soundState = 1 - soundState;
@@ -41,9 +48,20 @@ public class SfxUiToggle : MonoBehaviour
 
     private void ChangeIcon()
     {
-        if(soundState == 1) sound.sprite = soundOn;
-        else sound.sprite = soundOff;
-        if(vibrateState == 1) vibrate.sprite = vibrateOn;
-        else vibrate.sprite = vibrateOff;
+        if(soundState == 1) soundImg = soundOn;
+        else soundImg = soundOff;
+        if(vibrateState == 1) vibrateImg = vibrateOn;
+        else vibrateImg = vibrateOff;
+
+        for(int i = 0; i < sound.Count; i++)
+        {
+            sound[i].sprite = soundImg;
+            vibrate[i].sprite = vibrateImg;
+        }
+    }
+
+    public void PlayTapSound()
+    {
+        SoundManager.Instance.PlaySound(Sound.click);
     }
 }

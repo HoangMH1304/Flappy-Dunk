@@ -16,8 +16,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private GameObject lobbyUI;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject pauseBtn;
     [SerializeField] private SecondChance secondChancePanel;
-    [SerializeField] private UILobbyHanlder uILobbyHanlder;
+    [SerializeField] private SfxUiToggle sfxUiToggle;
 
     private void Awake() 
     {
@@ -91,6 +93,7 @@ public class UIController : MonoBehaviour
 
     public void SwitchToLobbyUI()
     {
+        sfxUiToggle.UpdateSFXUI();
         HoopManager.Instance.FadeAllHoops(0, 0.5f);
         gameoverUI.SetActive(false);
         secondChancePanel?.transform.DOMoveX(-5, 0.01f);  //0.01
@@ -98,7 +101,7 @@ public class UIController : MonoBehaviour
         player.SetActive(false);
         //Ease.InOutCubic
         lobbyUI.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
-        uILobbyHanlder.HandleAnimState();
+        UILobbyHanlder.Instance.HandleAnimState();
         GameController.Instance.FadeGameObject(0, 0.1f);
         GameManager.Instance.ChangeState(GameState.OnBegin);
 
@@ -107,7 +110,6 @@ public class UIController : MonoBehaviour
         //     GameManager.Instance.ChangeToEndlessMode();
         // });
         UpdateScoreUI();
-        // UI_Menu.Instance.UpdateScore(GameController.instance.Score);
     }
 
     public void ActiveReviveState()
@@ -115,5 +117,21 @@ public class UIController : MonoBehaviour
         GameController.Instance.ActiveReviveState();
         HoopManager.Instance.TurnOnCollider();
         secondChancePanel.gameObject.SetActive(false);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+        sfxUiToggle.UpdateSFXUI();
+        pauseBtn.SetActive(false);
+    }
+
+    public void Esc()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+        pauseBtn.SetActive(true);
+        player.GetComponent<Player>().Jump();
     }
 }
