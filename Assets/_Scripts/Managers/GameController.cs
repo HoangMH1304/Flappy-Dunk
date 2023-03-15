@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         } 
         highScore = PlayerPrefs.GetInt("HighScore");
         lastScore = PlayerPrefs.GetInt("LastScore");
@@ -72,7 +73,7 @@ public class GameController : MonoBehaviour
         else if(swish == 2) SoundManager.Instance.PlaySound(Sound.x3);
         else if(swish >= 3) SoundManager.Instance.PlaySound(Sound.x4);
         UIController.Instance.UpdateSwish(swish);
-        if(swish >= 2) CameraScript.Instance.Shake();
+        CameraFollow.Instance.Shake();
         Vibrate();
     }
 
@@ -90,7 +91,7 @@ public class GameController : MonoBehaviour
         swish = 0;
         HoopManager.Instance.InitialState();
         BackgroundMovement.Instance.InitialPosition();
-        CameraScript.Instance.Reset();
+        CameraFollow.Instance.Reset();
         FadeGameObject(1, 0.05f);    
 
     }
@@ -102,12 +103,16 @@ public class GameController : MonoBehaviour
         player.RestoreInitialState();
         player.transform.position = new Vector3(HoopManager.Instance.GetRevivePosition(), 0.315f, 0);
         // ball.GetComponent<Rigidbody2D>().drag = 0;
-        CameraScript.Instance.MoveToBall();
+        CameraFollow.Instance.MoveToBall();
     }
 
     public void Vibrate()
     {
-        if(PlayerPrefs.GetInt("Vibrate") == 1) MMVibrationManager.Haptic(HapticTypes.LightImpact,true);
+        if(PlayerPrefs.GetInt("Vibrate") == 1)
+        {
+            if(swish == 1) MMVibrationManager.Haptic(HapticTypes.LightImpact,true);
+            else if(swish > 1) MMVibrationManager.Haptic(HapticTypes.MediumImpact, true);
+        }
     }
 
     public void ActivePerfectForm()

@@ -7,6 +7,7 @@ public class SfxUiToggle : MonoBehaviour
 {
     private const string SOUND = "Sound";
     private const string VIBRATE = "Vibrate";
+    private const string FIRST_PLAY = "FirstPlay";
     [SerializeField] private Sprite soundOn;
     [SerializeField] private Sprite soundOff;
     [SerializeField] private Sprite vibrateOn;
@@ -24,6 +25,12 @@ public class SfxUiToggle : MonoBehaviour
 
     public void UpdateSFXUI()
     {
+        if(PlayerPrefs.GetInt(FIRST_PLAY) == 0)
+        {
+            PlayerPrefs.SetInt(FIRST_PLAY, 1);
+            PlayerPrefs.SetInt(SOUND, 1);
+            PlayerPrefs.SetInt(VIBRATE, 1);
+        }
         soundState = PlayerPrefs.GetInt(SOUND);
         vibrateState = PlayerPrefs.GetInt(VIBRATE);
         Debug.Log($"soundState: {soundState}");

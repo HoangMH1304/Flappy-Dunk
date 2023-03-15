@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UILobbyHanlder : MonoBehaviour
 {
     public static UILobbyHanlder Instance;
+    private const string FIRST_PLAY = "FirstPlay";
+
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hoopContainer;
     [SerializeField] private GameObject lobbyPanel;
+    [SerializeField] private CanvasGroup tutorialPanel;
     [SerializeField] private GameObject secondChancePanel;
-    [SerializeField] private GameObject gamePlayPanel;
-    [SerializeField] private CanvasGroup HUD;
+    [SerializeField] private CanvasGroup gameplayPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject playerbtn;
     [SerializeField] private GameObject challengeCanvas;
@@ -43,15 +46,22 @@ public class UILobbyHanlder : MonoBehaviour
 
         lobbyPanel.transform.DOKill();
         lobbyPanel.transform.DOMoveX(-7, 0.5f).SetUpdate(true);
-        gamePlayPanel.SetActive(true);
 
-        HUD.DOFade(0, 0).SetUpdate(true);
-        HUD.DOFade(1, 2).SetUpdate(true);
+        gameplayPanel.gameObject.SetActive(true);
+        gameplayPanel.DOFade(0, 0).SetUpdate(true);
+        gameplayPanel.DOFade(1, 2).SetUpdate(true);
 
         player.SetActive(true);
+
+        if(PlayerPrefs.GetInt(FIRST_PLAY) == 1)
+        {
+            PlayerPrefs.SetInt(FIRST_PLAY, 2);
+            tutorialPanel.gameObject.SetActive(true);
+            tutorialPanel.DOFade(0, 0).SetUpdate(true);
+            tutorialPanel.DOFade(1, 1).SetUpdate(true);
+        }
         GameController.Instance.Init();
         gameOverPanel.SetActive(false);
-
 
         SoundManager.Instance.PlaySound(Sound.whistle);
     }
@@ -79,5 +89,15 @@ public class UILobbyHanlder : MonoBehaviour
         storeCanvas.SetActive(false);
         challengeCanvas.SetActive(false);
         lobbyPanel.SetActive(true);
+    }
+
+    public void ToTestScene()
+    {
+        SceneManager.LoadScene(sceneBuildIndex: 1);
+    }
+
+    public void TurnOffTutorial()
+    {
+        tutorialPanel.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() => tutorialPanel.gameObject.SetActive(false));
     }
 }

@@ -7,13 +7,11 @@ public class HoopController : MonoBehaviour
     [SerializeField] private GameObject ring, axis, entireHoop;
     [SerializeField] private List<Collider2D> listCollider;
     [SerializeField] private List<SpriteRenderer> listEffectSR;
-    // [SerializeField] private SpriteRenderer frontHoopSR, backHoopSR, axisSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
-    private bool borderInteract, passOver, isMovable;
-
     [SerializeField] private float moveSpeed;
-
+    [SerializeField] private bool isMovable;
+    private bool borderInteract, passOver;
     public bool BorderInteract { get => borderInteract; set => borderInteract = value; }
     public bool PassOver { get => passOver; set => passOver = value; }
 
@@ -23,6 +21,7 @@ public class HoopController : MonoBehaviour
         passOver = false;
         this.transform.position = new Vector3(HoopManager.Instance.GetHorizontalPosition(), HoopManager.Instance.GetVerticalPosition(), 0);
         DeactiveColor();
+        // if(isMovable) axis.SetActive(true);
         GetTypeOfHoop();
         // auto arrange position when spawn
     }

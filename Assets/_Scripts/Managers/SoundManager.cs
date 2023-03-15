@@ -16,11 +16,24 @@ public enum Sound{
         x4,
         click
 }
-public class SoundManager : MonoSingleton<SoundManager>
+public class SoundManager : MonoBehaviour
 {
+    private const string SOUND = "Sound";
     [SerializeField] private SoundAudioClip[] soundAudioClips;
-    protected override void Awake() {
-        base.Awake();
+    public static SoundManager Instance;
+
+    private void Awake() 
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         foreach (SoundAudioClip s in soundAudioClips)
         {
             s.source = gameObject.AddComponent<AudioSource>();
@@ -35,7 +48,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         SoundAudioClip soundAudioClip = GetAudioClip(sound);
         if(soundAudioClip == null) return;
-        if(PlayerPrefs.GetInt("Sound") == 1) soundAudioClip.source.Play();
+        if(PlayerPrefs.GetInt(SOUND) == 1) soundAudioClip.source.Play();
     }
 
     public SoundAudioClip GetAudioClip(Sound sound)
