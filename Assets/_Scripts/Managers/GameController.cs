@@ -87,7 +87,7 @@ public class GameController : MonoBehaviour
     {
         ResetScore();
         player.RestoreInitialState();
-        GameManager.Instance.ChangeState(GameState.OnBegin);
+        GameManager.Instance.ChangePhase(GameState.OnBegin);
         swish = 0;
         HoopManager.Instance.InitialState(); //
         BackgroundMovement.Instance.InitialPosition();
@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour
 
     public void ActiveReviveState()
     {
-        GameManager.Instance.ChangeState(GameState.OnRevive);
+        GameManager.Instance.ChangePhase(GameState.OnRevive);
         swish = 0;
         player.RestoreInitialState();
         player.transform.position = new Vector3(HoopManager.Instance.GetRevivePosition(), 0.315f, 0);

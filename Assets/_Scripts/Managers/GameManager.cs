@@ -20,7 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
         Application.targetFrameRate = 60;
     }
 
-    public void ChangeState(GameState newState)
+    public void ChangePhase(GameState newState)
     {
         State = newState;
         switch (newState)
