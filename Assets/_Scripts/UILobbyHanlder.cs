@@ -18,17 +18,17 @@ public class UILobbyHanlder : MonoBehaviour
     [SerializeField] private CanvasGroup gameplayPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject playerbtn;
-    [SerializeField] private GameObject challengeCanvas;
-    [SerializeField] private GameObject storeCanvas;
+    [SerializeField] private CanvasGroup challengeCanvas;
+    [SerializeField] private CanvasGroup storeCanvas;
     [SerializeField] private SfxUiToggle sfxUiToggle;
     private int animState = 1;
 
-    private void Awake() 
+    private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
-        }    
+        }
         else
         {
             Destroy(gameObject);
@@ -38,14 +38,14 @@ public class UILobbyHanlder : MonoBehaviour
     public void Play()
     {
         HandleAnimState();
-        hoopContainer.SetActive(true);
+        hoopContainer.SetActive(true);  //for endless
 
         secondChancePanel.SetActive(false);
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
 
-        lobbyPanel.transform.DOKill();
-        lobbyPanel.transform.DOMoveX(-7, 0.5f).SetUpdate(true);
+        lobbyPanel.transform.DOKill();  //
+        lobbyPanel.transform.DOMoveY(10, 0.5f).SetUpdate(true); //
 
         gameplayPanel.gameObject.SetActive(true);
         gameplayPanel.DOFade(0, 0).SetUpdate(true);
@@ -53,7 +53,7 @@ public class UILobbyHanlder : MonoBehaviour
 
         player.SetActive(true);
 
-        if(PlayerPrefs.GetInt(FIRST_PLAY) == 1)
+        if (PlayerPrefs.GetInt(FIRST_PLAY) == 1)
         {
             PlayerPrefs.SetInt(FIRST_PLAY, 2);
             tutorialPanel.gameObject.SetActive(true);
@@ -61,21 +61,26 @@ public class UILobbyHanlder : MonoBehaviour
             tutorialPanel.DOFade(1, 1).SetUpdate(true);
         }
         GameController.Instance.Init();
-        gameOverPanel.SetActive(false);
 
         SoundManager.Instance.PlaySound(Sound.whistle);
     }
 
     public void Challenge()
     {
-        lobbyPanel.SetActive(false);
-        challengeCanvas.SetActive(true);
+        lobbyPanel.transform.DOKill();  //
+        lobbyPanel.transform.DOMoveY(10, 0.5f).SetUpdate(true);
+        challengeCanvas.gameObject.SetActive(true);
+        challengeCanvas.DOFade(0, 0).SetUpdate(true);
+        challengeCanvas.DOFade(1, 1f).SetUpdate(true);
     }
 
     public void Store()
     {
-        lobbyPanel.SetActive(false);
-        storeCanvas.SetActive(true);
+        lobbyPanel.transform.DOKill();  //
+        lobbyPanel.transform.DOMoveY(10, 0.5f).SetUpdate(true); //
+        storeCanvas.gameObject.SetActive(true);
+        storeCanvas.DOFade(0, 0).SetUpdate(true);
+        storeCanvas.DOFade(1, 1f).SetUpdate(true);
     }
 
     public void HandleAnimState()
@@ -86,9 +91,10 @@ public class UILobbyHanlder : MonoBehaviour
 
     public void ReturnToLobby()
     {
-        storeCanvas.SetActive(false);
-        challengeCanvas.SetActive(false);
-        lobbyPanel.SetActive(true);
+        storeCanvas.gameObject.SetActive(false);
+        challengeCanvas.gameObject.SetActive(false);
+        lobbyPanel.transform.DOKill();  //
+        lobbyPanel.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
     }
 
     public void ToTestScene()

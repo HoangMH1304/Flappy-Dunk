@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour
         player.RestoreInitialState();
         GameManager.Instance.ChangeState(GameState.OnBegin);
         swish = 0;
-        HoopManager.Instance.InitialState();
+        HoopManager.Instance.InitialState(); //
         BackgroundMovement.Instance.InitialPosition();
         CameraFollow.Instance.Reset();
         FadeGameObject(1, 0.05f);    
