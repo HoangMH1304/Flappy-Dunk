@@ -11,19 +11,24 @@ public class HoopController : MonoBehaviour
     [SerializeField] private List<Vector3> scales;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isMovable;
-    private bool borderInteract, passOver;
+    [SerializeField] private bool borderInteract, passOver;
     public bool BorderInteract { get => borderInteract; set => borderInteract = value; }
     public bool PassOver { get => passOver; set => passOver = value; }
 
-    private void OnEnable() 
+    private void OnEnable()
     {
-        borderInteract = false;
-        passOver = false;
+        InitState();
         this.transform.position = new Vector3(HoopManager.Instance.GetHorizontalPosition(), HoopManager.Instance.GetVerticalPosition(), 0);
         DeactiveColor();
         // if(isMovable) axis.SetActive(true);
         GetTypeOfHoop();
         // auto arrange position when spawn
+    }
+
+    public void InitState()
+    {
+        borderInteract = false;
+        passOver = false;
     }
 
     private void Update() 
@@ -42,10 +47,11 @@ public class HoopController : MonoBehaviour
         }
         );
         Fade(0, 1);
-        foreach(var collider in listCollider)
+        foreach (var collider in listCollider)
         {
             collider.enabled = false;
         }
+        // turn off collider of hole and back restrict range only
         HoopManager.Instance.GetReadyHoop().SetActive(true);
     }
 
@@ -77,9 +83,15 @@ public class HoopController : MonoBehaviour
     {
         if(fade) Fade(0.5f, 0.001f);
 
-        foreach(var collider in listCollider)
+        //foreach(var collider in listCollider)
+        //{
+        //    collider.enabled = false;
+        //}
+
+        //turn off collider of hole and restrict range only
+        for(int i = 2; i < listCollider.Count; i++)
         {
-            collider.enabled = false;
+            listCollider[i].enabled = false;
         }
     }
 

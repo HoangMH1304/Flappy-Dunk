@@ -89,6 +89,7 @@ public class HoopManager : MonoBehaviour
         {
             if(hoops[i].activeInHierarchy)
             {
+                hoops[i].GetComponent<HoopController>().InitState();
                 return hoops[i].transform.position.x - distance;
             }
         }
