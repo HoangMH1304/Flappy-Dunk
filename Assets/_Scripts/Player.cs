@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.CompareTag(CEIL))
         {
-            GameManager.Instance.ChangeState(GameState.OnDeath);
+            GameManager.Instance.ChangePhase(GameState.OnDeath);
             FallenWing(CEIL);
             DeactivatePerfectForm();
         }
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
                 DeactivatePerfectForm();
             }
             else SoundManager.Instance.PlaySound(Sound.bounce);
-            GameManager.Instance.ChangeState(GameState.OnDeath);
+            GameManager.Instance.ChangePhase(GameState.OnDeath);
         }
     }
 

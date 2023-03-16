@@ -74,7 +74,6 @@ public class UIController : MonoBehaviour
         gameoverUI.SetActive(true);
         gameplayUI.SetActive(false);
         SoundManager.Instance.PlaySound(Sound.wrong);
-        //pop up second chance or return lobby
         StartCoroutine(WaitForResultUI());
     }
 
@@ -103,7 +102,7 @@ public class UIController : MonoBehaviour
         lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
         UILobbyHanlder.Instance.HandleAnimState();
         GameController.Instance.FadeGameObject(0, 0.1f);
-        GameManager.Instance.ChangeState(GameState.OnBegin);
+        GameManager.Instance.ChangePhase(GameState.OnBegin);
 
         // menuPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true).OnComplete(() =>
         // {

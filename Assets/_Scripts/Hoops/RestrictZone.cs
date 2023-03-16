@@ -16,7 +16,7 @@ public class RestrictZone : MonoBehaviour
                 Debug.Log("Game over by extra collider");
                 // Debug.Break();
                 GameController.Instance.DeactivePerfectForm();
-                GameManager.Instance.ChangeState(GameState.OnDeath);
+                GameManager.Instance.ChangePhase(GameState.OnDeath);
             }
         }    
     }
