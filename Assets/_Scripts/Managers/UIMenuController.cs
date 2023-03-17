@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
-public class UILobbyHanlder : MonoBehaviour
+public class UIMenuController : MonoBehaviour
 {
-    public static UILobbyHanlder Instance;
+    public static UIMenuController Instance;
     private const string FIRST_PLAY = "FirstPlay";
 
     [SerializeField] private GameObject player;
@@ -18,6 +18,7 @@ public class UILobbyHanlder : MonoBehaviour
     [SerializeField] private CanvasGroup gameplayPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject playerbtn;
+    [SerializeField] private GameObject scoreText;
     [SerializeField] private CanvasGroup challengeCanvas;
     [SerializeField] private CanvasGroup storeCanvas;
     [SerializeField] private SfxUiToggle sfxUiToggle;
@@ -35,8 +36,9 @@ public class UILobbyHanlder : MonoBehaviour
         }
     }
 
-    public void Play()
+    public virtual void Play()
     {
+        GameManager.Instance.ChangeGameMode(GameMode.Endless);
         HandleAnimState();
         hoopContainer.SetActive(true);  //for endless
 
@@ -52,6 +54,7 @@ public class UILobbyHanlder : MonoBehaviour
         gameplayPanel.DOFade(1, 2).SetUpdate(true);
 
         player.SetActive(true);
+        scoreText.SetActive(true);
 
         if (PlayerPrefs.GetInt(FIRST_PLAY) == 1)
         {
@@ -65,10 +68,11 @@ public class UILobbyHanlder : MonoBehaviour
         SoundManager.Instance.PlaySound(Sound.whistle);
     }
 
+
     public void Challenge()
     {
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.transform.DOMoveY(10, 0.5f).SetUpdate(true);
+        lobbyPanel.transform.DOMoveX(-8, 0.5f).SetUpdate(true);
         challengeCanvas.gameObject.SetActive(true);
         challengeCanvas.DOFade(0, 0).SetUpdate(true);
         challengeCanvas.DOFade(1, 1f).SetUpdate(true);
@@ -77,7 +81,7 @@ public class UILobbyHanlder : MonoBehaviour
     public void Store()
     {
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.transform.DOMoveY(10, 0.5f).SetUpdate(true); //
+        lobbyPanel.transform.DOMoveX(-8, 0.5f).SetUpdate(true); //
         storeCanvas.gameObject.SetActive(true);
         storeCanvas.DOFade(0, 0).SetUpdate(true);
         storeCanvas.DOFade(1, 1f).SetUpdate(true);
@@ -94,7 +98,7 @@ public class UILobbyHanlder : MonoBehaviour
         storeCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+        lobbyPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
     }
 
     public void ToTestScene()

@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
     }
 
     private void Start() {
-        UIController.Instance.UpdateScoreUI();
+        UIIngameController.Instance.UpdateScoreUI();
     }
 
     public void IncreseScore()
@@ -55,13 +55,13 @@ public class GameController : MonoBehaviour
         else
         {
             score += (swish + 1);
-            UIController.Instance.UpdateSwish(swish + 1);
+            UIIngameController.Instance.UpdateSwish(swish + 1);
         }
         lastScore = score;
         if(score > highScore) highScore = score;
         PlayerPrefs.SetInt("HighScore", highScore);
         PlayerPrefs.SetInt("LastScore", lastScore);
-        UIController.Instance.UpdateScoreInGame(score);
+        UIIngameController.Instance.UpdateScoreInGame(score);
         SoundManager.Instance.PlaySound(Sound.pass);
     }
 
@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
         if(swish == 1) SoundManager.Instance.PlaySound(Sound.x2);
         else if(swish == 2) SoundManager.Instance.PlaySound(Sound.x3);
         else if(swish >= 3) SoundManager.Instance.PlaySound(Sound.x4);
-        UIController.Instance.UpdateSwish(swish);
+        UIIngameController.Instance.UpdateSwish(swish);
         CameraFollow.Instance.Shake();
         Vibrate();
     }
@@ -80,18 +80,28 @@ public class GameController : MonoBehaviour
     private void ResetScore()
     {
         score = 0;
-        UIController.Instance.UpdateScoreInGame(score);
+        UIIngameController.Instance.UpdateScoreInGame(score);
     }
 
     public void Init()
     {
+        GameManager.Instance.ChangePhase(GameState.OnBegin);
+        switch (GameManager.Instance.Mode)
+        {
+            case GameMode.Endless:
+                HoopManager.Instance.InitialInEndless();
+                break;
+            case GameMode.Challenge:
+                HoopManager.Instance.InitialInChallenge();
+                break;
+            default:
+                break;
+        }
         ResetScore();
         player.RestoreInitialState();
-        GameManager.Instance.ChangePhase(GameState.OnBegin);
         swish = 0;
-        HoopManager.Instance.InitialState(); //
         BackgroundMovement.Instance.InitialPosition();
-        CameraFollow.Instance.Reset();
+        CameraFollow.Instance.InitialCameraPosition();
         FadeGameObject(1, 0.05f);    
 
     }

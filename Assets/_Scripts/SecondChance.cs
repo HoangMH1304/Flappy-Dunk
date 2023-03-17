@@ -41,8 +41,7 @@ public class SecondChance : MonoBehaviour
     {
         if(_time <= 0.1)
         {
-            UIController.Instance.SwitchToLobbyUI();
-            Debug.Log("Second chance: times up");
+            UIIngameController.Instance.SwitchToMainMenu();
             return;
         }
         _time -= Time.deltaTime;  

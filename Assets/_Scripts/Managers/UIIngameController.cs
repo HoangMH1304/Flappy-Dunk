@@ -4,10 +4,11 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
 
-public class UIController : MonoBehaviour
+public class UIIngameController : MonoBehaviour
 {
-    public static UIController Instance;
+    public static UIIngameController Instance;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI lastScoreText;
@@ -15,9 +16,11 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject gameoverUI; 
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private GameObject lobbyUI;
+    [SerializeField] private GameObject challengeUI;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pauseBtn;
+    [SerializeField] private GameObject hoopContainer;
     [SerializeField] private SecondChance secondChancePanel;
     [SerializeField] private SfxUiToggle sfxUiToggle;
 
@@ -74,15 +77,17 @@ public class UIController : MonoBehaviour
         gameoverUI.SetActive(true);
         gameplayUI.SetActive(false);
         SoundManager.Instance.PlaySound(Sound.wrong);
+        Debug.Log("thua cmnr 2");
         StartCoroutine(WaitForResultUI());
     }
 
     IEnumerator WaitForResultUI()
     {
         yield return new WaitForSeconds(3f);
-        if(!GameManager.Instance.SecondChance) SecondChanceUIPopup();
-        else SwitchToLobbyUI();
+        if (!GameManager.Instance.SecondChance) SecondChanceUIPopup();
+        else SwitchToMainMenu();
     }
+
 
     private void SecondChanceUIPopup()
     {
@@ -90,7 +95,7 @@ public class UIController : MonoBehaviour
         secondChancePanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.InOutCubic).SetUpdate(true);
     }
 
-    public void SwitchToLobbyUI()
+    public void SwitchToMainMenu()
     {
         sfxUiToggle.UpdateSFXUI();
         HoopManager.Instance.FadeAllHoops(0, 0.5f);
@@ -98,17 +103,21 @@ public class UIController : MonoBehaviour
         secondChancePanel?.transform.DOMoveX(-5, 0.01f);  //0.01
         secondChancePanel?.gameObject.SetActive(false);
         player.SetActive(false);
+        hoopContainer.SetActive(false);
         //Ease.InOutCubic
-        lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
-        UILobbyHanlder.Instance.HandleAnimState();
+        if(GameManager.Instance.IsEndlessMode)
+        {
+            lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+            UpdateScoreUI();
+        }
+        else
+        {
+            challengeUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+            LevelSpawner.Instance.ExitLevelMode();
+        }
+        UIMenuController.Instance.HandleAnimState();
         GameController.Instance.FadeGameObject(0, 0.1f);
         GameManager.Instance.ChangePhase(GameState.OnBegin);
-
-        // menuPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true).OnComplete(() =>
-        // {
-        //     GameManager.Instance.ChangeToEndlessMode();
-        // });
-        UpdateScoreUI();
     }
 
     public void ActiveReviveState()
@@ -134,3 +143,4 @@ public class UIController : MonoBehaviour
         player.GetComponent<Player>().Jump();
     }
 }
+

@@ -45,12 +45,4 @@ public class InnerHoop : MonoBehaviour
             }
         }
     }
-
-    IEnumerator DisableHoop()
-    {
-        yield return new WaitForSeconds(0.3f);
-        hoopController.gameObject.SetActive(false);
-    }
 }
-
-

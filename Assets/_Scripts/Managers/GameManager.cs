@@ -5,19 +5,51 @@ public enum GameState
 {
     OnBegin,
     OnRevive,
-    OnDeath
+    OnDeath,
+    OnWin
 }
+
+public enum GameMode
+{
+    Endless,
+    Challenge
+}
+
 public class GameManager : MonoSingleton<GameManager>
 {
     public GameState State {get; private set;}
+    public GameMode Mode { get; private set;}
+    private bool isEndlessMode;
+    private bool isChallengeMode;
     private bool secondChance;
-    private bool playable = true;
+    private bool playable;
     public bool SecondChance { get => secondChance; set => secondChance = value; }
     public bool Playable { get => playable; set => playable = value; }
+    public bool IsEndlessMode { get => isEndlessMode; set => isEndlessMode = value; }
+    public bool IsChallengeMode { get => isChallengeMode; set => isChallengeMode = value; }
 
-    protected override void Awake() {
+    protected override void Awake() 
+    {
         base.Awake();
         Application.targetFrameRate = 60;
+    }
+
+    public void ChangeGameMode(GameMode newMode)
+    {
+        Mode = newMode;
+        switch(newMode)
+        {
+            case GameMode.Challenge:
+                isChallengeMode = true;
+                isEndlessMode = false;
+                return;
+            case GameMode.Endless:
+                isChallengeMode = false;
+                isEndlessMode = true;
+                return;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newMode), newMode, null);
+        }
     }
 
     public void ChangePhase(GameState newState)
@@ -37,6 +69,10 @@ public class GameManager : MonoSingleton<GameManager>
                 HandleOnDeathState();
                 Logger.Log(newState.ToString());
                 return;
+            case GameState.OnWin:
+                HandleOnWinState();
+                Logger.Log(newState.ToString());
+                return;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
@@ -54,14 +90,19 @@ public class GameManager : MonoSingleton<GameManager>
         {
             playable = false;
             HoopManager.Instance.TurnOffCollider();
-            UIController.Instance.DisplayOnDeathUI();
+            Debug.Log("thua cmnr");
+            UIIngameController.Instance.DisplayOnDeathUI();
         }
     }
 
-    //when click revive button
     private void HandleReviveState()
     {
         playable = true;
         secondChance = true;
+    }
+
+    private void HandleOnWinState()
+    {
+        playable = false;
     }
 }

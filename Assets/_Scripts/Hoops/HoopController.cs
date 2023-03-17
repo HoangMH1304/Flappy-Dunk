@@ -14,15 +14,27 @@ public class HoopController : MonoBehaviour
     [SerializeField] private bool borderInteract, passOver;
     public bool BorderInteract { get => borderInteract; set => borderInteract = value; }
     public bool PassOver { get => passOver; set => passOver = value; }
+    public bool IsMovable { get => isMovable; set => isMovable = value; }
 
     private void OnEnable()
     {
+        InitialSpecs();
+    }
+
+    public void InitialSpecs()
+    {
+        ring.transform.DOKill();
         InitState();
-        this.transform.position = new Vector3(HoopManager.Instance.GetHorizontalPosition(), HoopManager.Instance.GetVerticalPosition(), 0);
-        DeactiveColor();
-        // if(isMovable) axis.SetActive(true);
-        GetTypeOfHoop();
-        // auto arrange position when spawn
+        DeactiveState();
+        if (GameManager.Instance.IsEndlessMode)
+        {
+            transform.position = new Vector3(HoopManager.Instance.GetHorizontalPosition(), HoopManager.Instance.GetVerticalPosition(), 0);
+            GetTypeOfHoop();
+        }
+        else
+        {
+            if (isMovable) axis.SetActive(true);
+        }
     }
 
     public void InitState()
@@ -52,7 +64,7 @@ public class HoopController : MonoBehaviour
             collider.enabled = false;
         }
         // turn off collider of hole and back restrict range only
-        HoopManager.Instance.GetReadyHoop().SetActive(true);
+        HoopManager.Instance.GetReadyHoop()?.SetActive(true);
     }
 
     public void Fade(float endValue, float time)
@@ -70,7 +82,7 @@ public class HoopController : MonoBehaviour
         // axisSR.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true); ;
     }
 
-    public void ActiveColor(bool fade = true) //
+    public void ActiveState(bool fade = true) //
     {
         if(fade) Fade(1, 0.001f);
 
@@ -79,7 +91,7 @@ public class HoopController : MonoBehaviour
             collider.enabled = true;
         }
     }
-    public void DeactiveColor(bool fade = true) //
+    public void DeactiveState(bool fade = true) //
     {
         if(fade) Fade(0.5f, 0.001f);
 

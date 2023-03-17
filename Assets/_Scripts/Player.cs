@@ -20,9 +20,6 @@ public class Player : MonoBehaviour
     private Vector3 initialFrontWingTransform = new Vector3(-0.875f, 0.8f, 0);
     private Vector3 initialBackWingTransform = new Vector3(0.6f, 0.9f, 0);
 
-    // private void Awake() {
-    //     rb = GetComponent<Rigidbody2D>();
-    // }
 
     private void OnEnable() {
         if(rb == null) rb = GetComponent<Rigidbody2D>();

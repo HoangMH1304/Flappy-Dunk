@@ -6,79 +6,66 @@ using DG.Tweening;
 public class CameraFollow : MonoBehaviour
 {
     public static CameraFollow Instance;
-    [SerializeField] GameObject followObject;
-    [SerializeField] Animator shake;
-    [SerializeField] GameObject lobbyCanvas;
-    float smoothSpeed;
-    bool flag;
-    public bool isMovingToBall;
+    [SerializeField] private GameObject followObject;
+    [SerializeField] private Animator shake;
+    [SerializeField] private GameObject lobbyCanvas;
+    private float smoothSpeed;
+    private bool flashToBall, slowable;  //follow the ball when revive
     private void Awake()
     {
         Instance = this;
     }
     public void Shake()
     {
-        // shake.Play("Shake");
         shake.SetTrigger("Shake");
     }
     void Start()
     {
-        flag = false;
-        isMovingToBall = false;
+        slowable = false;
+        flashToBall = false;
     }
-    public void AssignFollowObject()
-    {
-        followObject = GameObject.FindGameObjectWithTag("Player");
-        Reset();
-    }
+    //public void AssignFollowObject()
+    //{
+    //    InitialCameraPosition();
+    //}
     public void MoveToBall()
     {
-        isMovingToBall = true;
+        flashToBall = true;
         transform.DOKill();
         transform.DOMoveX(followObject.transform.position.x + 1.5f, 0.5f).SetEase(Ease.OutQuad).SetUpdate(true).OnComplete(()=>
         {
-            isMovingToBall = false;
+            flashToBall = false;
         });
     }
-    public void Reset()
+    public void InitialCameraPosition()
     {
         transform.position = new Vector3(followObject.transform.position.x + 1.5f, transform.position.y, transform.position.z);
+        slowable = false;
         // lobbyCanvas.transform.position = new Vector3(followObject.transform.position.x + 1.5f, transform.position.y, transform.position.z);
-        flag = false;
     }
     void Update()
     {
-        if (isMovingToBall == false)
-            if (GetGameOverState() == false)
+        if (flashToBall) return;
+        if (GameManager.Instance.Playable)
+        {
+            transform.position = new Vector3(followObject.transform.position.x + 1.5f, transform.position.y, transform.position.z);
+            slowable = false;
+        }
+        else
+        {
+            if (slowable == false)
             {
-                transform.position = new Vector3(followObject.transform.position.x + 1.5f, transform.position.y, transform.position.z);
-                flag = false;
+                slowable = true;
+                smoothSpeed = followObject.GetComponent<Rigidbody2D>().velocity.x;
+                //if (GameManager.mode == GameMode.Challenge)
+                if (smoothSpeed > 1)
+                    smoothSpeed = 1.0f;
             }
-            else
+            if (smoothSpeed > 0)  //slowdown until stop
             {
-                if (flag == false)
-                {
-                    flag = true;
-                    smoothSpeed = followObject.GetComponent<Rigidbody2D>().velocity.x;
-                    //if (GameManager.mode == GameMode.Challenge)
-                    if (smoothSpeed > 1)
-                        smoothSpeed = 1.0f;
-                }
-                if (smoothSpeed > 0)
-                {
-                    transform.Translate(smoothSpeed * Time.deltaTime, 0, 0);
-                    smoothSpeed -= 0.005f;
-                }
+                transform.Translate(smoothSpeed * Time.deltaTime, 0, 0);
+                smoothSpeed -= 0.005f;
             }
-    }
-
-    private bool GetGameOverState()
-    {
-        return !GameManager.Instance.Playable;
-        // if (GameManager.mode == GameMode.Challenge)
-        // {
-        //     return ChallengeController.Instance.IsGameOver;
-        // }
-        // else return GameController.instance.IsGameOver;
+        }
     }
 }
