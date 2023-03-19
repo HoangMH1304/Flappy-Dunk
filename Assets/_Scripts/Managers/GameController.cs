@@ -85,6 +85,7 @@ public class GameController : MonoBehaviour
 
     public void Init()
     {
+        ResetScore();
         GameManager.Instance.ChangePhase(GameState.OnBegin);
         switch (GameManager.Instance.Mode)
         {
@@ -97,7 +98,6 @@ public class GameController : MonoBehaviour
             default:
                 break;
         }
-        ResetScore();
         player.RestoreInitialState();
         swish = 0;
         BackgroundMovement.Instance.InitialPosition();

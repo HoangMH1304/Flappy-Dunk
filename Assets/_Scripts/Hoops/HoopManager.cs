@@ -38,7 +38,7 @@ public class HoopManager : MonoBehaviour
         hoops.RemoveAt(0);
 
         hoops[0].SetActive(true);
-        //hoops[0].GetComponent<HoopController>().DeactiveColor();
+        // hoops[0].GetComponent<HoopController>().DeactiveColor();
         hoops[0].transform.position = new Vector3(1.5f + distance, GetVerticalPosition(), 0);
 
         hoops.Add(hoops[0]);
@@ -121,7 +121,8 @@ public class HoopManager : MonoBehaviour
                 return hoops[i].transform.position.x - distance;
             }
         }
-        return 0;
+        float revivePosX = FindObjectOfType<Goal>().transform.position.x - distance;
+        return revivePosX;
     }
     public void TurnOnCollider()
     {

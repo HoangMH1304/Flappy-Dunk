@@ -13,7 +13,6 @@ public class InnerHoop : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
             {
-                Debug.Log("Total");
                 if (!hoopController.BorderInteract)
                 {
                     GameController.Instance.IncreaseSwitch();

@@ -19,11 +19,12 @@ public class HoopController : MonoBehaviour
     private void OnEnable()
     {
         InitialSpecs();
+        Debug.Log("Enable hoop", gameObject);
     }
 
     public void InitialSpecs()
     {
-        ring.transform.DOKill();
+        ring.transform.DORewind();
         InitState();
         DeactiveState();
         if (GameManager.Instance.IsEndlessMode)
@@ -52,10 +53,10 @@ public class HoopController : MonoBehaviour
 
     public void PassPoint()
     {
-        isMovable = false;
         ring.transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 1f).OnComplete(() =>
         {
             gameObject.SetActive(false);
+            ring.transform.DOScale(new Vector3(1, 1, 1), 0).SetUpdate(true);
         }
         );
         Fade(0, 1);
@@ -94,12 +95,6 @@ public class HoopController : MonoBehaviour
     public void DeactiveState(bool fade = true) //
     {
         if(fade) Fade(0.5f, 0.001f);
-
-        //foreach(var collider in listCollider)
-        //{
-        //    collider.enabled = false;
-        //}
-
         //turn off collider of hole and restrict range only
         for(int i = 2; i < listCollider.Count; i++)
         {
@@ -107,8 +102,19 @@ public class HoopController : MonoBehaviour
         }
     }
 
+    private void TurnIntoNormalHoop()
+    {
+        isMovable = false;
+        ring.transform.localScale = scales[0];
+        entireHoop.transform.localRotation = rotations[0];
+        axis.SetActive(false);
+        Debug.Log("Turn into normal", gameObject);
+        Debug.Log($"Score: {GameController.Instance.Score}");
+    }
+
     private void GetTypeOfHoop()
     {
+        TurnIntoNormalHoop();
         int score = GameController.Instance.Score;
         if(score < 20)
         {

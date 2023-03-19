@@ -21,9 +21,14 @@ public class Goal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameManager.Instance.ChangePhase(GameState.OnWin);
-        reachGoal = true;
-        PlayEffect();
+        if (GameManager.Instance.Playable)
+        {
+            GameManager.Instance.ChangePhase(GameState.OnWin);
+            reachGoal = true;
+            player.DeactivatePerfectForm();
+            PlayEffect();
+            StartCoroutine(DelaySwitchToMainMenu(3.8f));
+        }
     }
 
     private void PlayEffect()
@@ -32,13 +37,13 @@ public class Goal : MonoBehaviour
         {
             effect.Play();
         }
-        //SoundManager.Instance.PlaySound(sou)
+        SoundManager.Instance.PlaySound(Sound.newBestScore);
     }
 
     private void Update()
     {
         if (!reachGoal || !jumpable) return;
-        if(player.transform.position.y < -1f)
+        if (player.transform.position.y < -1f)
         {
             jumpable = false;
             player.Jump();
@@ -50,5 +55,11 @@ public class Goal : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         jumpable = true;
+    }
+
+    IEnumerator DelaySwitchToMainMenu(float time)
+    {
+        yield return new WaitForSeconds(time);
+        UIIngameController.Instance.SwitchToMainMenu();
     }
 }

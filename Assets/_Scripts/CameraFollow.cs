@@ -64,7 +64,7 @@ public class CameraFollow : MonoBehaviour
             if (smoothSpeed > 0)  //slowdown until stop
             {
                 transform.Translate(smoothSpeed * Time.deltaTime, 0, 0);
-                smoothSpeed -= 0.005f;
+                smoothSpeed -= 0.01f;
             }
         }
     }

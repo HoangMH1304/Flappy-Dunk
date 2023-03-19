@@ -77,7 +77,6 @@ public class UIIngameController : MonoBehaviour
         gameoverUI.SetActive(true);
         gameplayUI.SetActive(false);
         SoundManager.Instance.PlaySound(Sound.wrong);
-        Debug.Log("thua cmnr 2");
         StartCoroutine(WaitForResultUI());
     }
 
@@ -100,6 +99,7 @@ public class UIIngameController : MonoBehaviour
         sfxUiToggle.UpdateSFXUI();
         HoopManager.Instance.FadeAllHoops(0, 0.5f);
         gameoverUI.SetActive(false);
+        gameplayUI.SetActive(false);
         secondChancePanel?.transform.DOMoveX(-5, 0.01f);  //0.01
         secondChancePanel?.gameObject.SetActive(false);
         player.SetActive(false);

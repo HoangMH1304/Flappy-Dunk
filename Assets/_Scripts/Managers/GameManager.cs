@@ -59,19 +59,19 @@ public class GameManager : MonoSingleton<GameManager>
         {
             case GameState.OnBegin:
                 HandleOnBeginState();
-                Logger.Log(newState.ToString());
+                // Logger.Log(newState.ToString());
                 return;
             case GameState.OnRevive:
                 HandleReviveState();
-                Logger.Log(newState.ToString());
+                // Logger.Log(newState.ToString());
                 return;
             case GameState.OnDeath:
                 HandleOnDeathState();
-                Logger.Log(newState.ToString());
+                // Logger.Log(newState.ToString());
                 return;
             case GameState.OnWin:
                 HandleOnWinState();
-                Logger.Log(newState.ToString());
+                // Logger.Log(newState.ToString());
                 return;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -90,7 +90,6 @@ public class GameManager : MonoSingleton<GameManager>
         {
             playable = false;
             HoopManager.Instance.TurnOffCollider();
-            Debug.Log("thua cmnr");
             UIIngameController.Instance.DisplayOnDeathUI();
         }
     }

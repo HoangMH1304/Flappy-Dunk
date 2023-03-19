@@ -35,6 +35,7 @@ public class LevelSpawner : MonoBehaviour
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
 
+
         challengePanel.transform.DOKill();  //
         challengePanel.transform.DOMoveY(15, 0.5f).SetUpdate(true); //
         level[0].SetActive(true);
@@ -65,4 +66,10 @@ public class LevelSpawner : MonoBehaviour
             _level.SetActive(false);
         }
     }
+
+    public void CheckBtn()
+    {
+        Debug.LogWarning("Clickable");
+    }
+
 }
