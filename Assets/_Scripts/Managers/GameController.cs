@@ -30,8 +30,6 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
             return;
         } 
-        highScore = PlayerPrefs.GetInt("HighScore");
-        lastScore = PlayerPrefs.GetInt("LastScore");
     }
 
     public void FadeGameObject(float endValue, float time)
@@ -44,23 +42,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Start() {
-        UIIngameController.Instance.UpdateScoreUI();
-    }
-
     public void IncreseScore()
     {
-        // CameraScript.Instance.Shake();
         if(swish == 0) score++;
         else
         {
             score += (swish + 1);
             UIIngameController.Instance.UpdateSwish(swish + 1);
         }
-        lastScore = score;
-        if(score > highScore) highScore = score;
-        PlayerPrefs.SetInt("HighScore", highScore);
-        PlayerPrefs.SetInt("LastScore", lastScore);
+        // lastScore = score;
+        // if(score > highScore) highScore = score;
+        // PlayerPrefs.SetInt("HighScore", highScore);
+        // PlayerPrefs.SetInt("LastScore", lastScore);
         UIIngameController.Instance.UpdateScoreInGame(score);
         SoundManager.Instance.PlaySound(Sound.pass);
     }

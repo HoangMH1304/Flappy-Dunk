@@ -4,24 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIMenuController : MonoBehaviour
 {
     public static UIMenuController Instance;
     private const string FIRST_PLAY = "FirstPlay";
-
+    private const string HIGH_SCORE = "HighScore";
+    private const string LAST_SCORE = "LastScore";
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject hoopContainer;
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private CanvasGroup tutorialPanel;
     [SerializeField] private GameObject secondChancePanel;
     [SerializeField] private CanvasGroup gameplayPanel;
-    [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject playerbtn;
     [SerializeField] private GameObject scoreText;
     [SerializeField] private CanvasGroup challengeCanvas;
     [SerializeField] private CanvasGroup storeCanvas;
-    [SerializeField] private SfxUiToggle sfxUiToggle;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+    [SerializeField] private TextMeshProUGUI lastScoreText;
+    [SerializeField] private GameObject newBestScoreEffect;
     private int animState = 1;
 
     private void Awake()
@@ -34,6 +37,13 @@ public class UIMenuController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start() 
+    {
+        int highScore = PlayerPrefs.GetInt(HIGH_SCORE);
+        int lastScore = PlayerPrefs.GetInt(LAST_SCORE);
+        DisplayScoreUI(highScore, lastScore);    
     }
 
     public virtual void Play()
@@ -71,6 +81,7 @@ public class UIMenuController : MonoBehaviour
 
     public void Challenge()
     {
+        HandleAnimState();
         lobbyPanel.transform.DOKill();  //
         lobbyPanel.transform.DOMoveX(-8, 0.5f).SetUpdate(true);
         challengeCanvas.gameObject.SetActive(true);
@@ -80,6 +91,7 @@ public class UIMenuController : MonoBehaviour
 
     public void Store()
     {
+        HandleAnimState();
         lobbyPanel.transform.DOKill();  //
         lobbyPanel.transform.DOMoveX(-8, 0.5f).SetUpdate(true); //
         storeCanvas.gameObject.SetActive(true);
@@ -95,10 +107,31 @@ public class UIMenuController : MonoBehaviour
 
     public void ReturnToLobby()
     {
+        HandleAnimState();
         storeCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
         lobbyPanel.transform.DOKill();  //
         lobbyPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+    }
+
+    public void UpdateScoreUI()
+    {
+        int highScore = PlayerPrefs.GetInt(HIGH_SCORE);
+        int lastScore = GameController.Instance.Score;
+        if (lastScore > highScore)
+        {
+            highScore = lastScore;
+            newBestScoreEffect.SetActive(true);
+            PlayerPrefs.SetInt(HIGH_SCORE, highScore);
+        }
+        PlayerPrefs.SetInt(LAST_SCORE, lastScore);
+        DisplayScoreUI(highScore, lastScore);
+    }
+
+    private void DisplayScoreUI(int highScore, int lastScore)
+    {
+        highScoreText.text = "<color=black>Best: </color>" + highScore.ToString();
+        lastScoreText.text = "Last: " + lastScore.ToString();
     }
 
     public void ToTestScene()

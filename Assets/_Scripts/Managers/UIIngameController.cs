@@ -10,10 +10,8 @@ public class UIIngameController : MonoBehaviour
 {
     public static UIIngameController Instance;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI highScoreText;
-    [SerializeField] private TextMeshProUGUI lastScoreText;
     [SerializeField] private TextMeshProUGUI swishText;
-    [SerializeField] private GameObject gameoverUI; 
+    [SerializeField] private GameObject gameoverUI;
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private GameObject lobbyUI;
     [SerializeField] private GameObject challengeUI;
@@ -23,31 +21,24 @@ public class UIIngameController : MonoBehaviour
     [SerializeField] private GameObject hoopContainer;
     [SerializeField] private SecondChance secondChancePanel;
     [SerializeField] private SfxUiToggle sfxUiToggle;
+    [SerializeField] private TextMeshProUGUI completeText;
 
-    private void Awake() 
+    private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
-        }   
+        }
         else
         {
             Destroy(gameObject);
-        } 
-    }
-
-    public void UpdateScoreUI()
-    {
-        int highScore = PlayerPrefs.GetInt("HighScore");
-        int lastScore = PlayerPrefs.GetInt("LastScore");
-        highScoreText.text = "<color=black>Best: </color>" + highScore.ToString();
-        lastScoreText.text = "Last: " + lastScore.ToString();
+        }
     }
 
     public void UpdateScoreInGame(int score)
     {
         scoreText.text = score.ToString();
-        scoreText.transform.DOScale(1.2f,0.1f).OnComplete(()=> { scoreText.transform.DOScale(1.0f, 0.1f).SetUpdate(true); }).SetUpdate(true);
+        scoreText.transform.DOScale(1.2f, 0.1f).OnComplete(() => { scoreText.transform.DOScale(1.0f, 0.1f).SetUpdate(true); }).SetUpdate(true);
     }
 
     public void UpdateSwish(int swish)
@@ -60,7 +51,7 @@ public class UIIngameController : MonoBehaviour
             swishText.DOColor(Color.green, 0.001f);
         else if (swish == 3)
             swishText.DOColor(Color.blue, 0.001f);
-            // swishText.DOColor(SpriteHolder.Instance.darkOrange, 0.001f);
+        // swishText.DOColor(SpriteHolder.Instance.darkOrange, 0.001f);
         else swishText.DOColor(Color.red, 0.001f);
         // else swishText.DOColor(SpriteHolder.Instance.darkRed, 0.001f);
 
@@ -100,22 +91,22 @@ public class UIIngameController : MonoBehaviour
         HoopManager.Instance.FadeAllHoops(0, 0.5f);
         gameoverUI.SetActive(false);
         gameplayUI.SetActive(false);
-        secondChancePanel?.transform.DOMoveX(-5, 0.01f);  //0.01
+        secondChancePanel?.transform.DOMoveX(-5, 0.01f);  
         secondChancePanel?.gameObject.SetActive(false);
         player.SetActive(false);
         hoopContainer.SetActive(false);
         //Ease.InOutCubic
-        if(GameManager.Instance.IsEndlessMode)
+        if (GameManager.Instance.IsEndlessMode)
         {
             lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
-            UpdateScoreUI();
+            UIMenuController.Instance.HandleAnimState();
+            UIMenuController.Instance.UpdateScoreUI();
         }
         else
         {
             challengeUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
             LevelSpawner.Instance.ExitLevelMode();
         }
-        UIMenuController.Instance.HandleAnimState();
         GameController.Instance.FadeGameObject(0, 0.1f);
         GameManager.Instance.ChangePhase(GameState.OnBegin);
     }
@@ -141,6 +132,17 @@ public class UIIngameController : MonoBehaviour
         pausePanel.SetActive(false);
         pauseBtn.SetActive(true);
         player.GetComponent<Player>().Jump();
+    }
+
+    public void ShowWinResult()
+    {
+        completeText.transform.DOMoveY(1.5f, 0.001f);
+        completeText.DOFade(1, 0.001f);
+        completeText.transform.DOMoveY(2.0f, 1f).SetEase(Ease.OutCubic).OnComplete(() =>
+        {
+            completeText.DOFade(0, 1f);
+        }
+        );
     }
 }
 
