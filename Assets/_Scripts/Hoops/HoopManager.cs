@@ -18,7 +18,11 @@ public class HoopManager : MonoBehaviour
         //{
         //    Destroy(gameObject);
         //}
+    }
+
+    private void OnEnable() {
         Instance = this;
+        
     }
 
 

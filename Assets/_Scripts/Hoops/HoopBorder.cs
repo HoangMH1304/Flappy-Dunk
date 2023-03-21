@@ -17,7 +17,6 @@ public class HoopBorder : MonoBehaviour
         if (other.relativeVelocity.magnitude > 2f)
         {
             Vector2 dir = new Vector2(0.5f, other.gameObject.GetComponent<Rigidbody2D>().velocity.y);
-            // Vector2 dir = new Vector2(0.3f * other.gameObject.GetComponent<Rigidbody2D>().velocity.x, other.gameObject.GetComponent<Rigidbody2D>().velocity.y);
             other.gameObject.GetComponent<Rigidbody2D>().velocity = dir;
         }
         if (other.relativeVelocity.magnitude > 1f)
