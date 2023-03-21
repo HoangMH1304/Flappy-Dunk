@@ -10,11 +10,16 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private GameObject challengeCanvas;
     [SerializeField] private GameObject challengePanel;
     [SerializeField] private List<GameObject> level;
-    [SerializeField] private GameObject player;
+    [SerializeField] private Player player;
     [SerializeField] private CanvasGroup tutorialPanel;
     [SerializeField] private GameObject secondChancePanel;
     [SerializeField] private CanvasGroup gameplayPanel;
     [SerializeField] private GameObject scoreText;
+    private Vector2 direction;
+
+    private void Start() {
+        direction = player.Direction;   
+    }
 
     private void Awake()
     {
@@ -27,7 +32,7 @@ public class LevelSpawner : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void SelectLevel()
+    public void SelectLevel(int index)
     {
         GameManager.Instance.ChangeGameMode(GameMode.Challenge);
 
@@ -38,13 +43,18 @@ public class LevelSpawner : MonoBehaviour
 
         challengePanel.transform.DOKill();  //
         challengePanel.transform.DOMoveY(15, 0.5f).SetUpdate(true); //
-        level[0].SetActive(true);
+        level[index].SetActive(true);
+
+        if(index == 2)
+        {
+            player.Direction = new Vector2(1.5f, 8);
+        }
 
         gameplayPanel.gameObject.SetActive(true);
         gameplayPanel.DOFade(0, 0).SetUpdate(true);
         gameplayPanel.DOFade(1, 2).SetUpdate(true);
 
-        player.SetActive(true);
+        player.gameObject.SetActive(true);
         scoreText.SetActive(false);
 
         if (PlayerPrefs.GetInt(FIRST_PLAY) == 1)
@@ -65,6 +75,7 @@ public class LevelSpawner : MonoBehaviour
         {
             _level.SetActive(false);
         }
+        player.Direction = direction;
     }
 
     public void CheckBtn()
