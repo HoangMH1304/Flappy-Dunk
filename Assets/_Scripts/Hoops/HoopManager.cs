@@ -91,7 +91,6 @@ public class HoopManager : MonoBehaviour
                 {
                     if (hoops[i].activeSelf)
                     {
-                        Debug.Log($"Active index: {i}");
                         hoops[i + 1].GetComponent<HoopController>().ActiveState();
                         return null;
                     }

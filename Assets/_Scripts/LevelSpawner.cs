@@ -16,6 +16,7 @@ public class LevelSpawner : MonoBehaviour
     [SerializeField] private CanvasGroup gameplayPanel;
     [SerializeField] private GameObject scoreText;
     private Vector2 direction;
+    public Level currentLevel;
 
     private void Start() {
         direction = player.Direction;   
@@ -32,10 +33,10 @@ public class LevelSpawner : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void SelectLevel(int index)
+    public void SelectLevel(Level _level)
     {
         GameManager.Instance.ChangeGameMode(GameMode.Challenge);
-
+        currentLevel = _level;
         secondChancePanel.SetActive(false);
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
@@ -43,9 +44,9 @@ public class LevelSpawner : MonoBehaviour
 
         challengePanel.transform.DOKill();  //
         challengePanel.transform.DOMoveY(15, 0.5f).SetUpdate(true); //
-        level[index].SetActive(true);
+        level[_level.levelID - 1].SetActive(true);
 
-        if(index == 2)
+        if(_level.levelID - 1 == 2)
         {
             player.Direction = new Vector2(1.5f, 8);
         }

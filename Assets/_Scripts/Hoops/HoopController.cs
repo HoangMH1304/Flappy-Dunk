@@ -122,7 +122,7 @@ public class HoopController : MonoBehaviour
             ring.transform.localScale = scales[1];
             entireHoop.transform.localRotation = rotations[0];
         }
-        else if(score <= 60)
+        else if(score <= 50)
         {
             isMovable = (Random.Range(1, 100) <= 30) ? true : false;  //30%
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 70) ? 1 : 0];

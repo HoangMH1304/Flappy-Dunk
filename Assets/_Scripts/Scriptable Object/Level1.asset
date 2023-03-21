@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb42941e380ad948967d6900ec2b581, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  level: 1
+  levelID: 1
   description: Pass all hoops
   levlePrefab: {fileID: 7188735802457163395, guid: 8e14e8cce32aa294ab620e8486db7804, type: 3}
+  isCompleted: 1

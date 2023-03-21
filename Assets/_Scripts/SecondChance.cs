@@ -14,7 +14,6 @@ public class SecondChance : MonoBehaviour
     private void OnEnable()
     {
         InitialState();
-        Logger.Log("Second chance");
         secondChanceBtn.transform.DOScale(new Vector3(1.1f, 1.1f, 1), 0.5f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             secondChanceBtn.transform.DOScale(new Vector3(1f, 1f, 1), 0.5f).SetEase(Ease.InOutSine);
