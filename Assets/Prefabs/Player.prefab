@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4449502362b8649b88841cca11cede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 1.5, y: 5}
+  direction: {x: 1.6, y: 5}
   speed: 1
   animator: {fileID: 448467943}
   frontWing: {fileID: 5626444566702336212}
