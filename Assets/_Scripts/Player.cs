@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private bool onGround = false;
     private Vector3 initialFrontWingTransform = new Vector3(-0.875f, 0.8f, 0);
     private Vector3 initialBackWingTransform = new Vector3(0.6f, 0.9f, 0);
-
+    public Vector2 Direction { get => direction; set => direction = value; }
 
     private void OnEnable() {
         if(rb == null) rb = GetComponent<Rigidbody2D>();

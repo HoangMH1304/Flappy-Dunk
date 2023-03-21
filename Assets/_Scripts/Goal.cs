@@ -8,9 +8,11 @@ public class Goal : MonoBehaviour
     [SerializeField] private ParticleSystem[] starFX;
     private bool reachGoal, jumpable;
 
-    private void Start()
+    private void OnEnable() 
     {
-        InitialSpecs();
+        Debug.Log("Enable goal");
+        reachGoal = false;
+        jumpable = true;
     }
 
     public void InitialSpecs()
@@ -24,6 +26,7 @@ public class Goal : MonoBehaviour
         if (GameManager.Instance.Playable)
         {
             GameManager.Instance.ChangePhase(GameState.OnWin);
+            UIIngameController.Instance.ShowWinResult();
             reachGoal = true;
             player.DeactivatePerfectForm();
             PlayEffect();
