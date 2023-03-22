@@ -99,6 +99,7 @@ public class UIIngameController : MonoBehaviour
         if (GameManager.Instance.IsEndlessMode)
         {
             lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+
             UIMenuController.Instance.HandleAnimState();
             UIMenuController.Instance.UpdateScoreUI();
         }

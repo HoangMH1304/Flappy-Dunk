@@ -6,18 +6,18 @@ using UnityEngine;
 [System.Serializable]
 public class Level : ScriptableObject
 {
-    public int levelID;
+    public int ID;
     public string description;
     public GameObject levlePrefab;
     public bool GetFinishState()
     {
-        return PlayerPrefs.GetInt("Level" + levelID) == 1 ? true : false;
+        return PlayerPrefs.GetInt("Level" + ID) == 1 ? true : false;
     }
 
     public void SetFinishState(bool state)
     {
         int result = state ? 1 : 0;
-        PlayerPrefs.SetInt("Level" + levelID, result);
+        PlayerPrefs.SetInt("Level" + ID, result);
     }
 
 

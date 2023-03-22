@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
 
     private void OnEnable() {
         if(rb == null) rb = GetComponent<Rigidbody2D>();
-        // Time.timeScale = 0;
     }
 
     private void Update()
@@ -31,7 +30,6 @@ public class Player : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetMouseButtonDown(0))
         && !IsMouseOverUI() && GameManager.Instance.Playable)
         {
-            Time.timeScale = 1;
             Jump();
             // rb.angularVelocity *= 0.7f;
         }
@@ -39,6 +37,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        Time.timeScale = 1;
         rb.velocity = direction * speed;
         animator.Play(FLAP, 0, 0);
         SoundManager.Instance.PlaySound(Sound.flap);
@@ -123,7 +122,7 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(-1.5f, 0.315f, 0);
         transform.rotation = new Quaternion(0, 0, 0, 0);
         rb.velocity = new Vector2(0, 0);
-        rb.angularDrag = 1;
+        rb.angularDrag = 1.5f;
         rb.angularVelocity = 0;
 
         //wing

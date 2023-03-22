@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour
         swish = 0;
         BackgroundMovement.Instance.InitialPosition();
         CameraFollow.Instance.InitialCameraPosition();
-        FadeGameObject(1, 0.05f);    
+        FadeGameObject(1, 0.5f);    
 
     }
 

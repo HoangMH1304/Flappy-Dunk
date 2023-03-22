@@ -17,12 +17,13 @@ public class DescriptionLevel : MonoBehaviour
     private void OnEnable()
     {
         InitStat();
+        scaleObject.DOScale(new Vector3(0, 0, 0), 0f);
         scaleObject.DOScale(new Vector3(1, 1, 1), 0.2f);
     }
 
     private void InitStat()
     {
-        string tittle = "CHALLENGE " + level.levelID.ToString();
+        string tittle = "CHALLENGE " + level.ID.ToString();
         string description = level.description.ToString();
         string confirm = !level.GetFinishState() ? "START" : "RETRY";
         SetContentOfLevel(tittle, description, confirm);

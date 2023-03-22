@@ -14,7 +14,7 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        levelIndexText.text = level.levelID.ToString();
+        levelIndexText.text = level.ID.ToString();
         ChangeLevelButtonState();
     }
 

@@ -44,9 +44,9 @@ public class LevelSpawner : MonoBehaviour
 
         challengePanel.transform.DOKill();  //
         challengePanel.transform.DOMoveY(15, 0.5f).SetUpdate(true); //
-        level[_level.levelID - 1].SetActive(true);
+        level[_level.ID - 1].SetActive(true);
 
-        if(_level.levelID - 1 == 2)
+        if(_level.ID - 1 == 2)
         {
             player.Direction = new Vector2(1.5f, 8);
         }

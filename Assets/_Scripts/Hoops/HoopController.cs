@@ -9,6 +9,7 @@ public class HoopController : MonoBehaviour
     [SerializeField] private List<SpriteRenderer> listEffectSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
+    [SerializeField] private Transform startPoint, endPoint;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isMovable;
     [SerializeField] private bool borderInteract, passOver;
@@ -36,6 +37,11 @@ public class HoopController : MonoBehaviour
         {
             if (isMovable) axis.SetActive(true);
         }
+    }
+
+    public Vector3 GetHoopDirection()
+    {
+        return endPoint.position - startPoint.position;
     }
 
     public void InitState()

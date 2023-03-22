@@ -57,7 +57,7 @@ public class UIMenuController : MonoBehaviour
         secondChancePanel.transform.DOMoveX(-7, 0f);
 
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.transform.DOMoveY(15, 0.5f).SetUpdate(true); //
+        lobbyPanel.transform.DOMoveY(15, 0f).SetUpdate(true); //
 
         gameplayPanel.gameObject.SetActive(true);
         gameplayPanel.DOFade(0, 0).SetUpdate(true);

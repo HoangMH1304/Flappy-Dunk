@@ -54,6 +54,4 @@ public class UIChallengeManager : MonoBehaviour
         processBarIngame.fillAmount = completedLevels / totalLevels;
         processBarLobby.fillAmount = completedLevels / totalLevels;
     }
-
-
 }
