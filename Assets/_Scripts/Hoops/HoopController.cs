@@ -12,10 +12,11 @@ public class HoopController : MonoBehaviour
     [SerializeField] private Transform startPoint, endPoint;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isMovable;
-    [SerializeField] private bool borderInteract, passOver;
+    [SerializeField] private bool borderInteract, passOver, isVerticalHoop;
     public bool BorderInteract { get => borderInteract; set => borderInteract = value; }
     public bool PassOver { get => passOver; set => passOver = value; }
     public bool IsMovable { get => isMovable; set => isMovable = value; }
+    public bool IsVerticalHoop { get => isVerticalHoop; set => isVerticalHoop = value; }
 
     private void OnEnable()
     {
@@ -122,13 +123,13 @@ public class HoopController : MonoBehaviour
     {
         TurnIntoNormalHoop();
         int score = GameController.Instance.Score;
-        if(score < 20)
+        if(score < 15)
         {
             isMovable = false;
             ring.transform.localScale = scales[1];
             entireHoop.transform.localRotation = rotations[0];
         }
-        else if(score <= 50)
+        else if(score <= 35)
         {
             isMovable = (Random.Range(1, 100) <= 30) ? true : false;  //30%
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 70) ? 1 : 0];
