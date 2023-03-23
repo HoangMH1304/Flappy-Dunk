@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26e5684e7e46034f90f782d03106414, type: 3}
   m_Name: Orange
   m_EditorClassIdentifier: 
-  ID: 3
-  color: {r: 0.1254902, g: 0.8509804, b: 0.15686275, a: 1}
+  id: 3
+  color: {r: 0.85882354, g: 0.47058824, b: 0.1254902, a: 1}
   condition: Achive 5 swishes in a row
-  type: 
+  type: 3

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26e5684e7e46034f90f782d03106414, type: 3}
   m_Name: Yellow
   m_EditorClassIdentifier: 
-  ID: 5
+  id: 5
   color: {r: 0.85882354, g: 0.827451, b: 0.1254902, a: 1}
   condition: Nap lan dau di nguoi choi
-  type: 
+  type: 3

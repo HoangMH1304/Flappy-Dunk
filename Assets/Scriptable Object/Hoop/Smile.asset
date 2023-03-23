@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5c89d23b7564c4bb0adc62e7abd17f, type: 3}
   m_Name: Smile
   m_EditorClassIdentifier: 
-  ID: 4
+  id: 4
   frontHoopSprite: {fileID: 21300000, guid: a6ba75d3b1f1dcd4ba42f0e3a3bb2ddf, type: 3}
   backHoopSprite: {fileID: 21300000, guid: ce916c50f0983064e81755e16231dd30, type: 3}
   starEffectSprite: {fileID: 21300000, guid: 556dc138f6142454cbde699a79906881, type: 3}
   condition: Complete 2 challenges
+  type: 2

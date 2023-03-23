@@ -6,7 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class Wing : ScriptableObject
 {
-    public int ID;
+    public int id;
     public Sprite sprite;
-    public string condition, type;
+    public string condition;
+    public Shop type;
 }

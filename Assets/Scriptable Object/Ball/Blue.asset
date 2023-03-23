@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 3
   sprite: {fileID: 21300000, guid: c65b9159f90edf94d861e8c0f9c97302, type: 3}
   condition: Pass total 30 hoops
-  type: Ball
+  type: 0

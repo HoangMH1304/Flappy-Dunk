@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e32ddc7acb67a488008963c854b725, type: 3}
   m_Name: Green
   m_EditorClassIdentifier: 
-  ID: 2
+  id: 2
   sprite: {fileID: 21300000, guid: ea5ceda48b2ead545bb5e124ae6db5e8, type: 3}
   condition: Pass total 10 hoops
-  type: Wing
+  type: 1

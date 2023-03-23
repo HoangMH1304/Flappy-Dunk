@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26e5684e7e46034f90f782d03106414, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 2
   color: {r: 0.13725491, g: 0.7176471, b: 0.84705883, a: 1}
-  condition: Default
-  type: 
+  condition: Pass total 5 hoops
+  type: 3

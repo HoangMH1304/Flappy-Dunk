@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff93703532ec30048a2c24246c72f483, type: 3}
   m_Name: Pizza
   m_EditorClassIdentifier: 
-  id: 0
+  id: 7
   sprite: {fileID: 21300000, guid: 803ab21d3fe5a104ba434208fd220da2, type: 3}
   condition: Collect total 10 skins
-  type: Ball
+  type: 0

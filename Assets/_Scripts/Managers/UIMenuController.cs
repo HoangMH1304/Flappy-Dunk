@@ -83,20 +83,20 @@ public class UIMenuController : MonoBehaviour
     {
         HandleAnimState();
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.transform.DOMoveX(-8, 0.5f).SetUpdate(true);
+        lobbyPanel.transform.DOMoveX(-8, 0f).SetUpdate(true);
         challengeCanvas.gameObject.SetActive(true);
         challengeCanvas.DOFade(0, 0).SetUpdate(true);
-        challengeCanvas.DOFade(1, 1f).SetUpdate(true);
+        challengeCanvas.DOFade(1, 0.5f).SetUpdate(true);
     }
 
     public void Store()
     {
         HandleAnimState();
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.transform.DOMoveX(-8, 0.5f).SetUpdate(true); //
+        lobbyPanel.transform.DOMoveX(-8, 0f).SetUpdate(true); //
         storeCanvas.gameObject.SetActive(true);
         storeCanvas.DOFade(0, 0).SetUpdate(true);
-        storeCanvas.DOFade(1, 1f).SetUpdate(true);
+        storeCanvas.DOFade(1, 0.5f).SetUpdate(true);
     }
 
     public void HandleAnimState()

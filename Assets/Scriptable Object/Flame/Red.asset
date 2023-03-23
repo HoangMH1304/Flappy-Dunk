@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26e5684e7e46034f90f782d03106414, type: 3}
   m_Name: Red
   m_EditorClassIdentifier: 
-  ID: 1
+  id: 1
   color: {r: 1, g: 0, b: 0, a: 1}
   condition: Play total 5 endless games
-  type: 
+  type: 3

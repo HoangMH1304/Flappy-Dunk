@@ -6,7 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class Flame : ScriptableObject
 {
-    public int ID;
+    public int id;
     public Color color;
-    public string condition, type;
+    public string condition;
+    public Shop type;
 }

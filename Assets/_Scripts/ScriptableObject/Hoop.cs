@@ -6,7 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class Hoop : ScriptableObject
 {
-    public int ID;
+    public int id;
     public Sprite frontHoopSprite, backHoopSprite, starEffectSprite;
     public string condition;
+    public Shop type;
 }

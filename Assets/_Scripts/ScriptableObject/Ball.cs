@@ -7,5 +7,6 @@ public class Ball : ScriptableObject
 {
     public int id;
     public Sprite sprite;
-    public string condition, type;
+    public string condition;
+    public Shop type;
 }

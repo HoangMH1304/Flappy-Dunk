@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de5c89d23b7564c4bb0adc62e7abd17f, type: 3}
   m_Name: White
   m_EditorClassIdentifier: 
-  ID: 2
+  id: 2
   frontHoopSprite: {fileID: 21300000, guid: 607f0311ff024c24db4b38989ff167fb, type: 3}
   backHoopSprite: {fileID: 21300000, guid: f6060743163438b479f3ec87edb62e92, type: 3}
   starEffectSprite: {fileID: 21300000, guid: 1cad3839ff493bf4c9f18febeeacc900, type: 3}
   condition: Active second chance 6 times
+  type: 2

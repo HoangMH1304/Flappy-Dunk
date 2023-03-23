@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e32ddc7acb67a488008963c854b725, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: 
-  ID: 1
+  id: 1
   sprite: {fileID: 21300000, guid: 7a006da850a71d1439694cc6915705bd, type: 3}
   condition: Pass total 5 hoops
-  type: Wing
+  type: 1

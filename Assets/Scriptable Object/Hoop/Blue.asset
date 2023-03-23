@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de5c89d23b7564c4bb0adc62e7abd17f, type: 3}
-  m_Name: Cyan
+  m_Name: Blue
   m_EditorClassIdentifier: 
   ID: 0
   frontHoopSprite: {fileID: 21300000, guid: afc4b180962c9064f96284624709a669, type: 3}
   backHoopSprite: {fileID: 21300000, guid: 71cfdb8e26313aa488067c4edcbd10ee, type: 3}
   starEffectSprite: {fileID: 21300000, guid: c4ad214a7c9760e4d9f67323fbf4cf8b, type: 3}
   condition: Default
+  type: 2
