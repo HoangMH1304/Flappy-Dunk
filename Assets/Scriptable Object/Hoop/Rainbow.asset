@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5c89d23b7564c4bb0adc62e7abd17f, type: 3}
+  m_Name: Rainbow
+  m_EditorClassIdentifier: 
+  ID: 3
+  frontHoopSprite: {fileID: 21300000, guid: ee9067109b2be514f95d70ca4a5da61b, type: 3}
+  backHoopSprite: {fileID: 21300000, guid: 498c7185674c2a144bd5e72b8d8158bc, type: 3}
+  starEffectSprite: {fileID: 21300000, guid: 706dc18576453c349a19d37d94bed5d1, type: 3}
+  condition: Complete 1 challenge

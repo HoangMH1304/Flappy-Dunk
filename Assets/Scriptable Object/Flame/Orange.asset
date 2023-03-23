@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb42941e380ad948967d6900ec2b581, type: 3}
-  m_Name: Level2
+  m_Script: {fileID: 11500000, guid: c26e5684e7e46034f90f782d03106414, type: 3}
+  m_Name: Orange
   m_EditorClassIdentifier: 
-  levelID: 2
-  description: Face the hoops!
-  levlePrefab: {fileID: 7188735802457163395, guid: 30a1a3f95baf75746ad6faec96cb1b31, type: 3}
-  isCompleted: 0
+  ID: 3
+  color: {r: 0.1254902, g: 0.8509804, b: 0.15686275, a: 1}
+  condition: Achive 5 swishes in a row
+  type: 
