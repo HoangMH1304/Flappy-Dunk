@@ -14,10 +14,10 @@ public class ShopController : MonoBehaviour
 {
     public static ShopController Instance;
 
-    [SerializeField] private Ball[] balls;
-    [SerializeField] private Wing[] wings;
-    [SerializeField] private Hoop[] hoops;
-    [SerializeField] private Flame[] flames;
+    [SerializeField] public Ball[] balls;
+    [SerializeField] public Wing[] wings;
+    [SerializeField] public Hoop[] hoops;
+    [SerializeField] public Flame[] flames;
 
     [SerializeField] private Transform ballContent, wingContent, hoopContent, flameContent;
     private int totalItems;
@@ -39,12 +39,13 @@ public class ShopController : MonoBehaviour
         //process bar of shop
     }
 
-    public void DeactivateMarkIcon(Shop type)
+    public void DeactivateMarkIcon(Shop type, int id)
     {
         switch (type)
         {
             case Shop.Ball:
-                ballContent.GetChild(type.id).GetChild(2).gameObject.SetActive(false);
+                ballContent.GetChild(id).GetChild(2).gameObject.SetActive(false);
+                Debug.Log($"name: {ballContent.GetChild(id).GetChild(2).gameObject}");
                 break;
             case Shop.Wing:
                 wingContent.GetChild(id).GetChild(2).gameObject.SetActive(false);

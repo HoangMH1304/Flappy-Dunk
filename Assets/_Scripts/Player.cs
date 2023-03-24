@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector2 direction;
     [SerializeField] private float speed;
     [SerializeField] private Animator animator;
-    [SerializeField] private GameObject frontWing, backWing, perfectForm;
+    [SerializeField] private GameObject ball, frontWing, backWing, perfectForm;
     [SerializeField] private SpriteRenderer blackBall, blackFrontWing, blackBackWing;
     [SerializeField] private ParticleSystem smoke, flame;
     private Rigidbody2D rb;
@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     private Vector3 initialFrontWingTransform = new Vector3(-0.875f, 0.8f, 0);
     private Vector3 initialBackWingTransform = new Vector3(0.6f, 0.9f, 0);
     public Vector2 Direction { get => direction; set => direction = value; }
+
+    private void Awake() 
+    {
+        this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());    
+    }
 
     private void OnEnable() {
         if(rb == null) rb = GetComponent<Rigidbody2D>();
@@ -41,6 +46,14 @@ public class Player : MonoBehaviour
         rb.velocity = direction * speed;
         animator.Play(FLAP, 0, 0);
         SoundManager.Instance.PlaySound(Sound.flap);
+    }
+
+    public void OnChangeSkin()
+    {
+        Debug.Log("Change character skin");
+        ball.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.balls[PlayerPrefs.GetInt("BallIdSelected")].sprite;
+        frontWing.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.wings[PlayerPrefs.GetInt("WingIdSelected")].sprite;
+        backWing.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.wings[PlayerPrefs.GetInt("WingIdSelected")].sprite;
     }
 
     private void FallenWing(string tag)

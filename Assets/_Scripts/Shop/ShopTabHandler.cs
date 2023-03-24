@@ -16,7 +16,7 @@ public class ShopTabHandler : MonoBehaviour
         hoops,
         flames
     }
-    private void Start()
+    private void OnEnable()
     {
         OnClickBallsTab();
     }
