@@ -161,7 +161,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 400, y: 0}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 250, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96078
 MonoBehaviour:
@@ -1621,7 +1621,7 @@ GameObject:
   - component: {fileID: 215352378}
   - component: {fileID: 215352381}
   m_Layer: 5
-  m_Name: Demo
+  m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1693,7 +1693,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 215352379}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1548731575}
+        m_TargetAssemblyTypeName: SfxUiToggle, Assembly-CSharp
+        m_MethodName: PlayTapSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 215352381}
+        m_TargetAssemblyTypeName: BallDisplay, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &215352379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1747,6 +1771,9 @@ MonoBehaviour:
   ballSprite: {fileID: 1743352665}
   mark: {fileID: 763765356}
   lockOverlay: {fileID: 364742031}
+  hintPanel: {fileID: 1076392631}
+  previewImage: {fileID: 552006077}
+  condition: {fileID: 234913540}
 --- !u!1 &226059747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,10 +1932,10 @@ RectTransform:
   m_Father: {fileID: 1729613417}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -150}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234913540
 MonoBehaviour:
@@ -1957,8 +1984,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2808,7 +2835,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 130, y: 0}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 250, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &299970990
 MonoBehaviour:
@@ -3963,7 +3990,7 @@ GameObject:
   - component: {fileID: 427877480}
   - component: {fileID: 427877479}
   m_Layer: 5
-  m_Name: Demo
+  m_Name: Hoop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4009,6 +4036,10 @@ MonoBehaviour:
   backHoopSprite: {fileID: 1804208282}
   mark: {fileID: 784918281}
   lockOverlay: {fileID: 512482803}
+  hintPanel: {fileID: 1076392631}
+  previewFrontHoop: {fileID: 265113423}
+  previewBackHoop: {fileID: 1934185042}
+  condition: {fileID: 234913540}
 --- !u!114 &427877480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4052,7 +4083,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 427877481}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1548731575}
+        m_TargetAssemblyTypeName: SfxUiToggle, Assembly-CSharp
+        m_MethodName: PlayTapSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 427877479}
+        m_TargetAssemblyTypeName: HoopDisplay, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &427877481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4150,6 +4205,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5626444566157196796, guid: a475860e990b7d64aa7984a47b8350ef, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 448467942}
     - target: {fileID: 5876606895727495469, guid: a475860e990b7d64aa7984a47b8350ef, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4655,7 +4714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &476284526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4762,7 +4821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &478564284
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4781,7 +4840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 220}
   m_SizeDelta: {x: 116, y: 133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &478564285
@@ -5797,7 +5856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 220}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &552006077
@@ -8910,7 +8969,7 @@ GameObject:
   - component: {fileID: 889954818}
   - component: {fileID: 889954821}
   m_Layer: 5
-  m_Name: Demo
+  m_Name: Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8982,7 +9041,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 889954819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1548731575}
+        m_TargetAssemblyTypeName: SfxUiToggle, Assembly-CSharp
+        m_MethodName: PlayTapSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 889954821}
+        m_TargetAssemblyTypeName: WingDisplay, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &889954819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9036,6 +9119,9 @@ MonoBehaviour:
   wingSprite: {fileID: 562537527}
   mark: {fileID: 1138574443}
   lockOverlay: {fileID: 675677770}
+  hintPanel: {fileID: 1076392631}
+  previewImage: {fileID: 1236957344}
+  condition: {fileID: 234913540}
 --- !u!1 &912277307
 GameObject:
   m_ObjectHideFlags: 0
@@ -9074,7 +9160,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -400, y: 0}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 250, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &912277309
 MonoBehaviour:
@@ -9812,8 +9898,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 100, y: 30}
-  m_SizeDelta: {x: 160, y: 60}
+  m_AnchoredPosition: {x: 140, y: 30}
+  m_SizeDelta: {x: 250, y: 80}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &963830674
 MonoBehaviour:
@@ -10274,7 +10360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1054913249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10291,7 +10377,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 220}
   m_SizeDelta: {x: 227, y: 220}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054913250
@@ -10581,13 +10667,14 @@ GameObject:
   - component: {fileID: 1076392632}
   - component: {fileID: 1076392634}
   - component: {fileID: 1076392633}
+  - component: {fileID: 1076392635}
   m_Layer: 5
   m_Name: HintPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1076392632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10646,6 +10733,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076392631}
   m_CullTransparentMesh: 1
+--- !u!114 &1076392635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076392631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200e8f6b1b52ad744ad5f6e43cd93723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previewImages:
+  - {fileID: 552006075}
+  - {fileID: 1236957342}
+  - {fileID: 478564283}
+  - {fileID: 1054913248}
 --- !u!1 &1085118390
 GameObject:
   m_ObjectHideFlags: 0
@@ -10683,7 +10787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -420}
+  m_AnchoredPosition: {x: 0, y: -430}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1085118392
@@ -11734,7 +11838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1236957343
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11751,7 +11855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 220}
   m_SizeDelta: {x: 116, y: 133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1236957344
@@ -13999,7 +14103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1533853369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15574,7 +15678,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -130, y: 0}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 250, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1696009657
 MonoBehaviour:
@@ -15968,7 +16072,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 480, y: 800}
+  m_SizeDelta: {x: 600, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729613418
 MonoBehaviour:
@@ -17032,7 +17136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1843622356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18438,8 +18542,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -100, y: 30}
-  m_SizeDelta: {x: 160, y: 60}
+  m_AnchoredPosition: {x: -140, y: 30}
+  m_SizeDelta: {x: 250, y: 80}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1964759198
 MonoBehaviour:
@@ -18484,7 +18588,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1964759199}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1076392635}
+        m_TargetAssemblyTypeName: HintPanel, Assembly-CSharp
+        m_MethodName: TurnOffHintPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1548731575}
+        m_TargetAssemblyTypeName: SfxUiToggle, Assembly-CSharp
+        m_MethodName: PlayTapSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1964759199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18607,8 +18735,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 44
+  m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -18977,7 +19105,7 @@ GameObject:
   - component: {fileID: 2038808970}
   - component: {fileID: 2038808973}
   m_Layer: 5
-  m_Name: Demo
+  m_Name: Flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19049,7 +19177,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2038808971}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1548731575}
+        m_TargetAssemblyTypeName: SfxUiToggle, Assembly-CSharp
+        m_MethodName: PlayTapSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2038808973}
+        m_TargetAssemblyTypeName: FlameDisplay, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2038808971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19103,6 +19255,9 @@ MonoBehaviour:
   flameSprite: {fileID: 1851086031}
   mark: {fileID: 1827665146}
   lockOverlay: {fileID: 1619241131}
+  hintPanel: {fileID: 1076392631}
+  previewImage: {fileID: 1054913250}
+  condition: {fileID: 234913540}
 --- !u!1 &2046056258
 GameObject:
   m_ObjectHideFlags: 0
@@ -19727,6 +19882,7 @@ GameObject:
   - component: {fileID: 2134799228}
   - component: {fileID: 2134799227}
   - component: {fileID: 2134799226}
+  - component: {fileID: 2134799229}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -19861,6 +20017,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134799224}
   m_CullTransparentMesh: 1
+--- !u!114 &2134799229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134799224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200b9c2725501b14c87733980c0851ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ball: {fileID: 1646273931}
+  frontWing: {fileID: 36191670}
+  backWing: {fileID: 1869336193}
 --- !u!1 &2143397140
 GameObject:
   m_ObjectHideFlags: 0
