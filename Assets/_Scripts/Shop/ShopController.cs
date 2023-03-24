@@ -20,14 +20,30 @@ public class ShopController : MonoBehaviour
     [SerializeField] public Flame[] flames;
 
     [SerializeField] private Transform ballContent, wingContent, hoopContent, flameContent;
+    
     private int totalItems;
+    private int totalUnlockItems = 0, ball = 0, wing = 0, hoop = 0, flame = 0;
 
     public int TotalItems { get => totalItems; set => totalItems = value; }
+    public int TotalUnlockItems { get => totalUnlockItems; set => totalUnlockItems = value; }
 
     private void Awake()
     {
         Instance = this;
         totalItems = balls.Length + wings.Length + hoops.Length + flames.Length;
+
+        for(int i = 0; i < balls.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Ball" + i);
+        Debug.Log($"Ball: {ball}");
+        for(int i = 0; i < wings.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Wing" + i);
+        Debug.Log($"Wing: {wing}");
+
+        for(int i = 0; i < hoops.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Hoop" + i);
+        Debug.Log($"Hoop: {hoop}");
+
+        for(int i = 0; i < flames.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Flame" + i);
+        Debug.Log($"Flame: {flame}");
+
+
     }
 
     private void Start()
@@ -38,6 +54,7 @@ public class ShopController : MonoBehaviour
         InitFlameItems();
         this.PostEvent(EventID.OnChangeSkin);
         //process bar of shop
+        Debug.Log($"total unlock items: {totalUnlockItems}/{totalItems}");
     }
 
     public void DeactivateMarkIcon(Shop type, int id)

@@ -28,10 +28,10 @@ public class LevelSpawner : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
     }
     public void SelectLevel(Level _level)
     {

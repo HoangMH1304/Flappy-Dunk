@@ -28,7 +28,7 @@ public class Goal : MonoBehaviour
             GameManager.Instance.ChangePhase(GameState.OnWin);
             LevelSpawner.Instance.currentLevel.SetFinishState(true);  //cong them 1 level da complete
             UIIngameController.Instance.ShowWinResult();
-            UIChallengeManager.Instance.UpdateProcess();
+            UIChallengeController.Instance.UpdateProcess();
             reachGoal = true;
             player.DeactivatePerfectForm();
             PlayEffect();

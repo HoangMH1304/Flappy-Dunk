@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIChallengeManager : MonoBehaviour
+public class UIChallengeController : MonoBehaviour
 {
-    public static UIChallengeManager Instance;
+    public static UIChallengeController Instance;
     [SerializeField] private Transform levelContainer;
     [SerializeField] private TextMeshProUGUI processText;
     [SerializeField] private Image processBarIngame;
@@ -20,10 +20,6 @@ public class UIChallengeManager : MonoBehaviour
         {
             Instance = this;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void Start()
@@ -35,6 +31,8 @@ public class UIChallengeManager : MonoBehaviour
         processBarIngame.fillAmount = totalCompletedLevel / totalLevels;
         processBarLobby.fillAmount = totalCompletedLevel / totalLevels;
     }
+
+    
 
     public void UpdateProcess()
     {
