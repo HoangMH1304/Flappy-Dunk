@@ -661,7 +661,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070380034778666140}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.09, z: 0}
   m_LocalScale: {x: 0.28, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 5797184773658684211}
@@ -804,7 +804,7 @@ MonoBehaviour:
   - {fileID: 7070380034527628003}
   - {fileID: 7070380034033197104}
   - {fileID: 1610647448374608005}
-  listEffectSR:
+  listSR:
   - {fileID: 7070380034778666146}
   - {fileID: 7070380034527627996}
   - {fileID: 6638457944054707237}
@@ -824,6 +824,7 @@ MonoBehaviour:
   isMovable: 0
   borderInteract: 0
   passOver: 0
+  isVerticalHoop: 0
 --- !u!1001 &901444834107208261
 PrefabInstance:
   m_ObjectHideFlags: 0

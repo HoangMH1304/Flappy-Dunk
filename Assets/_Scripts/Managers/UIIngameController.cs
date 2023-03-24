@@ -48,11 +48,11 @@ public class UIIngameController : MonoBehaviour
         swishText.transform.DOMoveY(1.5f, 0.001f);
         swishText.DOFade(1f, 0.001f);
         if (swish <= 2)
-            swishText.DOColor(Color.green, 0.001f);
+            swishText.DOColor(ColorContainer.Instance.green, 0.001f);
         else if (swish == 3)
-            swishText.DOColor(Color.blue, 0.001f);
+            swishText.DOColor(ColorContainer.Instance.darkOrange, 0.001f);
         // swishText.DOColor(SpriteHolder.Instance.darkOrange, 0.001f);
-        else swishText.DOColor(Color.red, 0.001f);
+        else swishText.DOColor(ColorContainer.Instance.darkRed, 0.001f);
         // else swishText.DOColor(SpriteHolder.Instance.darkRed, 0.001f);
 
         // 0.7 1.5

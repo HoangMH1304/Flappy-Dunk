@@ -6,7 +6,7 @@ public class HoopController : MonoBehaviour
 {
     [SerializeField] private GameObject ring, axis, entireHoop;
     [SerializeField] private List<Collider2D> listCollider;
-    [SerializeField] private List<SpriteRenderer> listEffectSR;
+    [SerializeField] private List<SpriteRenderer> listSR;
     [SerializeField] private List<Quaternion> rotations;
     [SerializeField] private List<Vector3> scales;
     [SerializeField] private Transform startPoint, endPoint;
@@ -18,11 +18,24 @@ public class HoopController : MonoBehaviour
     public bool IsMovable { get => isMovable; set => isMovable = value; }
     public bool IsVerticalHoop { get => isVerticalHoop; set => isVerticalHoop = value; }
 
+    private void Awake()
+    {
+        //this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
+    }
+
+    private void OnChangeSkin()
+    {
+        //frontHoop, backHoop
+        listSR[0].sprite = ShopController.Instance.hoops[PlayerPrefs.GetInt("HoopIdSelected")].frontHoopSprite;
+        listSR[1].sprite = ShopController.Instance.hoops[PlayerPrefs.GetInt("HoopIdSelected")].backHoopSprite;
+    }
+
     private void OnEnable()
     {
         InitialSpecs();
-        Debug.Log("Enable hoop", gameObject);
+        OnChangeSkin();
     }
+
 
     public void InitialSpecs()
     {
@@ -77,7 +90,7 @@ public class HoopController : MonoBehaviour
 
     public void Fade(float endValue, float time)
     {
-        foreach(var spriteRenderer in listEffectSR)
+        foreach(var spriteRenderer in listSR)
         {
             spriteRenderer.DOKill();
             spriteRenderer.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
@@ -123,13 +136,13 @@ public class HoopController : MonoBehaviour
     {
         TurnIntoNormalHoop();
         int score = GameController.Instance.Score;
-        if(score < 15)
+        if(score < 20)
         {
             isMovable = false;
             ring.transform.localScale = scales[1];
             entireHoop.transform.localRotation = rotations[0];
         }
-        else if(score <= 35)
+        else if(score <= 40)
         {
             isMovable = (Random.Range(1, 100) <= 30) ? true : false;  //30%
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 70) ? 1 : 0];

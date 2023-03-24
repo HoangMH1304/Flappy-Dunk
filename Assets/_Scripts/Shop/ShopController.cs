@@ -36,6 +36,7 @@ public class ShopController : MonoBehaviour
         InitWingItems();
         InitHoopItems();
         InitFlameItems();
+        this.PostEvent(EventID.OnChangeSkin);
         //process bar of shop
     }
 

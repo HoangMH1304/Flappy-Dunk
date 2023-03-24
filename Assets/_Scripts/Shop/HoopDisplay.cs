@@ -53,6 +53,7 @@ public class HoopDisplay : MonoBehaviour
             Debug.Log($"{hoop.type}, {hoop.id}");
             mark.SetActive(true);
             PlayerPrefs.SetInt(hoop.type.ToString() + "IdSelected", hoop.id);
+            this.PostEvent(EventID.OnChangeSkin);
         }
         else
         {

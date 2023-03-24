@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject ball, frontWing, backWing, perfectForm;
-    [SerializeField] private SpriteRenderer blackBall, blackFrontWing, blackBackWing;
+    [SerializeField] private SpriteRenderer feverBall, feverFrontWing, feverBackWing;
     [SerializeField] private ParticleSystem smoke, flame;
     private Rigidbody2D rb;
     private bool onGround = false;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
 
     private void OnEnable() {
         if(rb == null) rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
     }
 
     private void Update()
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
     public void Jump()
     {
         Time.timeScale = 1;
+        rb.gravityScale = 1.5f;
         rb.velocity = direction * speed;
         animator.Play(FLAP, 0, 0);
         SoundManager.Instance.PlaySound(Sound.flap);
@@ -51,9 +53,15 @@ public class Player : MonoBehaviour
     public void OnChangeSkin()
     {
         Debug.Log("Change character skin");
+        //normal character
         ball.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.balls[PlayerPrefs.GetInt("BallIdSelected")].sprite;
         frontWing.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.wings[PlayerPrefs.GetInt("WingIdSelected")].sprite;
         backWing.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.wings[PlayerPrefs.GetInt("WingIdSelected")].sprite;
+
+        //fever character
+        feverBall.color = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
+        feverFrontWing.color = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
+        feverBackWing.color = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
     }
 
     private void FallenWing(string tag)
@@ -155,16 +163,16 @@ public class Player : MonoBehaviour
     private void ActivePerfectSprite()
     {
         perfectForm.SetActive(true);
-        blackBall.DOFade(1, 0.01f);
-        blackFrontWing.DOFade(1, 0.01f);
-        blackBackWing.DOFade(1, 0.01f);
+        feverBall.DOFade(1, 0.01f);
+        feverFrontWing.DOFade(1, 0.01f);
+        feverBackWing.DOFade(1, 0.01f);
     }
 
     private void DeactivePerfectSprite()
     {
-        blackFrontWing.DOFade(0, 0.5f);
-        blackBackWing.DOFade(0, 0.5f);
-        blackBall.DOFade(0, 0.5f).OnComplete(() => perfectForm.SetActive(false));
+        feverFrontWing.DOFade(0, 0.5f);
+        feverBackWing.DOFade(0, 0.5f);
+        feverBall.DOFade(0, 0.5f).OnComplete(() => perfectForm.SetActive(false));
     }
 
     public void ActivePerfectForm(int swish)

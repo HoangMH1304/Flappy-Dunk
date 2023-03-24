@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4570750548684808409}
   - component: {fileID: 4570750548684808410}
   - component: {fileID: 4570750548684808411}
+  - component: {fileID: 1091046951443831965}
   m_Layer: 0
   m_Name: StarFX
   m_TagString: Untagged
@@ -4880,3 +4881,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1091046951443831965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570750548684808404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7508c43c9fc350e49abf9cbd8130d070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

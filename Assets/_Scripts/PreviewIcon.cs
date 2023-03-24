@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PreviewIcon : MonoBehaviour
 {
     [SerializeField] private Image ball, frontWing, backWing;
-    void Start()
+    void Awake()
     {
         this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
     }

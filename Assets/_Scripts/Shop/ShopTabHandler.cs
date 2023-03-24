@@ -34,7 +34,7 @@ public class ShopTabHandler : MonoBehaviour
     {
         InitialState();
         underlines[index].SetActive(true);
-        texts[index].color = Color.cyan;
+        texts[index].color = ColorContainer.Instance.blue;
         tabs[index].SetActive(true);
     }
 

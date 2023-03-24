@@ -8,23 +8,10 @@ public class HoopManager : MonoBehaviour
     [SerializeField] private float distance;
     [SerializeField] private List<GameObject> hoops = new List<GameObject>();
 
-    private void Awake() 
+    private void OnEnable()
     {
-        //if(Instance == null)
-        //{
-        //    Instance = this;
-        //}    
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
-    }
-
-    private void OnEnable() {
         Instance = this;
-        
     }
-
 
     public void InitialInEndless()
     {

@@ -47,9 +47,11 @@ public class FlameDisplay : MonoBehaviour
         if(PlayerPrefManager.Instance.IsUnlockItem(flame.type, flame.id))
         {
             ShopController.Instance.DeactivateMarkIcon(flame.type, PlayerPrefs.GetInt(flame.type.ToString() + "IdSelected"));
-            Debug.Log($"{flame.type}, {flame.id}");
+            //Debug.Log($"{flame.type}, {flame.id}");
             mark.SetActive(true);
             PlayerPrefs.SetInt(flame.type.ToString() + "IdSelected", flame.id);
+            this.PostEvent(EventID.OnChangeSkin);
+
         }
         else
         {

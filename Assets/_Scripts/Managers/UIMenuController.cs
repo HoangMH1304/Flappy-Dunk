@@ -9,7 +9,7 @@ using TMPro;
 public class UIMenuController : MonoBehaviour
 {
     public static UIMenuController Instance;
-    private const string FIRST_PLAY = "FirstPlay";
+    //private const string FIRST_PLAY = "FirstPlay";
     private const string HIGH_SCORE = "HighScore";
     private const string LAST_SCORE = "LastScore";
     [SerializeField] private GameObject player;
@@ -66,12 +66,12 @@ public class UIMenuController : MonoBehaviour
         player.SetActive(true);
         scoreText.SetActive(true);
 
-        if (PlayerPrefs.GetInt(FIRST_PLAY) == 1)
+        if(PlayerPrefs.GetInt("HighScore") == 0)
         {
-            PlayerPrefs.SetInt(FIRST_PLAY, 2);
+            //PlayerPrefs.SetInt(FIRST_PLAY, 2);
             tutorialPanel.gameObject.SetActive(true);
             tutorialPanel.DOFade(0, 0).SetUpdate(true);
-            tutorialPanel.DOFade(1, 1).SetUpdate(true);
+            tutorialPanel.DOFade(1, 2).SetUpdate(true);
         }
         GameController.Instance.Init();
 
