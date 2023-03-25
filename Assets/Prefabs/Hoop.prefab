@@ -482,7 +482,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070380034033197106}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.2, z: 0}
+  m_LocalPosition: {x: 0, y: -0.045, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5797184773658684211}
@@ -502,7 +502,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.00044295468}
-  m_Size: {x: 0.025, y: 0.6}
+  m_Size: {x: 0.05, y: 0.6}
   m_Direction: 0
 --- !u!114 &2429277403642400760
 MonoBehaviour:
@@ -517,6 +517,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoopController: {fileID: 3742275195078461467}
+  startPoint: {fileID: 4296461410065151258}
+  endPoint: {fileID: 1109576065139443118}
   starFX: {fileID: 3406557894156804796}
   bigSmokeFX: {fileID: 3611984111001269226}
   blastFX: {fileID: 4765397266052870597}
@@ -618,8 +620,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.0447304, y: -0.5}
-  m_Size: {x: 0.96053493, y: 1.2}
+  m_Offset: {x: 1.9802126, y: -0.560426}
+  m_Size: {x: 1.0604255, y: 1.1824751}
   m_Direction: 1
 --- !u!114 &666522049
 MonoBehaviour:
@@ -731,8 +733,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.9954128, y: 0.4}
-  m_Size: {x: 1.0091745, y: 1.2}
+  m_Offset: {x: -1.9954128, y: 0.40302104}
+  m_Size: {x: 1.0091745, y: 1.212685}
   m_Direction: 1
 --- !u!114 &2043216268
 MonoBehaviour:
@@ -818,13 +820,10 @@ MonoBehaviour:
   - {x: 0.9, y: 1, z: 1}
   - {x: 1, y: 1, z: 1}
   - {x: 1.1, y: 1, z: 1}
-  startPoint: {fileID: 4296461410065151258}
-  endPoint: {fileID: 1109576065139443118}
   moveSpeed: 1
   isMovable: 0
   borderInteract: 0
   passOver: 0
-  isVerticalHoop: 0
 --- !u!1001 &901444834107208261
 PrefabInstance:
   m_ObjectHideFlags: 0
