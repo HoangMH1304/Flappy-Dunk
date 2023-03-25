@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb42941e380ad948967d6900ec2b581, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 1
   description: Face the hoops!
   levlePrefab: {fileID: 7188735802457163395, guid: 30a1a3f95baf75746ad6faec96cb1b31, type: 3}
