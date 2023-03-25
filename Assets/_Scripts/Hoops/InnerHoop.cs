@@ -18,7 +18,7 @@ public class InnerHoop : MonoBehaviour
         if (!other.CompareTag(PLAYER)) return;
         var angle = Vector2.Angle(GetHoopDirection(), other.GetComponent<Rigidbody2D>().velocity);
         Debug.Log($"Angle: {angle}");
-        if (transform.localRotation == Quaternion.Euler(Vector3.forward * 90f))
+        if (hoopController.IsVerticalHoop)
         {
             Debug.LogWarning("VerticalHoop");
             return;

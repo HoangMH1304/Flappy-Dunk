@@ -11,9 +11,10 @@ public class HoopController : MonoBehaviour
     [SerializeField] private List<Vector3> scales;
     [SerializeField] private float moveSpeed;
     [SerializeField] private bool isMovable;
-    [SerializeField] private bool borderInteract, passOver;
+    private bool borderInteract, passOver, isVerticalHoop;
     public bool BorderInteract { get => borderInteract; set => borderInteract = value; }
     public bool PassOver { get => passOver; set => passOver = value; }
+    public bool IsVerticalHoop { get => isVerticalHoop; set => isVerticalHoop = value; }
 
     private void Awake()
     {
@@ -47,6 +48,10 @@ public class HoopController : MonoBehaviour
         else
         {
             if (isMovable) axis.SetActive(true);
+            if (entireHoop.transform.localRotation == Quaternion.Euler(Vector3.forward * 90))
+            {
+                isVerticalHoop = true;
+            }
         }
     }
 
@@ -54,12 +59,13 @@ public class HoopController : MonoBehaviour
     {
         borderInteract = false;
         passOver = false;
+        isVerticalHoop = false;
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(!isMovable) return;
-        if(ring.transform.localPosition.y >= 0.8f || ring.transform.localPosition.y <= -0.8f) moveSpeed *= -1;
+        if (!isMovable) return;
+        if (ring.transform.localPosition.y >= 0.8f || ring.transform.localPosition.y <= -0.8f) moveSpeed *= -1;
         ring.transform.localPosition += Vector3.up * moveSpeed * Time.deltaTime;
     }
 
@@ -82,7 +88,7 @@ public class HoopController : MonoBehaviour
 
     public void Fade(float endValue, float time)
     {
-        foreach(var spriteRenderer in listSR)
+        foreach (var spriteRenderer in listSR)
         {
             spriteRenderer.DOKill();
             spriteRenderer.DOFade(endValue, time).SetEase(Ease.OutCubic).SetUpdate(true);
@@ -97,18 +103,18 @@ public class HoopController : MonoBehaviour
 
     public void ActiveState(bool fade = true) //
     {
-        if(fade) Fade(1, 0.001f);
+        if (fade) Fade(1, 0.001f);
 
-        foreach(var collider in listCollider)
+        foreach (var collider in listCollider)
         {
             collider.enabled = true;
         }
     }
     public void DeactiveState(bool fade = true) //
     {
-        if(fade) Fade(0.5f, 0.001f);
+        if (fade) Fade(0.5f, 0.001f);
         //turn off collider of hole and restrict range only
-        for(int i = 2; i < listCollider.Count; i++)
+        for (int i = 2; i < listCollider.Count; i++)
         {
             listCollider[i].enabled = false;
         }
@@ -128,17 +134,17 @@ public class HoopController : MonoBehaviour
     {
         TurnIntoNormalHoop();
         int score = GameController.Instance.Score;
-        if(score < 20)
+        if (score < 20)
         {
             isMovable = false;
             ring.transform.localScale = scales[1];
             entireHoop.transform.localRotation = rotations[0];
         }
-        else if(score <= 40)
+        else if (score <= 40)
         {
             isMovable = (Random.Range(1, 100) <= 30) ? true : false;  //30%
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 70) ? 1 : 0];
-            if(isMovable)
+            if (isMovable)
             {
                 entireHoop.transform.localRotation = rotations[(Random.Range(1, 100) <= 70) ? 1 : 0];
             }
@@ -153,7 +159,7 @@ public class HoopController : MonoBehaviour
             ring.transform.localScale = scales[(Random.Range(1, 100) <= 60) ? 0 : 1];
             entireHoop.transform.localRotation = rotations[Random.Range(0, 5)];
         }
-        if(isMovable) axis.SetActive(true);
+        if (isMovable) axis.SetActive(true);
         else axis.SetActive(false);
     }
 }
