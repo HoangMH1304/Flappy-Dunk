@@ -13,11 +13,12 @@ public class ColorContainer : MonoBehaviour
 
     public Color GetColorByPercent(float percent)
     {
-        if (percent >= 0.8f) return blue;
-        if (percent >= 0.6f) return green;
-        if (percent >= 0.4f) return yellow;
-        if (percent >= 0.2f) return orange;
-        if (percent >= 0f) return red;
-        return purple;
+        if (percent >= 1) return blue;
+        if (percent >= 0.8f) return green;
+        if (percent >= 0.6f) return yellow;
+        if (percent >= 0.4f) return orange;
+        if (percent >= 0.2f) return red;
+        if (percent >= 0f) return purple;
+        return red;
     }
 }

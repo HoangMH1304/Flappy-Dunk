@@ -13,7 +13,6 @@ public class RestrictZone : MonoBehaviour
         {
             if(!hoopChecker.PassOver)
             {
-                Debug.Log("Game over by extra collider");
                 // Debug.Break();
                 GameController.Instance.DeactivePerfectForm();
                 GameManager.Instance.ChangePhase(GameState.OnDeath);

@@ -6,37 +6,79 @@ using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI levelIndexText;
-    [SerializeField] private Image fill;
     private Level level;
+    [Header("Level Detail")]
+    [SerializeField] private TextMeshProUGUI levelId;
+    [SerializeField] private Image fill;
+    [Header("Preview Panel")]
+    [SerializeField] private GameObject hintPanel;
+    [SerializeField] private TextMeshProUGUI tittle, condition, confirm;
+    [SerializeField] private TextMeshProUGUI levelIndexText;
 
     public Level Level { get => level; set => level = value; }
 
-    private void Start()
+    public void Show(Level _level)
     {
-        levelIndexText.text = level.ID.ToString();
-        ChangeLevelButtonState();
+        level = _level;
+        levelId.text = (level.ID + 1).ToString();
+        DisplayLevelItem();
     }
 
-    public void CompleteLevel()
+    public void DisplayLevelItem()
     {
-        level.SetFinishState(true);
-        ChangeLevelButtonState();
-    }
-
-    public void ChangeLevelButtonState()
-    {
-        if(level.GetFinishState())
+        if (PlayerPrefs.GetInt("Level" + level.ID) == 0)
         {
-            fill.color = Color.green;
-            levelIndexText.color = Color.white;
+            levelId.color = Color.green;
+            fill.color = Color.white;
         }
         else
         {
-            fill.color = Color.white;
-            levelIndexText.color = Color.green;
+            levelId.color = Color.white;
+            fill.color = Color.green;
         }
     }
+
+    public void OnClick()
+    {
+        hintPanel.SetActive(true);
+        tittle.text = "CHALLENGE " + (level.ID + 1);
+        condition.text = level.description;
+        if(PlayerPrefs.GetInt("Level" + level.ID) == 0)
+        {
+            confirm.text = "START";
+        }
+        else
+        {
+            confirm.text = "RETRY";
+        }
+        PlayerPrefs.SetInt("LevelSelected", level.ID);
+    }
+
+    // private void Start()
+    // {
+    //     levelIndexText.text = level.ID.ToString();
+    //     ChangeLevelButtonState();
+    // }
+
+    // public void CompleteLevel()
+    // {
+    //     level.SetFinishState(true);
+    //     ChangeLevelButtonState();
+    // }
+
+    // public void ChangeLevelButtonState()
+    // {
+    //     if(level.GetFinishState())
+    //     {
+    //         fill.color = Color.green;
+    //         levelIndexText.color = Color.white;
+    //     }
+    //     else
+    //     {
+    //         fill.color = Color.white;
+    //         levelIndexText.color = Color.green;
+    //     }
+    // }
 
     
 }

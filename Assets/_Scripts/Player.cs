@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     public void Jump()
     {
         Time.timeScale = 1;
-        rb.gravityScale = 1.5f;
+        rb.gravityScale = 1.5f; //1.5f
         rb.velocity = direction * speed;
         animator.Play(FLAP, 0, 0);
         SoundManager.Instance.PlaySound(Sound.flap);
@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
         feverBall.color = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
         feverFrontWing.color = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
         feverBackWing.color = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
+
+        flame.startColor = ShopController.Instance.flames[PlayerPrefs.GetInt("FlameIdSelected")].color;
     }
 
     private void FallenWing(string tag)
@@ -69,12 +71,12 @@ public class Player : MonoBehaviour
         frontWing.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         backWing.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         SoundManager.Instance.PlaySound(Sound.crash);
-        if (tag == CEIL)
+        if (tag.Equals(CEIL))
         {
             frontWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-80, -10), 0), ForceMode2D.Force);
             backWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(10, 80), 0), ForceMode2D.Force);
         }
-        if (tag == FLOOR)
+        if (tag.Equals(FLOOR))
         {
             frontWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-80, -50), Random.Range(400, 500)), ForceMode2D.Force);
             backWing.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(50, 80), Random.Range(400, 500)), ForceMode2D.Force);

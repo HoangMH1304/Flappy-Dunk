@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class InheritanceSingleton<T> : UIMenuController where T : InheritanceSingleton<T>
+public abstract class InheritanceSingleton<T> : UILobbyController where T : InheritanceSingleton<T>
 {
     static T _instance;
     public static T Instance

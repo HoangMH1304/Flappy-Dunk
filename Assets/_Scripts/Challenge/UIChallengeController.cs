@@ -7,12 +7,11 @@ using TMPro;
 public class UIChallengeController : MonoBehaviour
 {
     public static UIChallengeController Instance;
-    [SerializeField] private Transform levelContainer;
+    // [SerializeField] private Transform levelContainer;
+    [SerializeField] private Image fillBarInChallenge, fillBarInLobby;
     [SerializeField] private TextMeshProUGUI processText;
-    [SerializeField] private Image processBarIngame;
-    [SerializeField] private Image processBarLobby;
-    private int totalLevels = 0;
-    private int completedLevels;
+    // private int totalLevels = 0;
+    // private int completedLevels;
 
     private void Awake()
     {
@@ -24,32 +23,20 @@ public class UIChallengeController : MonoBehaviour
 
     private void Start()
     {
-        int totalCompletedLevel = PlayerPrefs.GetInt("CompletedLevels");
-        int totalLevels = PlayerPrefs.GetInt("TotalLevels");
-        if (totalLevels == 0) totalLevels = 3;
-        processText.text = "" + totalCompletedLevel + "/" + totalLevels;
-        processBarIngame.fillAmount = totalCompletedLevel / totalLevels;
-        processBarLobby.fillAmount = totalCompletedLevel / totalLevels;
+        UpdateProcess();
     }
-
-    
 
     public void UpdateProcess()
     {
-        int totalLevels = levelContainer.childCount;
-        for(int i = 0; i < totalLevels; i++)
-        {
-            LevelController _level = levelContainer.GetChild(i).GetComponent<LevelController>();
-            _level.ChangeLevelButtonState();
-            if(_level.Level.GetFinishState())
-            {
-                completedLevels++;
-            }
-        }
-        PlayerPrefs.SetInt("CompletedLevels", completedLevels);
-        PlayerPrefs.SetInt("TotalLevels", totalLevels);
-        processText.text = "" + completedLevels + "/" + totalLevels;
-        processBarIngame.fillAmount = completedLevels / totalLevels;
-        processBarLobby.fillAmount = completedLevels / totalLevels;
+        int totalUnlockLevel = ChallengeController.Instance.TotalUnlockLevel;
+        int totalLevel = ChallengeController.Instance.TotalLevel;
+        processText.text = totalUnlockLevel + "/" + totalLevel;
+        Debug.Log($"Process: {totalUnlockLevel}/{totalLevel}");
+
+        float percentOfProcess = 1.0f * totalUnlockLevel / totalLevel;
+        fillBarInLobby.fillAmount = percentOfProcess;
+        fillBarInLobby.color = ColorContainer.Instance.GetColorByPercent(percentOfProcess);
+        fillBarInChallenge.fillAmount = percentOfProcess;
+        fillBarInChallenge.color = ColorContainer.Instance.GetColorByPercent(percentOfProcess);
     }
 }

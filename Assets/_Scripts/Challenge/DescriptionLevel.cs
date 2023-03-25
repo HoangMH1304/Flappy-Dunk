@@ -16,35 +16,35 @@ public class DescriptionLevel : MonoBehaviour
 
     private void OnEnable()
     {
-        InitStat();
+        // InitStat();
         scaleObject.DOScale(new Vector3(0, 0, 0), 0f);
         scaleObject.DOScale(new Vector3(1, 1, 1), 0.2f);
     }
 
-    private void InitStat()
-    {
-        string tittle = "CHALLENGE " + level.ID.ToString();
-        string description = level.description.ToString();
-        string confirm = !level.GetFinishState() ? "START" : "RETRY";
-        SetContentOfLevel(tittle, description, confirm);
-    }
+    // private void InitStat()
+    // {
+    //     string tittle = "CHALLENGE " + level.ID.ToString();
+    //     string description = level.description.ToString();
+    //     string confirm = !level.GetFinishState() ? "START" : "RETRY";
+    //     SetContentOfLevel(tittle, description, confirm);
+    // }
 
-    public void SetContentOfLevel(string title, string description, string confirm)
-    {
-        tittleText.text = title;
-        descriptionText.text = description;
-        confirmText.text = confirm;
-    }
+    // public void SetContentOfLevel(string title, string description, string confirm)
+    // {
+    //     tittleText.text = title;
+    //     descriptionText.text = description;
+    //     confirmText.text = confirm;
+    // }
 
+    public void OnClickStartBtn()
+    {
+        gameObject.SetActive(false);
+        LevelSpawner.Instance.SelectLevel(PlayerPrefs.GetInt("LevelSelected"));
+    }
     public void OnClickCancelBtn()
     {
         scaleObject.DOScale(new Vector3(0, 0, 0), 0.2f).OnComplete(() => gameObject.SetActive(false));
     }
 
-    public void OnClickStartBtn()
-    {
-        gameObject.SetActive(false);
-        LevelSpawner.Instance.SelectLevel(Level);
-    }
 
 }
