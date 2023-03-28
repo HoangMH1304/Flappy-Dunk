@@ -11,13 +11,17 @@ public class GameController : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private List<SpriteRenderer> fadeList;
     private int score = 0;
-    private int swish = 0;
+    private int swishStreak = 0;
+    private int totalSwish = 0;
+    private int maxSwishStreak = 0;
     private int highScore;
     private int lastScore;
     public int Score { get => score; set => score = value; }
-    public int Swish { get => swish; set => swish = value; }
+    public int SwishStreak { get => swishStreak; set => swishStreak = value; }
     public int HighScore { get => highScore; set => highScore = value; }
     public int LastScore { get => lastScore; set => lastScore = value; }
+    public int TotalSwish { get => totalSwish; set => totalSwish = value; }
+    public int MaxSwishStreak { get => maxSwishStreak; set => maxSwishStreak = value; }
 
     private void Awake()
     {
@@ -32,7 +36,7 @@ public class GameController : MonoBehaviour
         } 
     }
 
-    public void FadeGameObject(float endValue, float time)
+    public void FadeEnviroment(float endValue, float time)
     {
         player.FadeCharacter(endValue, time);
         foreach (SpriteRenderer obj in fadeList)
@@ -44,11 +48,11 @@ public class GameController : MonoBehaviour
 
     public void IncreseScore()
     {
-        if(swish == 0) score++;
+        if(swishStreak == 0) score++;
         else
         {
-            score += (swish + 1);
-            UIIngameController.Instance.UpdateSwish(swish + 1);
+            score += (swishStreak + 1);
+            UIIngameController.Instance.UpdateSwish(swishStreak + 1);
         }
         // lastScore = score;
         // if(score > highScore) highScore = score;
@@ -60,12 +64,14 @@ public class GameController : MonoBehaviour
 
     public void IncreaseSwitch()
     {
-        swish++;
+        swishStreak++;
+        maxSwishStreak = Math.Max(swishStreak, maxSwishStreak);
+        totalSwish++;
         ActivePerfectForm();
-        if(swish == 1) SoundManager.Instance.PlaySound(Sound.x2);
-        else if(swish == 2) SoundManager.Instance.PlaySound(Sound.x3);
-        else if(swish >= 3) SoundManager.Instance.PlaySound(Sound.x4);
-        UIIngameController.Instance.UpdateSwish(swish);
+        if(swishStreak == 1) SoundManager.Instance.PlaySound(Sound.x2);
+        else if(swishStreak == 2) SoundManager.Instance.PlaySound(Sound.x3);
+        else if(swishStreak >= 3) SoundManager.Instance.PlaySound(Sound.x4);
+        UIIngameController.Instance.UpdateSwish(swishStreak);
         CameraFollow.Instance.Shake();
         Vibrate();
     }
@@ -92,17 +98,19 @@ public class GameController : MonoBehaviour
                 break;
         }
         player.RestoreInitialState();
-        swish = 0;
+        swishStreak = 0;
+        maxSwishStreak = 0;
+        totalSwish = 0;
         BackgroundMovement.Instance.InitialPosition();
         CameraFollow.Instance.InitialCameraPosition();
-        FadeGameObject(1, 0.5f);    
+        FadeEnviroment(1, 0.5f);    
 
     }
 
     public void ActiveReviveState()
     {
         GameManager.Instance.ChangePhase(GameState.OnRevive);
-        swish = 0;
+        swishStreak = 0;
         player.RestoreInitialState();
         player.transform.position = new Vector3(HoopManager.Instance.GetRevivePosition(), 0.315f, 0);
         // ball.GetComponent<Rigidbody2D>().drag = 0;
@@ -113,14 +121,14 @@ public class GameController : MonoBehaviour
     {
         if(PlayerPrefs.GetInt("Vibrate") == 1)
         {
-            if(swish == 1) MMVibrationManager.Haptic(HapticTypes.LightImpact,true);
-            else if(swish > 1) MMVibrationManager.Haptic(HapticTypes.MediumImpact, true);
+            if(swishStreak == 1) MMVibrationManager.Haptic(HapticTypes.LightImpact,true);
+            else if(swishStreak > 1) MMVibrationManager.Haptic(HapticTypes.MediumImpact, true);
         }
     }
 
     public void ActivePerfectForm()
     {
-        player.ActivePerfectForm(swish);
+        player.ActivePerfectForm(swishStreak);
     }
 
     public void DeactivePerfectForm()

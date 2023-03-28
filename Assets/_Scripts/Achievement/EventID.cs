@@ -2,11 +2,10 @@ public enum EventID
 {
     OnChangeSkin,
     OnPassHoop,
+    OnReachPoint,
+    OnCollectSkin,
     OnSwish,
-    OnActiveSecondChance,
-    OnNewEndlessGame,
-    OnDieEndlessGame,
-    OnUnlockSkin,
-    OnCompleteChallenge,
-    OnCollideWithHoop
+    OnTotalPlayEndless,
+    OnCompleteLevel,
+    OnActiveSecondChance
 }

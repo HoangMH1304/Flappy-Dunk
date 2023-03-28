@@ -23,8 +23,10 @@ public class Player : MonoBehaviour
 
     private void Awake() 
     {
-        this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());    
+        this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
+        // this.RegisterListener(EventID.OnTrySkin, (param) => OnTrySkin());    
     }
+
 
     private void OnEnable() {
         if(rb == null) rb = GetComponent<Rigidbody2D>();
@@ -46,13 +48,19 @@ public class Player : MonoBehaviour
         Time.timeScale = 1;
         rb.gravityScale = 1.5f; //1.5f
         rb.velocity = direction * speed;
+        RotateBall();
         animator.Play(FLAP, 0, 0);
         SoundManager.Instance.PlaySound(Sound.flap);
     }
 
+    private void RotateBall()
+    {
+        // throw new System.NotImplementedException();
+    }
+
     public void OnChangeSkin()
     {
-        Debug.Log("Change character skin");
+        Logger.Log("Change character skin");
         //normal character
         ball.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.balls[PlayerPrefs.GetInt("BallIdSelected")].sprite;
         frontWing.GetComponent<SpriteRenderer>().sprite = ShopController.Instance.wings[PlayerPrefs.GetInt("WingIdSelected")].sprite;
@@ -87,7 +95,7 @@ public class Player : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
         {
-            // Debug.Log("TOUCH: UI (1)");
+            // Logger.Log("TOUCH: UI (1)");
             return true;
         }
         //check touch
@@ -95,11 +103,11 @@ public class Player : MonoBehaviour
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
             {
-                // Debug.Log("TOUCH: UI (2)");
+                // Logger.Log("TOUCH: UI (2)");
                 return true;
             }
         }
-        // Debug.Log("TOUCH OBJ");
+        // Logger.Log("TOUCH OBJ");
         return false;
     }
 

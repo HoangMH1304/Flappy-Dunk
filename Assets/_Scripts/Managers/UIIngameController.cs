@@ -87,18 +87,22 @@ public class UIIngameController : MonoBehaviour
 
     public void SwitchToMainMenu()
     {
+        if (GameManager.Instance.Trial)
+            GameManager.Instance.ChangePhase(GameState.OnExitTrial);
         sfxUiToggle.UpdateSFXUI();
         HoopManager.Instance.FadeAllHoops(0, 0.5f);
         gameoverUI.SetActive(false);
         gameplayUI.SetActive(false);
-        secondChancePanel?.transform.DOMoveX(-5, 0.01f);  
+        secondChancePanel?.transform.DOMoveX(-5, 0.01f);
         secondChancePanel?.gameObject.SetActive(false);
         player.SetActive(false);
         hoopContainer.SetActive(false);
-        //Ease.InOutCubic
+        this.PostEvent(EventID.OnSwish);
         if (GameManager.Instance.IsEndlessMode)
         {
-            lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+            this.PostEvent(EventID.OnReachPoint);
+            lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f)  //DOLocalMoveY
+            .SetEase(Ease.OutExpo).SetUpdate(true);
 
             UILobbyController.Instance.HandleAnimState();
             UILobbyController.Instance.UpdateScoreUI();
@@ -108,7 +112,7 @@ public class UIIngameController : MonoBehaviour
             challengeUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
             LevelSpawner.Instance.ExitLevelMode();
         }
-        GameController.Instance.FadeGameObject(0, 0.1f);
+        GameController.Instance.FadeEnviroment(0, 0.1f);
         GameManager.Instance.ChangePhase(GameState.OnBegin);
     }
 

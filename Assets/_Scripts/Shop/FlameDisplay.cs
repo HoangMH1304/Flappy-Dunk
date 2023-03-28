@@ -6,28 +6,35 @@ using TMPro;
 
 public class FlameDisplay : MonoBehaviour
 {
-    private Flame flame;
+    private Flame item;
     [Header("Flame Item")]
     [SerializeField] private Image flameSprite;
-    [SerializeField] private GameObject mark, lockOverlay;
+    [SerializeField] private GameObject mark, lockOverlay, newItem;
     [Header("Preview Panel")]
-    [SerializeField] private GameObject hintPanel;
-    [SerializeField] private Image previewImage;
-    [SerializeField] private TextMeshProUGUI condition;
+    [SerializeField] private HintPanel hintPanel;
 
+    private void OnEnable() {
+        UpdateItemState();
+    }
 
     public void Show(Flame _item)
     {
-        flame = _item;
-        flameSprite.color = flame.color;
-        //setactive mark icon or lock icon
-        if (PlayerPrefs.GetInt(_item.type.ToString() + "IdSelected") == _item.id)
+        item = _item;
+        flameSprite.color = item.color;
+    }
+
+    private void UpdateItemState()
+    {
+        if (PlayerPrefs.GetInt(item.type.ToString() + "IdSelected") == item.id)
         {
             mark.SetActive(true);
+            PlayerPrefs.SetInt(item.type.ToString() + item.id, (int)ItemState.used);
         }
-        if (PlayerPrefManager.Instance.IsUnlockItem(flame.type, flame.id))
+        if (!PlayerPrefManager.Instance.IsLockItem(item.type, item.id))
         {
             lockOverlay.SetActive(false);
+            if (PlayerPrefs.GetInt(item.type.ToString() + item.id) == (int)ItemState._new)
+                newItem.SetActive(true);
         }
         else
         {
@@ -37,18 +44,19 @@ public class FlameDisplay : MonoBehaviour
 
     private void OpenHintPanel()
     {
-        hintPanel.SetActive(true);
-        condition.text = flame.condition;
-        previewImage.color = flame.color;
-        hintPanel.GetComponent<HintPanel>().DisplayPreviewImg(flame.type);
+        hintPanel.ShowUpPanel();
+        hintPanel.GetComponent<HintPanel>().DisplayPreviewImg(item);
     }
     public void OnClick()
     {
-        if(PlayerPrefManager.Instance.IsUnlockItem(flame.type, flame.id))
+        if (!PlayerPrefManager.Instance.IsLockItem(item.type, item.id))
         {
-            ShopController.Instance.DeactivateMarkIcon(flame.type, PlayerPrefs.GetInt(flame.type.ToString() + "IdSelected"));
+            ShopController.Instance.DeactivateMarkIcon(item.type, PlayerPrefs.GetInt(item.type.ToString() + "IdSelected"));
+            Logger.Log($"{item.type}, {item.id}");
+            newItem.SetActive(false);
             mark.SetActive(true);
-            PlayerPrefs.SetInt(flame.type.ToString() + "IdSelected", flame.id);
+            PlayerPrefs.SetInt(item.type.ToString() + "IdSelected", item.id);
+            PlayerPrefs.SetInt(item.type.ToString() + item.id, (int)ItemState.used);
             this.PostEvent(EventID.OnChangeSkin);
         }
         else

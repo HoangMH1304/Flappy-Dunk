@@ -5,28 +5,36 @@ using UnityEngine.UI;
 using TMPro;
 public class BallDisplay : MonoBehaviour
 {
-    private Ball ball;
+    private Ball item;
     [Header("Ball Item")]
     [SerializeField] private Image ballSprite;
-    [SerializeField] private GameObject mark, lockOverlay;
+    [SerializeField] private GameObject mark, lockOverlay, newItem;
     [Header("Preview Panel")]
-    [SerializeField] private GameObject hintPanel;
-    [SerializeField] private Image previewImage;
-    [SerializeField] private TextMeshProUGUI condition;
+    [SerializeField] private HintPanel hintPanel;
 
+    private void OnEnable() 
+    {
+        UpdateItemState();
+    }
 
     public void Show(Ball _item)
     {
-        ball = _item;
-        ballSprite.sprite = ball.sprite;
-        //setactive mark icon or lock icon
-        if (PlayerPrefs.GetInt(_item.type.ToString() + "IdSelected") == _item.id)
+        item = _item;
+        ballSprite.sprite = item.sprite;
+    }
+
+    private void UpdateItemState()
+    {
+        if (PlayerPrefs.GetInt(item.type.ToString() + "IdSelected") == item.id)
         {
             mark.SetActive(true);
+            PlayerPrefs.SetInt(item.type.ToString() + item.id, (int)ItemState.used);
         }
-        if(PlayerPrefManager.Instance.IsUnlockItem(ball.type, ball.id))
+        if (!PlayerPrefManager.Instance.IsLockItem(item.type, item.id))
         {
             lockOverlay.SetActive(false);
+            if (PlayerPrefs.GetInt(item.type.ToString() + item.id) == (int)ItemState._new)
+                newItem.SetActive(true);
         }
         else
         {
@@ -36,23 +44,24 @@ public class BallDisplay : MonoBehaviour
 
     private void OpenHintPanel()
     {
-        hintPanel.SetActive(true);
-        condition.text = ball.condition;
-        previewImage.sprite = ball.sprite;
-        hintPanel.GetComponent<HintPanel>().DisplayPreviewImg(ball.type);
+        hintPanel.ShowUpPanel();
+        hintPanel.DisplayPreviewImg(item);
     }
     public void OnClick()
     {
-        if(PlayerPrefManager.Instance.IsUnlockItem(ball.type, ball.id))
+        if (!PlayerPrefManager.Instance.IsLockItem(item.type, item.id))
         {
-            ShopController.Instance.DeactivateMarkIcon(ball.type, PlayerPrefs.GetInt(ball.type.ToString() + "IdSelected"));
-            Debug.Log($"{ball.type}, {ball.id}");
+            ShopController.Instance.DeactivateMarkIcon(item.type, PlayerPrefs.GetInt(item.type.ToString() + "IdSelected"));
+            Logger.Log($"{item.type}, {item.id}");
+            newItem.SetActive(false);
             mark.SetActive(true);
-            PlayerPrefs.SetInt(ball.type.ToString() + "IdSelected", ball.id);
+            PlayerPrefs.SetInt(item.type.ToString() + "IdSelected", item.id);
+            PlayerPrefs.SetInt(item.type.ToString() + item.id, (int)ItemState.used);
             this.PostEvent(EventID.OnChangeSkin);
         }
         else
         {
+            
             OpenHintPanel();
         }
     }

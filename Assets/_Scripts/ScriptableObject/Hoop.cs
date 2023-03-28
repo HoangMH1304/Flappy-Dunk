@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Hoop", menuName = "ScriptableObject/Hoop")]
+[CreateAssetMenu(fileName = "Hoop", menuName = "ScriptableObject/Item/Hoop")]
 [System.Serializable]
-public class Hoop : ScriptableObject
+public class Hoop : Item
 {
-    public int id;
     public Sprite frontHoopSprite, backHoopSprite, starEffectSprite;
-    public string condition;
-    public Shop type;
 }

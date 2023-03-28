@@ -39,25 +39,23 @@ public class UILobbyController : MonoBehaviour
         }
     }
 
-    private void Start() 
+    private void Start()
     {
         int highScore = PlayerPrefs.GetInt(HIGH_SCORE);
         int lastScore = PlayerPrefs.GetInt(LAST_SCORE);
-        DisplayScoreUI(highScore, lastScore);    
+        DisplayScoreUI(highScore, lastScore);
     }
 
     public virtual void Play()
     {
         GameManager.Instance.ChangeGameMode(GameMode.Endless);
-        HandleAnimState();
+
         hoopContainer.SetActive(true);  //for endless
 
         secondChancePanel.SetActive(false);
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
-
-        lobbyPanel.transform.DOKill();  //
-        lobbyPanel.transform.DOMoveY(15, 0f).SetUpdate(true); //
+        ExitLobby();
 
         gameplayPanel.gameObject.SetActive(true);
         gameplayPanel.DOFade(0, 0).SetUpdate(true);
@@ -67,7 +65,7 @@ public class UILobbyController : MonoBehaviour
         scoreText.SetActive(true);
 
         // if(PlayerPrefs.GetInt("HighScore") == 0)
-        if(PlayerPrefs.GetInt(FIRST_PLAY) == 1)
+        if (PlayerPrefs.GetInt(FIRST_PLAY) == 1)
         {
             PlayerPrefs.SetInt(FIRST_PLAY, 2);
             tutorialPanel.gameObject.SetActive(true);
@@ -79,6 +77,23 @@ public class UILobbyController : MonoBehaviour
         SoundManager.Instance.PlaySound(Sound.whistle);
     }
 
+    private void ExitLobby()
+    {
+        if (GameManager.Instance.Trial)
+        {
+            lobbyPanel.transform.DOKill();  //
+            lobbyPanel.transform.DOMoveY(15, 0f).SetUpdate(true); //
+            lobbyPanel.transform.DOLocalMoveX(0, 0f).SetUpdate(true);
+        }
+        else
+        {
+            HandleAnimState();
+            lobbyPanel.transform.DOKill();  //
+            lobbyPanel.transform.DOMoveY(15, 0f).SetUpdate(true).OnComplete(() => {
+                this.PostEvent(EventID.OnTotalPlayEndless);
+            }); //
+        }
+    }
 
     public void Challenge()
     {
@@ -86,8 +101,8 @@ public class UILobbyController : MonoBehaviour
         lobbyPanel.transform.DOKill();  //
         lobbyPanel.transform.DOMoveX(-8, 0f).SetUpdate(true);
         challengeCanvas.gameObject.SetActive(true);
-        challengeCanvas.DOFade(0, 0).SetUpdate(true);
-        challengeCanvas.DOFade(1, 0.5f).SetUpdate(true);
+        challengeCanvas.DOFade(0, 0);
+        challengeCanvas.DOFade(1, 0.5f).SetEase(Ease.OutSine);
     }
 
     public void Store()
@@ -97,7 +112,7 @@ public class UILobbyController : MonoBehaviour
         lobbyPanel.transform.DOMoveX(-8, 0f).SetUpdate(true); //
         storeCanvas.gameObject.SetActive(true);
         storeCanvas.DOFade(0, 0).SetUpdate(true);
-        storeCanvas.DOFade(1, 0.5f).SetUpdate(true);
+        storeCanvas.DOFade(1, 0.5f).SetEase(Ease.OutSine);
     }
 
     public void HandleAnimState()
@@ -111,8 +126,16 @@ public class UILobbyController : MonoBehaviour
         HandleAnimState();
         storeCanvas.gameObject.SetActive(false);
         challengeCanvas.gameObject.SetActive(false);
+        // storeCanvas.DOFade(0, 0.2f).SetUpdate(UpdateType.Normal).SetEase(Ease.InOutSine).OnComplete(() => {
+        //     storeCanvas.gameObject.SetActive(false);
+        // });
+        // challengeCanvas.DOFade(0, 0.2f).SetUpdate(UpdateType.Normal).SetEase(Ease.InOutSine).OnComplete(() => {
+        //     challengeCanvas.gameObject.SetActive(false);
+        // });
         lobbyPanel.transform.DOKill();  //
-        lobbyPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0.5f).SetEase(Ease.OutExpo).SetUpdate(true);
+        lobbyPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0f);
+        lobbyPanel.GetComponent<CanvasGroup>().DOFade(0, 0);
+        lobbyPanel.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine);
     }
 
     public void UpdateScoreUI()

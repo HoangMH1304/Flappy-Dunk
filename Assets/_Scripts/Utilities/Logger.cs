@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Logger
 {
-    static bool canLog = true;
+    static bool canLog = false;
     public static void Log(object message, UnityEngine.Object context)
     {
         if (canLog)

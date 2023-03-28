@@ -13,7 +13,7 @@ public class RestrictZone : MonoBehaviour
         {
             if(!hoopChecker.PassOver)
             {
-                // Debug.Break();
+                // Logger.Break();
                 GameController.Instance.DeactivePerfectForm();
                 GameManager.Instance.ChangePhase(GameState.OnDeath);
             }

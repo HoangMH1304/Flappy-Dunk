@@ -6,30 +6,37 @@ using TMPro;
 
 public class HoopDisplay : MonoBehaviour
 {
-    private Hoop hoop;
+    private Hoop item;
     [Header("Hoop Item")]
     [SerializeField] private Image frontHoopSprite;
     [SerializeField] private Image backHoopSprite; 
-    [SerializeField] private GameObject mark, lockOverlay;
+    [SerializeField] private GameObject mark, lockOverlay, newItem;
     [Header("Preview Panel")]
-    [SerializeField] private GameObject hintPanel;
-    [SerializeField] private Image previewFrontHoop, previewBackHoop;
-    [SerializeField] private TextMeshProUGUI condition;
+    [SerializeField] private HintPanel hintPanel;
 
+    private void OnEnable() {
+        UpdateItemState();
+    }
 
     public void Show(Hoop _item)
     {
-        hoop = _item;
+        item = _item;
         frontHoopSprite.sprite = _item.frontHoopSprite;
         backHoopSprite.sprite = _item.backHoopSprite;
-        //setactive mark icon or lock icon
-        if (PlayerPrefs.GetInt(_item.type.ToString() + "IdSelected") == _item.id)
+    }
+
+    private void UpdateItemState()
+    {
+        if (PlayerPrefs.GetInt(item.type.ToString() + "IdSelected") == item.id)
         {
             mark.SetActive(true);
+            PlayerPrefs.SetInt(item.type.ToString() + item.id, (int)ItemState.used);
         }
-        if (PlayerPrefManager.Instance.IsUnlockItem(hoop.type, hoop.id))
+        if (!PlayerPrefManager.Instance.IsLockItem(item.type, item.id))
         {
             lockOverlay.SetActive(false);
+            if (PlayerPrefs.GetInt(item.type.ToString() + item.id) == (int)ItemState._new)
+                newItem.SetActive(true);
         }
         else
         {
@@ -39,20 +46,19 @@ public class HoopDisplay : MonoBehaviour
 
     private void OpenHintPanel()
     {
-        hintPanel.SetActive(true);
-        condition.text = hoop.condition;
-        previewFrontHoop.sprite = hoop.frontHoopSprite;
-        previewBackHoop.sprite = hoop.backHoopSprite;
-        hintPanel.GetComponent<HintPanel>().DisplayPreviewImg(hoop.type);
+        hintPanel.ShowUpPanel();
+        hintPanel.GetComponent<HintPanel>().DisplayPreviewImg(item);
     }
     public void OnClick()
     {
-        if(PlayerPrefManager.Instance.IsUnlockItem(hoop.type, hoop.id))
+        if (!PlayerPrefManager.Instance.IsLockItem(item.type, item.id))
         {
-            ShopController.Instance.DeactivateMarkIcon(hoop.type, PlayerPrefs.GetInt(hoop.type.ToString() + "IdSelected"));
-            Debug.Log($"{hoop.type}, {hoop.id}");
+            ShopController.Instance.DeactivateMarkIcon(item.type, PlayerPrefs.GetInt(item.type.ToString() + "IdSelected"));
+            Logger.Log($"{item.type}, {item.id}");
+            newItem.SetActive(false);
             mark.SetActive(true);
-            PlayerPrefs.SetInt(hoop.type.ToString() + "IdSelected", hoop.id);
+            PlayerPrefs.SetInt(item.type.ToString() + "IdSelected", item.id);
+            PlayerPrefs.SetInt(item.type.ToString() + item.id, (int)ItemState.used);
             this.PostEvent(EventID.OnChangeSkin);
         }
         else

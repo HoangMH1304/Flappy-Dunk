@@ -86,6 +86,6 @@ public class LevelSpawner : MonoBehaviour
 
     public void CheckBtn()
     {
-        Debug.LogWarning("Clickable");
+        Logger.LogWarning("Clickable");
     }
 }

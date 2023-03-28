@@ -17,15 +17,15 @@ public class InnerHoop : MonoBehaviour
     {
         if (!other.CompareTag(PLAYER)) return;
         var angle = Vector2.Angle(GetHoopDirection(), other.GetComponent<Rigidbody2D>().velocity);
-        Debug.Log($"Angle: {angle}");
+        Logger.Log($"Angle: {angle}");
         if (hoopController.IsVerticalHoop)
         {
-            Debug.LogWarning("VerticalHoop");
+            Logger.LogWarning("VerticalHoop");
             return;
         }
         if (angle >= 90f)
         {
-            Debug.LogError("Lose");
+            Logger.LogError("Lose");
             GameController.Instance.DeactivePerfectForm();
             GameManager.Instance.ChangePhase(GameState.OnDeath);
             // return;
@@ -57,7 +57,7 @@ public class InnerHoop : MonoBehaviour
         //     //}
         //     //else
         //     //{
-        //     //    Debug.LogError("Lose");
+        //     //    Logger.LogError("Lose");
         //     //    GameController.Instance.DeactivePerfectForm();
         //     //    GameManager.Instance.ChangePhase(GameState.OnDeath);
         //     //}
@@ -74,19 +74,19 @@ public class InnerHoop : MonoBehaviour
         {
             GameController.Instance.IncreaseSwitch();
             starFX.Play();
-            if (GameController.Instance.Swish > 2)
+            if (GameController.Instance.SwishStreak > 2)
             {
                 bigSmokeFX.Play();
                 blastFX.Play();
                 bigBlastFX.Play();
             }
-            if (GameController.Instance.Swish > 1)
+            if (GameController.Instance.SwishStreak > 1)
             {
                 bigSmokeFX.Play();
                 blastFX.Play();
             }
         }
-
+        this.PostEvent(EventID.OnPassHoop);
         GameController.Instance.IncreseScore();
         // deactive old hoop and active new hoop
         hoopController.PassPoint();
@@ -95,7 +95,7 @@ public class InnerHoop : MonoBehaviour
         //}
         //else
         //{
-        //    Debug.LogError("Lose");
+        //    Logger.LogError("Lose");
         //    GameController.Instance.DeactivePerfectForm();
         //    GameManager.Instance.ChangePhase(GameState.OnDeath);
         //}

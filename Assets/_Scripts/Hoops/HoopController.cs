@@ -16,10 +16,10 @@ public class HoopController : MonoBehaviour
     public bool PassOver { get => passOver; set => passOver = value; }
     public bool IsVerticalHoop { get => isVerticalHoop; set => isVerticalHoop = value; }
 
-    private void Awake()
-    {
-        //this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
-    }
+    // private void Awake()
+    // {
+    //     // this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
+    // }
 
     private void OnChangeSkin()
     {
@@ -28,9 +28,11 @@ public class HoopController : MonoBehaviour
         listSR[1].sprite = ShopController.Instance.hoops[PlayerPrefs.GetInt("HoopIdSelected")].backHoopSprite;
     }
 
+
     private void OnEnable()
     {
         InitialSpecs();
+        
         OnChangeSkin();
     }
 
@@ -126,8 +128,8 @@ public class HoopController : MonoBehaviour
         ring.transform.localScale = scales[0];
         entireHoop.transform.localRotation = rotations[0];
         axis.SetActive(false);
-        Debug.Log("Turn into normal", gameObject);
-        Debug.Log($"Score: {GameController.Instance.Score}");
+        Logger.Log("Turn into normal", gameObject);
+        Logger.Log($"Score: {GameController.Instance.Score}");
     }
 
     private void GetTypeOfHoop()

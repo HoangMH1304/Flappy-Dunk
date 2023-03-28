@@ -13,6 +13,7 @@ public class UIShopController : MonoBehaviour
     private void Awake() 
     {
         Instance = this;
+        // this.RegisterListener(EventID.OnCollectSkin ,(param) => UpdateProcess());
     }
 
     private void Start() {
@@ -21,7 +22,8 @@ public class UIShopController : MonoBehaviour
 
     public void UpdateProcess()
     {
-        int totalUnlockItems = ShopController.Instance.TotalUnlockItems;
+        Logger.Log("Hien thi skin");
+        int totalUnlockItems = PlayerPrefs.GetInt(FileSave.TotalSkinUnlocked.ToString()); //
         int totalItems = ShopController.Instance.TotalItems;
         processText.text = totalUnlockItems + "/" + totalItems;
 

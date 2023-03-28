@@ -31,7 +31,7 @@ public class UIChallengeController : MonoBehaviour
         int totalUnlockLevel = ChallengeController.Instance.TotalUnlockLevel;
         int totalLevel = ChallengeController.Instance.TotalLevel;
         processText.text = totalUnlockLevel + "/" + totalLevel;
-        Debug.Log($"Process: {totalUnlockLevel}/{totalLevel}");
+        Logger.Log($"Process: {totalUnlockLevel}/{totalLevel}");
 
         float percentOfProcess = 1.0f * totalUnlockLevel / totalLevel;
         fillBarInLobby.fillAmount = percentOfProcess;

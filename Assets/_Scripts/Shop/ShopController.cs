@@ -10,6 +10,13 @@ public enum Shop
     Flame
 }
 
+public enum ItemState
+{
+    locked = 0,
+    _new,
+    used
+}
+
 public class ShopController : MonoBehaviour
 {
     public static ShopController Instance;
@@ -22,7 +29,7 @@ public class ShopController : MonoBehaviour
     [SerializeField] private Transform ballContent, wingContent, hoopContent, flameContent;
     
     private int totalItems;
-    private int totalUnlockItems = 0, ball = 0, wing = 0, hoop = 0, flame = 0;
+    private int totalUnlockItems = 0;
 
     public int TotalItems { get => totalItems; set => totalItems = value; }
     public int TotalUnlockItems { get => totalUnlockItems; set => totalUnlockItems = value; }
@@ -30,34 +37,9 @@ public class ShopController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        PlayerPrefs.SetInt("Ball0", 1);
-        PlayerPrefs.SetInt("Ball1", 1);
-        PlayerPrefs.SetInt("Wing0", 1);
-        PlayerPrefs.SetInt("Wing1", 1);
-        PlayerPrefs.SetInt("Hoop0", 1);
-        PlayerPrefs.SetInt("Hoop1", 1);
-        PlayerPrefs.SetInt("Hoop2", 1);
-        PlayerPrefs.SetInt("Hoop3", 1);
-        PlayerPrefs.SetInt("Hoop4", 1);
-        PlayerPrefs.SetInt("Hoop5", 1);
-        PlayerPrefs.SetInt("Flame0", 1);
-        PlayerPrefs.SetInt("Flame1", 1);
-        PlayerPrefs.SetInt("Flame2", 1);
-        PlayerPrefs.SetInt("Flame3", 1);
-        PlayerPrefs.SetInt("Flame4", 1);
-        PlayerPrefs.SetInt("Flame5", 1);
+        PlayerPrefManager.Instance.InitShopSpec();
         totalItems = balls.Length + wings.Length + hoops.Length + flames.Length;
-
-        for(int i = 0; i < balls.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Ball" + i);
-        Debug.Log($"Ball: {ball}");
-        for(int i = 0; i < wings.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Wing" + i);
-        Debug.Log($"Wing: {wing}");
-
-        for(int i = 0; i < hoops.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Hoop" + i);
-        Debug.Log($"Hoop: {hoop}");
-
-        for(int i = 0; i < flames.Length; i++) totalUnlockItems += PlayerPrefs.GetInt("Flame" + i);
-        Debug.Log($"Flame: {flame}");
+        totalUnlockItems = PlayerPrefs.GetInt(FileSave.TotalSkinUnlocked.ToString());
     }
 
     private void Start()
@@ -68,7 +50,7 @@ public class ShopController : MonoBehaviour
         InitFlameItems();
         this.PostEvent(EventID.OnChangeSkin);
         //process bar of shop
-        Debug.Log($"total unlock items: {totalUnlockItems}/{totalItems}");
+        Logger.Log($"total unlock items: {totalUnlockItems}/{totalItems}");
     }
 
     public void DeactivateMarkIcon(Shop type, int id)
@@ -77,7 +59,7 @@ public class ShopController : MonoBehaviour
         {
             case Shop.Ball:
                 ballContent.GetChild(id).GetChild(2).gameObject.SetActive(false);
-                Debug.Log($"name: {ballContent.GetChild(id).GetChild(2).gameObject}");
+                Logger.Log($"name: {ballContent.GetChild(id).GetChild(2).gameObject}");
                 break;
             case Shop.Wing:
                 wingContent.GetChild(id).GetChild(2).gameObject.SetActive(false);
@@ -100,6 +82,7 @@ public class ShopController : MonoBehaviour
         {
             GameObject itemObject = Instantiate(templateObject, ballContent);
             itemObject.GetComponent<BallDisplay>().Show(item);
+            itemObject.SetActive(true);
         }
         Destroy(templateObject);
     }
@@ -111,6 +94,7 @@ public class ShopController : MonoBehaviour
         {
             GameObject itemObject = Instantiate(templateObject, wingContent);
             itemObject.GetComponent<WingDisplay>().Show(item);
+            itemObject.SetActive(true);
         }
         Destroy(templateObject);
     }
@@ -122,6 +106,7 @@ public class ShopController : MonoBehaviour
         {
             GameObject itemObject = Instantiate(templateObject, hoopContent);
             itemObject.GetComponent<HoopDisplay>().Show(item);
+            itemObject.SetActive(true);
         }
         Destroy(templateObject);
     }
@@ -133,7 +118,12 @@ public class ShopController : MonoBehaviour
         {
             GameObject itemObject = Instantiate(templateObject, flameContent);
             itemObject.GetComponent<FlameDisplay>().Show(item);
+            itemObject.SetActive(true);
         }
         Destroy(templateObject);
+    }
+
+    private void OnDisable() {
+        Logger.Log("TurnOff shopcontroller");
     }
 }

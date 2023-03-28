@@ -11,7 +11,7 @@ public class HoopBorder : MonoBehaviour
         if (!hoopController.PassOver)
         {
             hoopController.BorderInteract = true;
-            GameController.Instance.Swish = 0;
+            GameController.Instance.SwishStreak = 0;
             GameController.Instance.DeactivePerfectForm();
         }
         if (other.relativeVelocity.magnitude > 2f)

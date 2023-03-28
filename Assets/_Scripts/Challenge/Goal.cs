@@ -10,7 +10,7 @@ public class Goal : MonoBehaviour
 
     private void OnEnable() 
     {
-        Debug.Log("Enable goal");
+        Logger.Log("Enable goal");
         reachGoal = false;
         jumpable = true;
     }
@@ -33,6 +33,7 @@ public class Goal : MonoBehaviour
             reachGoal = true;
             player.DeactivatePerfectForm();
             PlayEffect();
+            this.PostEvent(EventID.OnCompleteLevel);
             StartCoroutine(DelaySwitchToMainMenu(3.8f));
         }
     }

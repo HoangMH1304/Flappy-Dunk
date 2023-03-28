@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.NiceVibrations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,8 +34,8 @@ public class SfxUiToggle : MonoBehaviour
         }
         soundState = PlayerPrefs.GetInt(SOUND);
         vibrateState = PlayerPrefs.GetInt(VIBRATE);
-        Debug.Log($"soundState: {soundState}");
-        Debug.Log($"vibrateState: {vibrateState}");
+        Logger.Log($"soundState: {soundState}");
+        Logger.Log($"vibrateState: {vibrateState}");
         ChangeIcon();
     }
 
@@ -42,6 +43,7 @@ public class SfxUiToggle : MonoBehaviour
     {
         soundState = 1 - soundState;
         PlayerPrefs.SetInt(SOUND, soundState);
+        if(soundState == 1) PlayTapSound();
         ChangeIcon();
     }
 
@@ -49,7 +51,7 @@ public class SfxUiToggle : MonoBehaviour
     {
         vibrateState = 1 - vibrateState;
         PlayerPrefs.SetInt(VIBRATE, vibrateState);
-        if(vibrateState == 1) GameController.Instance.Vibrate();
+        if(vibrateState == 1) MMVibrationManager.Haptic(HapticTypes.LightImpact,true);
         ChangeIcon();
     }
 

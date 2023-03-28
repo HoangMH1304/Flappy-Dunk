@@ -7,6 +7,6 @@ public class ChallengeUI : InheritanceSingleton<ChallengeUI>
     //public static ChallengeUI ;
     public override void Play()
     {
-        //Debug.Log("Ke thua");
+        //Logger.Log("Ke thua");
     }
 }

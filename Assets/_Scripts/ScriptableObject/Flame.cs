@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Flame", menuName = "ScriptableObject/Flame")]
+[CreateAssetMenu(fileName = "Flame", menuName = "ScriptableObject/Item/Flame")]
 [System.Serializable]
-public class Flame : ScriptableObject
+public class Flame : Item
 {
-    public int id;
     public Color color;
-    public string condition;
-    public Shop type;
 }
