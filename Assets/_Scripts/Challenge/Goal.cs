@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private ParticleSystem[] starFX;
+    private Player player;
+    //[SerializeField] private ParticleSystem[] starFX;
     private bool reachGoal, jumpable;
 
     private void OnEnable() 
     {
         Logger.Log("Enable goal");
+        player = FindObjectOfType<Player>();
+        Debug.Log(player.gameObject.name);
         reachGoal = false;
         jumpable = true;
     }
@@ -26,24 +28,24 @@ public class Goal : MonoBehaviour
         if (GameManager.Instance.Playable)
         {
             GameManager.Instance.ChangePhase(GameState.OnWin);
-            // LevelSpawner.Instance.currentLevel.SetFinishState(true);  //cong them 1 level da complete
             int levelID = PlayerPrefs.GetInt("LevelSelected");
             ChallengeController.Instance.IncreseLevelCompleted(levelID);
             UIIngameController.Instance.ShowWinResult();
             reachGoal = true;
             player.DeactivatePerfectForm();
-            PlayEffect();
+            //PlayEffect();
             this.PostEvent(EventID.OnCompleteLevel);
+            this.PostEvent(EventID.OnCongratulation);
             StartCoroutine(DelaySwitchToMainMenu(3.8f));
         }
     }
 
     private void PlayEffect()
     {
-        foreach (var effect in starFX)
-        {
-            effect.Play();
-        }
+        //foreach (var effect in starFX)
+        //{
+        //    effect.Play();
+        //}
         SoundManager.Instance.PlaySound(Sound.newBestScore);
     }
 

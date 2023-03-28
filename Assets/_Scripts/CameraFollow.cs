@@ -43,12 +43,15 @@ public class CameraFollow : MonoBehaviour
         slowable = false;
         // lobbyCanvas.transform.position = new Vector3(followObject.transform.position.x + 1.5f, transform.position.y, transform.position.z);
     }
+
+    //public void GetLast
     void Update()
     {
         if (flashToBall) return;
         if (GameManager.Instance.Playable)
         {
             transform.position = new Vector3(followObject.transform.position.x + 1.5f, transform.position.y, transform.position.z);
+            //Debug.Log($"transform.position = {transform.position}");
             slowable = false;
         }
         else

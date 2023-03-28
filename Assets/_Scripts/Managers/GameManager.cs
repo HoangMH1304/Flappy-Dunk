@@ -69,7 +69,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void ChangePhase(GameState newState)
     {
         State = newState;
-        // Logger.Log(newState.ToString());
+         Logger.Log(newState.ToString());
         switch (newState)
         {
             case GameState.OnBegin:

@@ -95,14 +95,20 @@ public class UIIngameController : MonoBehaviour
         gameplayUI.SetActive(false);
         secondChancePanel?.transform.DOMoveX(-5, 0.01f);
         secondChancePanel?.gameObject.SetActive(false);
+
+        //player.GetComponent<Player>().FadeCharacter(0, 0f);
         player.SetActive(false);
+
         hoopContainer.SetActive(false);
         this.PostEvent(EventID.OnSwish);
+
         if (GameManager.Instance.IsEndlessMode)
         {
             this.PostEvent(EventID.OnReachPoint);
             lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0.5f)  //DOLocalMoveY
-            .SetEase(Ease.OutExpo).SetUpdate(true);
+            .SetEase(Ease.OutExpo);  //OutExpo
+
+            //lobbyUI.GetComponent<RectTransform>().DOLocalMoveY(0, 0f);  //OutExpo
 
             UILobbyController.Instance.HandleAnimState();
             UILobbyController.Instance.UpdateScoreUI();

@@ -6,22 +6,20 @@ using UnityEngine;
 public class ChangeSpriteParticleSystem : MonoBehaviour
 {
     private Sprite newSprite;
-    // private void Awake()
-    // {
-    //     this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
-    //     this.RegisterListener(EventID.OnTrySkin, (param) => OnTrySkin());
-    // }
+    private void Awake()
+    {
+        //this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
+    }
 
     private void OnEnable()
     {
-       
+
         OnChangeSkin();
     }
 
     private void OnChangeSkin()
     {
         newSprite = ShopController.Instance.hoops[PlayerPrefs.GetInt("HoopIdSelected")].starEffectSprite;
-        GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, newSprite);
+        GetComponent<ParticleSystem>().textureSheetAnimation.SetSprite(0, newSprite);   
     }
-    
 }

@@ -142,6 +142,9 @@ public class Player : MonoBehaviour
         frontWing.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
         backWing.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
         gameObject.GetComponent<SpriteRenderer>().DOFade(endValue, time).SetUpdate(true);
+
+        //rb.velocity = new Vector2(0, 0);
+        //rb.gravityScale = 0;
     }
 
     public void RestoreInitialState()

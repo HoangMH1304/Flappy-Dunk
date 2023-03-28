@@ -25,6 +25,7 @@ public class UILobbyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI lastScoreText;
     [SerializeField] private GameObject newBestScoreEffect;
+    [SerializeField] private RectTransform previewIcon;
     private int animState = 1;
 
     private void Awake()
@@ -132,10 +133,15 @@ public class UILobbyController : MonoBehaviour
         // challengeCanvas.DOFade(0, 0.2f).SetUpdate(UpdateType.Normal).SetEase(Ease.InOutSine).OnComplete(() => {
         //     challengeCanvas.gameObject.SetActive(false);
         // });
+        
         lobbyPanel.transform.DOKill();  //
         lobbyPanel.GetComponent<RectTransform>().DOLocalMoveX(0, 0f);
+        previewIcon.DOScale(0, 0);
         lobbyPanel.GetComponent<CanvasGroup>().DOFade(0, 0);
-        lobbyPanel.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine);
+        lobbyPanel.GetComponent<CanvasGroup>().DOFade(1, 0.5f).SetEase(Ease.InSine).OnComplete(() =>
+        {
+            previewIcon.DOScale(1, 0.5f).SetEase(Ease.OutBack);
+        });
     }
 
     public void UpdateScoreUI()

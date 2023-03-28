@@ -93,6 +93,8 @@ public class GameController : MonoBehaviour
                 break;
             case GameMode.Challenge:
                 HoopManager.Instance.InitialInChallenge();
+                var goal = FindObjectOfType<Goal>();
+                goal.enabled = true;
                 break;
             default:
                 break;

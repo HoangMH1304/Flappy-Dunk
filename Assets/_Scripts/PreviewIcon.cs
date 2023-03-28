@@ -15,11 +15,6 @@ public class PreviewIcon : MonoBehaviour
         this.RegisterListener(EventID.OnChangeSkin, (param) => OnChangeSkin());
     }
 
-    // private void OnEnable() 
-    // {
-    //     OnChangeSkin();
-    // }
-
     private void OnChangeSkin()
     {
         ball.sprite = ShopController.Instance.balls[PlayerPrefs.GetInt("BallIdSelected")].sprite;
@@ -27,4 +22,6 @@ public class PreviewIcon : MonoBehaviour
         backWing.sprite = ShopController.Instance.wings[PlayerPrefs.GetInt("WingIdSelected")].sprite;
         // rectTransform.DOScale(1, 0.5f).SetEase(Ease.InOutSine).SetUpdate(true);
     }
+
+    
 }

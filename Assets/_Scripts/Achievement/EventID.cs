@@ -7,5 +7,6 @@ public enum EventID
     OnSwish,
     OnTotalPlayEndless,
     OnCompleteLevel,
-    OnActiveSecondChance
+    OnActiveSecondChance,
+    OnCongratulation
 }

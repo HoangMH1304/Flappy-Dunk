@@ -126,7 +126,7 @@ public class HoopManager : MonoBehaviour
     {
         foreach(var hoop in hoops)
         {
-            hoop.GetComponent<HoopController>().DeactiveState(false);
+            hoop?.GetComponent<HoopController>()?.DeactiveState(false);
         }
     }
 

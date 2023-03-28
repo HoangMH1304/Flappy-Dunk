@@ -9,16 +9,19 @@ public class LevelSpawner : MonoBehaviour
     public static LevelSpawner Instance;
     [SerializeField] private CanvasGroup challengeCanvas;
     [SerializeField] private GameObject challengePanel;
-    [SerializeField] private List<GameObject> level;
+    [SerializeField] private Object[] levels;
     [SerializeField] private Player player;
     [SerializeField] private CanvasGroup tutorialPanel;
     [SerializeField] private GameObject secondChancePanel;
     [SerializeField] private CanvasGroup gameplayPanel;
     [SerializeField] private GameObject scoreText;
+    [SerializeField] private Transform parent;
     private Vector2 direction;
+    private GameObject currentLevel;
     // public Level currentLevel;
 
     private void Start() {
+        levels = Resources.LoadAll("", typeof(GameObject));
         direction = player.Direction;   
     }
 
@@ -28,29 +31,26 @@ public class LevelSpawner : MonoBehaviour
         {
             Instance = this;
         }
-        // else
-        // {
-        //     Destroy(gameObject);
-        // }
     }
     public void SelectLevel(int levelID)
     {
         GameManager.Instance.ChangeGameMode(GameMode.Challenge);
-        // currentLevel = _level;
+
         secondChancePanel.SetActive(false);
         secondChancePanel.transform.DOKill();
         secondChancePanel.transform.DOMoveX(-7, 0f);
 
 
         challengePanel.transform.DOKill();  //
-        challengePanel.transform.DOMoveY(15, 0f).SetUpdate(true); // 0.5f
+        challengePanel.transform.DOMoveY(15, 0f); // 0.5f
 
         // challengeCanvas.DOFade(0, 0).SetUpdate(true);
         // challengeCanvas.DOFade(1, 1).SetUpdate(true);
 
-        level[levelID].SetActive(true);
+        currentLevel = Instantiate(levels[levelID] as GameObject, parent);
+        //levels[levelID].SetActive(true);
 
-        if(levelID == 2)
+        if (levelID == 2)
         {
             player.Direction = new Vector2(1.5f, 8);
         }
@@ -63,7 +63,6 @@ public class LevelSpawner : MonoBehaviour
         scoreText.SetActive(false);
 
         if (PlayerPrefs.GetInt(FIRST_PLAY) == 1)
-        // if(PlayerPrefs.GetInt("HighScore") == 0)
         {
             PlayerPrefs.SetInt(FIRST_PLAY, 2);
             tutorialPanel.gameObject.SetActive(true);
@@ -77,15 +76,7 @@ public class LevelSpawner : MonoBehaviour
 
     public void ExitLevelMode()
     {
-        foreach(GameObject _level in level)
-        {
-            _level.SetActive(false);
-        }
+        Destroy(currentLevel);
         player.Direction = direction;
-    }
-
-    public void CheckBtn()
-    {
-        Logger.LogWarning("Clickable");
     }
 }

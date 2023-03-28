@@ -12,6 +12,7 @@ public class NewBestScorePopup : MonoBehaviour
     {
         newBestScoreFlare.DOScale(1, 0.5f);
         Tilt();
+        this.PostEvent(EventID.OnCongratulation);
         SoundManager.Instance.PlaySound(Sound.newBestScore);
     }
 
