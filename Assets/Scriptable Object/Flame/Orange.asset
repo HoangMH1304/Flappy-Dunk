@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   id: 3
-  color: {r: 0.85882354, g: 0.47058824, b: 0.1254902, a: 1}
-  condition: Achive 5 swishes in a row
+  condition: Achive 5 swishes streak
   type: 3
+  color: {r: 0.85882354, g: 0.47058824, b: 0.1254902, a: 1}
